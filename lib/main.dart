@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'pages/registration.dart';
+import 'pages/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/signup',
       routes: {
         '/': (context) => const MyHomePage(title: 'Liquid Bash'),
+        '/signup': (context) => const SignUp(),
         '/register': (context) => RegistrationPage()
       },
       title: 'Liquid Bash',
@@ -52,14 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: MyDrawer(),
       body: EventPage(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {}),
-        tooltip: 'Increment',
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
