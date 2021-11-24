@@ -8,9 +8,9 @@ class EventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        children: <Widget>[
+        children: const <Widget>[
           EventBanner(),
-          const Expanded(child: EventDetails()),
+          Expanded(child: EventDetails()),
         ],
       ),
     );
@@ -88,6 +88,7 @@ class EventDetails extends StatelessWidget {
   const EventDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    const edgeInsets = EdgeInsets.symmetric(vertical: 10, horizontal: 20);
     return ListView(
       shrinkWrap: true,
       children: [
@@ -198,13 +199,13 @@ class EventDetails extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, "/register");
                 },
-                child: Text(
+                child: const Text(
                   "Register Now",
                   style: TextStyle(fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  shape: RoundedRectangleBorder(
+                  padding: edgeInsets,
+                  shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0))),
                 ),
               ),
