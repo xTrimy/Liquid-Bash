@@ -3,6 +3,7 @@ import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'pages/registration.dart';
+import 'pages/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => RegistrationPage(),
+        '/signup': (context) => const SignUp(),
         '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',

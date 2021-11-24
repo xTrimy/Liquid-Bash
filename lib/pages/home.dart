@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/pages/home_default.dart';
 import 'package:liquid_bash/pages/registration.dart';
 import 'package:liquid_bash/pages/tournaments.dart';
 
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   final List _screens = [
     RegistrationPage(),
     TournamentsPage(),
-    RegistrationPage(),
+    HomeDefault(),
     EventPage(),
   ];
   void _onItemTapped(int index) {
