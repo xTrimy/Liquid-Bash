@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/styles.dart';
+import 'package:liquid_bash/services/tournament_service.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({Key? key}) : super(key: key);

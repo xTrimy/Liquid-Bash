@@ -2,18 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider(create: (_) => TournamentService()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
+  final int _duration = 0;
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    TournamentService torService =
+        Provider.of<TournamentService>(context, listen: false);
+
+    Future.delayed(Duration(seconds: this._duration), () async {
+      FirebaseApp app = await Firebase.initializeApp();
+      torService.getTournamentsCollectionFromFirebase().then((value) {});
+    });
+
     return MaterialApp(
       initialRoute: '/',
       routes: {
