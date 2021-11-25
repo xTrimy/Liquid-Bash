@@ -16,7 +16,7 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        Provider(create: (_) => TournamentService()),
+        ChangeNotifierProvider(create: (_) => TournamentService()),
       ],
       child: MyApp(),
     ),
@@ -30,11 +30,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TournamentService torService =
         Provider.of<TournamentService>(context, listen: false);
-
-    Future.delayed(Duration(seconds: this._duration), () async {
-      FirebaseApp app = await Firebase.initializeApp();
-      torService.getTournamentsCollectionFromFirebase().then((value) {});
-    });
 
     return MaterialApp(
       initialRoute: '/',

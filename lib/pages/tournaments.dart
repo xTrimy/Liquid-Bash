@@ -17,43 +17,76 @@ class _TournamentsPageState extends State<TournamentsPage> {
   @override
   Widget build(BuildContext context) {
     TournamentService torService =
-        Provider.of<TournamentService>(context, listen: false);
+        Provider.of<TournamentService>(context, listen: true);
+    Future.delayed(Duration(seconds: 0), () async {
+      FirebaseApp app = await Firebase.initializeApp();
+      torService.getTournamentsCollectionFromFirebase().then((value) {});
+    });
     List<Tournament> tournaments = torService.getTorunaments();
     final double _width = MediaQuery.of(context).size.width;
-    return ListView.builder(
-      itemCount: (tournaments.length / 2).round().toInt(),
-      itemBuilder: (context, index) {
-        int half = (tournaments.length / 2).round().toInt();
-        // ignore: avoid_print
-        print(tournaments.length);
-        print(tournaments);
-        print(index);
-        print(half + index);
-        return Container(
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+    if (!torService.getIsLoaded()) {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
               children: [
-                TournamentCard(
-                  title: tournaments[index].name!,
-                  image: tournaments[index].img!,
-                  status: tournaments[index].status!,
+                Transform.scale(
+                  scale: 2,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
                 ),
-                (tournaments.length > half + index)
-                    ? TournamentCard(
-                        title: tournaments[half + index].name!,
-                        image: tournaments[half + index].img!,
-                        status: tournaments[half + index].status!,
-                      )
-                    : Container(),
+                Image.asset(
+                  "assets/logo.png",
+                  width: 50,
+                  height: 50,
+                )
               ],
+            )
+          ],
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: (tournaments.length / 2).round().toInt(),
+        itemBuilder: (context, index) {
+          int half = (tournaments.length / 2).round().toInt();
+          // ignore: avoid_print
+          print(tournaments.length);
+          print(tournaments);
+          print(index);
+          print(half + index);
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TournamentCard(
+                    title: tournaments[index].name!,
+                    image: tournaments[index].img!,
+                    status: tournaments[index].status!,
+                  ),
+                  (tournaments.length > half + index)
+                      ? TournamentCard(
+                          title: tournaments[half + index].name!,
+                          image: tournaments[half + index].img!,
+                          status: tournaments[half + index].status!,
+                        )
+                      : Container(),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    }
   }
 }
 
