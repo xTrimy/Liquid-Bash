@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/styles.dart';
-import 'package:liquid_bash/services/tournament_service.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({Key? key}) : super(key: key);
@@ -8,20 +7,15 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('assets/logo.png', height: 32),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            EventBanner(scrollController: scrollController),
-            Expanded(
-                child: EventDetails(
-              scrollController: scrollController,
-            )),
-          ],
-        ),
+    return Center(
+      child: Column(
+        children: <Widget>[
+          EventBanner(scrollController: scrollController),
+          Expanded(
+              child: EventDetails(
+            scrollController: scrollController,
+          )),
+        ],
       ),
     );
   }
@@ -103,40 +97,27 @@ class _EventBannerState extends State<EventBanner> {
                             fontWeight: FontWeight.bold,
                             fontSize: 30.0),
                       ),
-                      AnimatedCrossFade(
-                        crossFadeState: (_height > 100)
-                            ? CrossFadeState.showFirst
-                            : CrossFadeState.showSecond,
-                        duration: Duration(milliseconds: 100),
-                        secondChild: Container(),
-                        firstChild: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Valorant | May 17, 2020",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15.0,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              style: Styles.buttonStyle,
-                              child: const Text("Register"),
-                              onPressed: () {
-                                Navigator.pushNamed(context, "/register");
-                              },
-                            )
-                          ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        "Valorant | May 17, 2020",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.0,
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        style: Styles.buttonStyle,
+                        child: const Text("Register"),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/register");
+                        },
+                      )
                     ])
               ]),
             ),
@@ -182,7 +163,8 @@ class _EventDetailsState extends State<EventDetails> {
 
   @override
   Widget build(BuildContext context) {
-    const edgeInsets = EdgeInsets.symmetric(vertical: 10, horizontal: 20);
+    // ignore: avoid_print
+    print(scrollAtTop);
     return ListView(
       controller: widget.scrollController,
       shrinkWrap: true,
@@ -294,13 +276,13 @@ class _EventDetailsState extends State<EventDetails> {
                 onPressed: () {
                   Navigator.pushNamed(context, "/register");
                 },
-                child: const Text(
+                child: Text(
                   "Register Now",
                   style: TextStyle(fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                  padding: edgeInsets,
-                  shape: const RoundedRectangleBorder(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0))),
                 ),
               ),

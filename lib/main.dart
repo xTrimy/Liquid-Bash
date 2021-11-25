@@ -1,33 +1,53 @@
 
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
+import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
+import 'pages/signup.dart';
 import 'pages/login.dart';
 import 'package:flutter/material.dart';
 
-void main() async{
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TournamentService()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
+  final int _duration = 0;
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    TournamentService torService =
+        Provider.of<TournamentService>(context, listen: false);
+
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(title: 'Liquid Bash'),
+        '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
+        '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
+        '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
           // brightness: Brightness.dark,
           primaryColor: Colors.white,
+          primaryColorDark: Colors.grey.shade900,
+          accentColor: Colors.greenAccent.shade700,
           iconTheme: const IconThemeData(color: Colors.white),
           primaryIconTheme: const IconThemeData(color: Colors.white),
           appBarTheme: AppBarTheme(
@@ -35,36 +55,10 @@ class MyApp extends StatelessWidget {
               color: Colors.grey.shade900,
               titleTextStyle: const TextStyle(
                 color: Colors.white,
-              )), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green).copyWith(secondary: Colors.greenAccent.shade700)),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('assets/logo.png', height: 32),
-      ),
-      drawer: const MyDrawer(),
-      body: const EventPage(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {}),
-        tooltip: 'Increment',
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+              )),
+          colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: Colors.green, brightness: Brightness.dark)
+              .copyWith(secondary: Colors.greenAccent.shade700)),
     );
   }
 }
