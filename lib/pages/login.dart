@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -141,7 +142,10 @@ class LoginPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(width/2, 48), // takes postional arguments as width and height
                           ),
-                          onPressed: (){},
+                          onPressed: () async {
+                            UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+                            print(userCredential);
+                          },
                         ),
                       ],
                     ),

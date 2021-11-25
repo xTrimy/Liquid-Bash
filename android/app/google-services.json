@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "702688197549",
+    "project_id": "liquid-bash",
+    "storage_bucket": "liquid-bash.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702688197549:android:e3a0fed3667412f5f5bf24",
+        "android_client_info": {
+          "package_name": "com.bodda.liquid_bash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702688197549-79u355rbonj1pp8qtjmlm1uqo6s88ool.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bodda.liquid_bash",
+            "certificate_hash": "f6d15124ffbfe4f38dc0bbe4c06e4cf8b24633ec"
+          }
+        },
+        {
+          "client_id": "702688197549-uf3ul2uhci33nchs9jbsld6g17ktlskt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi_Ui_Nal7iSVo-B1X3UE3a0xfXzCORKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702688197549-uf3ul2uhci33nchs9jbsld6g17ktlskt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
