@@ -181,8 +181,7 @@ class _EventDetailsState extends State<EventDetails> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_print
-    print(scrollAtTop);
+    const edgeInsets = EdgeInsets.symmetric(vertical: 10, horizontal: 20);
     return ListView(
       controller: widget.scrollController,
       shrinkWrap: true,
@@ -294,13 +293,13 @@ class _EventDetailsState extends State<EventDetails> {
                 onPressed: () {
                   Navigator.pushNamed(context, "/register");
                 },
-                child: Text(
+                child: const Text(
                   "Register Now",
                   style: TextStyle(fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  shape: RoundedRectangleBorder(
+                  padding: edgeInsets,
+                  shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0))),
                 ),
               ),

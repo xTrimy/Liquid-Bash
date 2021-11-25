@@ -7,7 +7,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: ListView(
-      children: [
+      children: const [
         ListTile(
           title: Text("test"),
         )

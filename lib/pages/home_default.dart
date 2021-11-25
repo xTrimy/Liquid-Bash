@@ -20,7 +20,9 @@ class HomeDefault extends StatelessWidget {
               color: Theme.of(context).accentColor),
           MaterialButton(
             minWidth: double.infinity,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/login");
+            },
             child: const Text("Sign In"),
             color: Theme.of(context).primaryColor,
             textColor: Theme.of(context).accentColor,
