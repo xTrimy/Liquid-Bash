@@ -7,7 +7,7 @@ class HomeDefault extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
@@ -17,7 +17,7 @@ class HomeDefault extends StatelessWidget {
                 Navigator.pushNamed(context, "/signup");
               },
               child: const Text("Sign Up"),
-              color: Theme.of(context).accentColor),
+              color: Theme.of(context).colorScheme.secondary),
           MaterialButton(
             minWidth: double.infinity,
             onPressed: () {
@@ -25,7 +25,7 @@ class HomeDefault extends StatelessWidget {
             },
             child: const Text("Sign In"),
             color: Theme.of(context).primaryColor,
-            textColor: Theme.of(context).accentColor,
+            textColor: Theme.of(context).colorScheme.secondary,
           ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

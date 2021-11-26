@@ -2,9 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
+
+
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  LoginPageState createState() => LoginPageState();
+}
+
+
+class LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width) - 30;
@@ -14,7 +25,7 @@ class LoginPage extends StatelessWidget {
       // ),
       // drawer: const MyDrawer(),
       body: ListView(
-        children: [
+        children: <Widget>[
           Container(
             width: double.infinity,
             height: 250.0,
@@ -27,14 +38,17 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          Form(
+            key: _formKey,
+            child: Column(children: [
+                Container(
               height: (MediaQuery.of(context).size.height - 335),
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Login",
                     textAlign: TextAlign.left,
                     style:
@@ -52,8 +66,9 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      
                       isDense: true,
                       contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                       icon: Icon(Icons.person),
@@ -66,12 +81,16 @@ class LoginPage extends StatelessWidget {
                         borderSide: BorderSide(color: Colors.green),
                       ),
                     ),
+                    onChanged: (value) {
+                      email = value.toString().trim();
+                    },
                   ),
-                  TextField(
+                  TextFormField(
+                    obscureText: true,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-                      icon: Icon(Icons.lock),
+                      icon: const Icon(Icons.lock),
                       hintText: "Password",
                       hintStyle:
                           TextStyle(fontSize: 12.0, color: Colors.grey[500]),
@@ -82,6 +101,9 @@ class LoginPage extends StatelessWidget {
                         borderSide: BorderSide(color: Colors.green),
                       ),
                     ),
+                    onChanged: (value) {
+                      email = value.toString().trim();
+                    },
                   ),
                   SizedBox(
                     height: 40,
@@ -101,8 +123,10 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              )),
-          Container(
+              )
+              ),
+              
+            SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Expanded(
               child: ButtonBar(
@@ -129,19 +153,41 @@ class LoginPage extends StatelessWidget {
                       minimumSize: Size(width/2, 48), // takes postional arguments as width and height
                     ),
                     onPressed: () async {
-                      UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
-                      print(userCredential);
+                      
+
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: email,
+                            password: password
+                          );
+                          print('Logged In');
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'user-not-found') {
+                            print('No user found for that email.');
+                          } else if (e.code == 'wrong-password') {
+                            print('Wrong password provided for that user.');
+                          }
+                        }
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(content: Text('data')),
+                        // );
+                      }
+                      
                     },
                   ),
+                ],
+            ) 
+          
+          ),
+          ),
                   ],
                     
               ),
             ),
+            ],
           ),
-        ],
-      ),
-            
-          );
+        
+      );
+            }
   }
-}
-    

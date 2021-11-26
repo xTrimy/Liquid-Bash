@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:liquid_bash/components/styles.dart';
 
 class SignUp extends StatefulWidget {
@@ -56,23 +57,25 @@ class TopBanner extends StatelessWidget {
 ////////////////////////////////////////////////////////////
 class MyCustomerFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-
+  String name = ''; 
+  String email = '';
+  String password = '';
   // final ageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TopBanner(),
+        const TopBanner(),
         Form(
             key: _formKey,
             child: Expanded(
-              child: ListView(padding: EdgeInsets.all(8.0), children: [
+              child: ListView(padding: const EdgeInsets.all(8.0), children: [
                 TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.person), hintText: "Name"),
-                    onChanged: (text) {
-                      print('First Text Field: $text');
+                    onChanged: (value) {
+                      password = value;
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -81,7 +84,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                       return null;
                     }),
                 TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.cake), hintText: "BirthDate"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -90,8 +93,11 @@ class MyCustomerFormState extends State<MyCustomForm> {
                       return null;
                     }),
                 TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email), hintText: "Email"),
+                    onChanged: (value) {
+                      email = value.toString().trim();
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please Enter your email";
@@ -99,15 +105,19 @@ class MyCustomerFormState extends State<MyCustomForm> {
                       return null;
                     }),
                 TextFormField(
-                    decoration: InputDecoration(
+                    obscureText: true,
+                    decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.lock), hintText: "Password"),
+                    onChanged: (value) {
+                      password = value;
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please Enter your password";
                       }
                       return null;
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                   width: 200,
                 ),
@@ -115,13 +125,13 @@ class MyCustomerFormState extends State<MyCustomForm> {
                   ElevatedButton(
                     //minimumSize: Size(100,40),
                     style: ElevatedButton.styleFrom(
-                        minimumSize: Size(150, 50),
+                        minimumSize: const Size(150, 50),
                         primary: Colors.white,
                         onPrimary: Colors.black),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('data')),
+                          const SnackBar(content: Text('data')),
                         );
                       }
                     },
@@ -129,12 +139,27 @@ class MyCustomerFormState extends State<MyCustomForm> {
                   ),
                   ElevatedButton(
                     //minimumSize: Size(100,40),
-                    style: ElevatedButton.styleFrom(minimumSize: Size(150, 50)),
-                    onPressed: () {
+                    style: ElevatedButton.styleFrom(minimumSize: const Size(150, 50)),
+                    onPressed: () async{
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('data')),
-                        );
+                        try {
+                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                            email: email,
+                            password: password
+                          );
+                          const SnackBar(content: Text('Sucessfully Register'));
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            const SnackBar(content: Text('Weak Password'));
+                          } else if (e.code == 'email-already-in-use') {
+                            print('The account already exists for that email.');
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(content: Text('data')),
+                        // );
                       }
                     },
                     child: const Text('SIGN UP'),

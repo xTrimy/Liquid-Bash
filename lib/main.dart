@@ -20,7 +20,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => TournamentService()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -40,14 +40,13 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
-        '/': (context) => HomePage(),
+        '/': (context) => const HomePage(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
           // brightness: Brightness.dark,
           primaryColor: Colors.white,
           primaryColorDark: Colors.grey.shade900,
-          accentColor: Colors.greenAccent.shade700,
           iconTheme: const IconThemeData(color: Colors.white),
           primaryIconTheme: const IconThemeData(color: Colors.white),
           appBarTheme: AppBarTheme(
@@ -55,10 +54,9 @@ class MyApp extends StatelessWidget {
               color: Colors.grey.shade900,
               titleTextStyle: const TextStyle(
                 color: Colors.white,
-              )),
-          colorScheme: ColorScheme.fromSwatch(
+              )), colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.green, brightness: Brightness.dark)
-              .copyWith(secondary: Colors.greenAccent.shade700)),
+              .copyWith(secondary: Colors.greenAccent.shade700).copyWith(secondary: Colors.greenAccent.shade700)),
     );
   }
 }
