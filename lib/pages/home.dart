@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'package:liquid_bash/pages/home_default.dart';
+import 'package:liquid_bash/pages/news.dart';
 import 'package:liquid_bash/pages/registration.dart';
 import 'package:liquid_bash/pages/tournaments.dart';
 
@@ -15,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final List _screens = [
-    RegistrationPage(),
+    NewsFeedPage(),
     TournamentsPage(),
     HomeDefault(),
     EventPage(),
