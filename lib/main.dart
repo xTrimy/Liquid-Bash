@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
 import 'pages/signup.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
+        '/profile-settings': (context) => Container(),
         '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',
