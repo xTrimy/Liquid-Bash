@@ -18,9 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        leading: BackButton(),
-        title: const Text('My Profile')),
+      appBar: AppBar(leading: BackButton(), title: const Text('My Profile')),
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
@@ -45,7 +43,8 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             user.name,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24,color: Colors.white),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
           ),
           const SizedBox(height: 4),
           Text(
@@ -67,12 +66,15 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Text(
               'About',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.white),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             const SizedBox(height: 16),
             Text(
               user.about,
-              style: TextStyle(fontSize: 16, height: 1.4,color: Colors.white),
+              style: TextStyle(fontSize: 16, height: 1.4, color: Colors.white),
             ),
           ],
         ),
