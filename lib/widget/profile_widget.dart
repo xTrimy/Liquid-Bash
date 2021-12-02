@@ -32,7 +32,6 @@ class ProfileWidget extends StatelessWidget {
 
   Widget buildImage() {
     final image = NetworkImage(imagePath);
-
     return ClipOval(
       child: Material(
         color: Colors.transparent,
@@ -47,30 +46,20 @@ class ProfileWidget extends StatelessWidget {
     );
   }
 
-  Widget buildEditIcon(Color color) => buildCircle(
-        color: Colors.white,
-        all: 3,
-        child: buildCircle(
-          color: color,
-          all: 8,
+  Widget buildEditIcon(Color color) => ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(50)),
+      child: Container(
+        width: 40,
+        height: 40,
+        child: MaterialButton(
+          padding: EdgeInsets.all(0.0),
+          color: Colors.green,
+          onPressed: () {},
           child: Icon(
             Icons.edit,
             color: Colors.white,
             size: 20,
           ),
         ),
-      );
-
-  Widget buildCircle({
-    required Widget child,
-    required double all,
-    required Color color,
-  }) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
-          color: color,
-          child: child,
-        ),
-      );
+      ));
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/models/user.dart';
 import 'package:liquid_bash/utils/user_preferences.dart' show UserPreferences;
@@ -16,26 +15,23 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(leading: BackButton(), title: const Text('My Profile')),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () async {},
-          ),
-          const SizedBox(height: 24),
-          buildName(user),
-          const SizedBox(height: 24),
-          Center(child: buildUpgradeButton()),
-          const SizedBox(height: 24),
-          NumbersWidget(),
-          const SizedBox(height: 48),
-          buildAbout(user),
-        ],
-      ),
+    return ListView(
+      children: [
+        const SizedBox(height: 24),
+        ProfileWidget(
+          imagePath: user.imagePath,
+          onClicked: () async {},
+        ),
+        const SizedBox(height: 24),
+        buildName(user),
+        const SizedBox(height: 24),
+        Center(child: buildUpgradeButton()),
+        const SizedBox(height: 24),
+        NumbersWidget(),
+        const SizedBox(height: 48),
+        buildAbout(user),
+        const SizedBox(height: 24),
+      ],
     );
   }
 

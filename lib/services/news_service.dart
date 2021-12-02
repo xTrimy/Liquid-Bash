@@ -24,8 +24,11 @@ class NewsService extends ChangeNotifier {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      var allData = jsonDecode(response.body);
+      var allData = jsonDecode(utf8.decode(response.bodyBytes));
+
       allData.forEach((element) {
+        print("x");
+        print(element);
         notifyListeners();
         News tournament = News.fromJson(element);
         _news.add(tournament);

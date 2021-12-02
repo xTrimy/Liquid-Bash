@@ -21,7 +21,7 @@ class News {
       title: json['title'],
       img: json['image'],
       description: json['description'],
-      permalink: json['permalink'],
+      permalink: json['permalink'].replaceAll("<br>", ""),
       date: DateTime.parse(json['publish_date']),
     );
   }

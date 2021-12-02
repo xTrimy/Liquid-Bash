@@ -25,6 +25,7 @@ class _NewsFeedPageState extends State<NewsFeedPage> {
             style: Theme.of(context).textTheme.headline6,
           );
         }
+        if (news[index - 1].img == null) return SizedBox();
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: NewsCard(
@@ -93,7 +94,7 @@ class NewsCard extends StatelessWidget {
           color: Colors.red,
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
           image: DecorationImage(
-            image: NetworkImage(image!),
+            image: (image != null) ? NetworkImage(image!) : NetworkImage(""),
             fit: BoxFit.cover,
           ),
         ),
