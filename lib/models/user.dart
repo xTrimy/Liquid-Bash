@@ -2,6 +2,7 @@ class User {
   final String imagePath;
   final String name;
   final String email;
+  final String username;
   final String about;
   final bool isDarkMode;
 
@@ -9,6 +10,7 @@ class User {
     required this.imagePath,
     required this.name,
     required this.email,
+    required this.username,
     required this.about,
     required this.isDarkMode,
   });

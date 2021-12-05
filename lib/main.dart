@@ -5,6 +5,7 @@ import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/pages/edit_profile.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
-        '/profile-settings': (context) => Container(),
+        '/edit-profile': (context) => EditProfilePage(),
         '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',
