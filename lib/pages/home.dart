@@ -17,10 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final List _screens = [
+<<<<<<< HEAD
     NewsFeedPage(),
     TournamentsPage(),
     HomeDefault(),
     ProfilePage(),
+=======
+    const RegistrationPage(),
+    const TournamentsPage(),
+    const HomeDefault(),
+    const EventPage(),
+>>>>>>> 0978cb8b882620bd28b72d4d1059fe5cf9aa5232
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -43,22 +50,22 @@ class _HomePageState extends State<HomePage> {
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.rss_feed),
+              icon: const Icon(Icons.rss_feed),
               label: 'News',
               backgroundColor: Theme.of(context).primaryColorDark,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star),
+              icon: const Icon(Icons.star),
               label: 'Tournaments',
-              backgroundColor: Theme.of(context).accentColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: const Icon(Icons.home),
               label: 'Home',
-              backgroundColor: Theme.of(context).accentColor,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               label: 'Profile',
               backgroundColor: Theme.of(context).primaryColorDark,
             ),

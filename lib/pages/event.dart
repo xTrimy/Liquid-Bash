@@ -69,7 +69,7 @@ class _EventBannerState extends State<EventBanner> {
     print(_height);
 
     return AnimatedContainer(
-        duration: Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 100),
         height: _height,
         child: Stack(
           children: <Widget>[
@@ -107,7 +107,7 @@ class _EventBannerState extends State<EventBanner> {
                         crossFadeState: (_height > 100)
                             ? CrossFadeState.showFirst
                             : CrossFadeState.showSecond,
-                        duration: Duration(milliseconds: 100),
+                        duration: const Duration(milliseconds: 100),
                         secondChild: Container(),
                         firstChild: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

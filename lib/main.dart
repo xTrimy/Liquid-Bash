@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
 import 'package:liquid_bash/pages/home.dart';
@@ -9,9 +11,7 @@ import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => TournamentService()),
         ChangeNotifierProvider(create: (_) => NewsService()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -51,10 +51,9 @@ class MyApp extends StatelessWidget {
       },
       title: 'Liquid Bash',
       theme: ThemeData(
-          brightness: Brightness.dark,
+          // brightness: Brightness.dark,
           primaryColor: Colors.white,
           primaryColorDark: Colors.grey.shade900,
-          accentColor: Colors.greenAccent.shade700,
           iconTheme: const IconThemeData(color: Colors.white),
           primaryIconTheme: const IconThemeData(color: Colors.white),
           appBarTheme: AppBarTheme(
@@ -65,6 +64,7 @@ class MyApp extends StatelessWidget {
               )),
           colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.green, brightness: Brightness.dark)
+              .copyWith(secondary: Colors.greenAccent.shade700)
               .copyWith(secondary: Colors.greenAccent.shade700)),
     );
   }
