@@ -118,16 +118,15 @@ class TournamentCardSheet extends StatelessWidget {
                 ],
               ),
             ),
-            MaterialButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, "/event");
               },
-              color: Theme.of(context).accentColor,
-              elevation: 0,
-              hoverElevation: 0,
-              focusElevation: 0,
-              highlightElevation: 0,
-              padding: EdgeInsets.symmetric(horizontal: 50),
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all<double>(0.0),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 40)),
+              ),
               child: Text('VIEW DETAILS'),
             )
           ]),
