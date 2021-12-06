@@ -1,10 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_bash/components/tournament_card_sheet.dart';
-import 'package:liquid_bash/models/tournament.dart';
-import 'package:liquid_bash/services/tournament_service.dart';
-import 'package:provider/provider.dart';
 
 class RegistrationFirst extends StatefulWidget {
   const RegistrationFirst({Key? key}) : super(key: key);
@@ -31,7 +26,7 @@ class _RegistrationFirstState extends State<RegistrationFirst> {
           const Center(
             child: Text(
               "Gamers Lounge Summer Cup V",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
             ),
           ),
           const SizedBox(
