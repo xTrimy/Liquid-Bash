@@ -57,7 +57,7 @@ class TopBanner extends StatelessWidget {
 ////////////////////////////////////////////////////////////
 class MyCustomerFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  String name = ''; 
+  String name = '';
   String email = '';
   String password = '';
   // final ageController = TextEditingController();
@@ -139,14 +139,15 @@ class MyCustomerFormState extends State<MyCustomForm> {
                   ),
                   ElevatedButton(
                     //minimumSize: Size(100,40),
-                    style: ElevatedButton.styleFrom(minimumSize: const Size(150, 50)),
-                    onPressed: () async{
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(150, 50)),
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                            email: email,
-                            password: password
-                          );
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .createUserWithEmailAndPassword(
+                                  email: email, password: password);
                           const SnackBar(content: Text('Sucessfully Register'));
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {

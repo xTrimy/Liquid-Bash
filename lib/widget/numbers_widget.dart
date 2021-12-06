@@ -29,12 +29,16 @@ class NumbersWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               value,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24,color: Colors.white),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.white),
             ),
             SizedBox(height: 2),
             Text(
               text,
-              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ],
         ),

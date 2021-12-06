@@ -53,8 +53,8 @@ class TournamentCardSheet extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 12),
                       ),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 4),
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class AddTournment extends StatefulWidget {
   const AddTournment({Key? key}) : super(key: key);
 
@@ -32,7 +31,10 @@ class _AddTournmentState extends State<AddTournment> {
                 children: [
                   Text(
                     'Add New \nTournment',
-                    style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w700,).copyWith(color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ).copyWith(color: Colors.white),
                   ),
                   const SizedBox(
                     height: 20,
@@ -133,7 +135,10 @@ class _AddTournmentState extends State<AddTournment> {
               const SizedBox(
                 height: 32,
               ),
-              ElevatedButton(onPressed: () {}, child: const Text("AddTournment"),),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("AddTournment"),
+              ),
               SizedBox(
                 height: 24,
               ),

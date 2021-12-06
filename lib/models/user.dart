@@ -4,7 +4,6 @@ class User {
   final String email;
   final String about;
   final bool isDarkMode;
-  
 
   const User({
     required this.imagePath,
@@ -13,65 +12,55 @@ class User {
     required this.about,
     required this.isDarkMode,
   });
-
-
 }
 
 List dummyUsers = [
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "bodda@gmail.com",
-    about: "Pro Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "bodda@gmail.com",
+      about: "Pro Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "abdelrahman@gmail.com",
-    about: "Noob Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "abdelrahman@gmail.com",
+      about: "Noob Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "bodda@gmail.com",
-    about: "Pro Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "bodda@gmail.com",
+      about: "Pro Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "abdelrahman@gmail.com",
-    about: "Noob Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "abdelrahman@gmail.com",
+      about: "Noob Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "bodda@gmail.com",
-    about: "Pro Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "bodda@gmail.com",
+      about: "Pro Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "abdelrahman@gmail.com",
-    about: "Noob Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "abdelrahman@gmail.com",
+      about: "Noob Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "bodda@gmail.com",
-    about: "Pro Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "bodda@gmail.com",
+      about: "Pro Player",
+      isDarkMode: true),
   const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "abdelrahman@gmail.com",
-    about: "Noob Player",
-    isDarkMode: true
-  ),
+      imagePath: "assets/a.png",
+      name: "Abdelrahman Sayed",
+      email: "abdelrahman@gmail.com",
+      about: "Noob Player",
+      isDarkMode: true),
 ];

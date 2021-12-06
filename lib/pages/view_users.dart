@@ -6,7 +6,6 @@ class ViewUsers extends StatefulWidget {
 
   @override
   _ViewUsersState createState() => _ViewUsersState();
-
 }
 
 class _ViewUsersState extends State<ViewUsers> {
@@ -14,24 +13,23 @@ class _ViewUsersState extends State<ViewUsers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Image.asset('assets/logo.png', height: 32),
-        ),
+        title: Image.asset('assets/logo.png', height: 32),
+      ),
       body: const ViewUsersView(),
     );
   }
 }
 
-class ViewUsersView extends StatelessWidget{
+class ViewUsersView extends StatelessWidget {
   const ViewUsersView({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
-        children: 
-          [Container(
+        children: [
+          Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: const Color(0xFF2A2D3E),
@@ -81,8 +79,12 @@ class ViewUsersView extends StatelessWidget{
         Row(
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(user.imagePath,height: 30,width: 30,),
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                user.imagePath,
+                height: 30,
+                width: 30,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -90,19 +92,16 @@ class ViewUsersView extends StatelessWidget{
           ],
         ),
       ),
-      DataCell(
-        Text(
-        user.email,        
+      DataCell(Text(
+        user.email,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        )),
-      DataCell(
-           IconButton(
-            icon: const Icon(Icons.remove_red_eye),
-            color: Colors.white,
-            onPressed: () {},
-          )
-      ),
+      )),
+      DataCell(IconButton(
+        icon: const Icon(Icons.remove_red_eye),
+        color: Colors.white,
+        onPressed: () {},
+      )),
     ]);
   }
 }

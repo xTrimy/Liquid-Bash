@@ -1,8 +1,8 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
 import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/view_users.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
@@ -16,7 +16,6 @@ import 'pages/registration.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
 import 'package:flutter/material.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/add-tournment',
+      initialRoute: '/registration-first',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
@@ -54,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
         '/add-tournment': (context) => const AddTournment(),
+        '/registration-first': (context) => const RegistrationFirst(),
         '/': (context) => const HomePage(),
       },
       title: 'Liquid Bash',
@@ -68,9 +68,11 @@ class MyApp extends StatelessWidget {
               color: Colors.grey.shade900,
               titleTextStyle: const TextStyle(
                 color: Colors.white,
-              )), colorScheme: ColorScheme.fromSwatch(
+              )),
+          colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.green, brightness: Brightness.dark)
-              .copyWith(secondary: Colors.greenAccent.shade700).copyWith(secondary: Colors.greenAccent.shade700)),
+              .copyWith(secondary: Colors.greenAccent.shade700)
+              .copyWith(secondary: Colors.greenAccent.shade700)),
     );
   }
 }

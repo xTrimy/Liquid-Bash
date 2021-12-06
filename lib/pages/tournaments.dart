@@ -194,8 +194,8 @@ class TournamentCard extends StatelessWidget {
                                 height: 16,
                                 child: ClipRRect(
                                   clipBehavior: Clip.hardEdge,
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(25)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(25)),
                                   child: Image.asset(
                                     "assets/logos/lol.jpg",
                                     fit: BoxFit.cover,
@@ -209,8 +209,8 @@ class TournamentCard extends StatelessWidget {
                                 height: 16,
                                 child: ClipRRect(
                                   clipBehavior: Clip.hardEdge,
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(25)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(25)),
                                   child: Image.asset(
                                     "assets/logos/fortnite-f.png",
                                     fit: BoxFit.cover,
@@ -224,8 +224,8 @@ class TournamentCard extends StatelessWidget {
                                 height: 16,
                                 child: ClipRRect(
                                   clipBehavior: Clip.hardEdge,
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(25)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(25)),
                                   child: Image.asset(
                                     "assets/logos/valorant-logo.png",
                                     fit: BoxFit.cover,
@@ -246,8 +246,8 @@ class TournamentCard extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.only(topLeft: Radius.circular(12)),
                       child: Container(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 15),
                         color: cardAccent,
                         child: Text(status,
                             style: const TextStyle(
