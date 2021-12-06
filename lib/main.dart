@@ -1,6 +1,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:liquid_bash/pages/view_users.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
@@ -42,12 +43,13 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/view-users',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
+        '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
         '/': (context) => const HomePage(),
       },
