@@ -1,6 +1,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:liquid_bash/pages/add_tournament.dart';
+import 'package:liquid_bash/pages/edit_user.dart';
 import 'package:liquid_bash/pages/view_users.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/view-users',
+      initialRoute: '/add-tournment',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
@@ -51,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
+        '/add-tournment': (context) => const AddTournment(),
         '/': (context) => const HomePage(),
       },
       title: 'Liquid Bash',

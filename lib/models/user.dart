@@ -74,32 +74,4 @@ List dummyUsers = [
     about: "Noob Player",
     isDarkMode: true
   ),
-  const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "bodda@gmail.com",
-    about: "Pro Player",
-    isDarkMode: true
-  ),
-  const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "abdelrahman@gmail.com",
-    about: "Noob Player",
-    isDarkMode: true
-  ),
-  const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "bodda@gmail.com",
-    about: "Pro Player",
-    isDarkMode: true
-  ),
-  const User(
-    imagePath: "assets/a.png",
-    name: "Abdelrahman Sayed",
-    email: "abdelrahman@gmail.com",
-    about: "Noob Player",
-    isDarkMode: true
-  ),
 ];
