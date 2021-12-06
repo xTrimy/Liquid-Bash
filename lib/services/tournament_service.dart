@@ -6,7 +6,7 @@ class TournamentService extends ChangeNotifier {
   FirebaseFirestore? _instance;
   bool _isLoaded = false;
 
-  List<Tournament> _tournaments = [];
+  final List<Tournament> _tournaments = [];
   List<Tournament> getTorunaments() {
     return _tournaments;
   }
@@ -16,17 +16,17 @@ class TournamentService extends ChangeNotifier {
   }
 
   Future<void> getTournamentsCollectionFromFirebase() async {
-    if (_tournaments.length > 0) return;
+    if (_tournaments.isNotEmpty) return;
     _instance = FirebaseFirestore.instance;
 
     CollectionReference tournaments = _instance!.collection("tournaments");
     QuerySnapshot querySnapshot = await tournaments.get();
     final allData = List.from(querySnapshot.docs.map((doc) => doc.data()));
-    allData.forEach((element) {
+    for (var element in allData) {
       notifyListeners();
       Tournament tournament = Tournament.fromJson(element);
       _tournaments.add(tournament);
       _isLoaded = true;
-    });
+    }
   }
 }

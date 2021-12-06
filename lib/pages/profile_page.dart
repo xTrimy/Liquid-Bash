@@ -25,6 +25,10 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 24),
         buildName(user),
         const SizedBox(height: 24),
+        Center(
+          child: buildEditProfileButton(),
+        ),
+        const SizedBox(height: 5),
         Center(child: buildUpgradeButton()),
         const SizedBox(height: 24),
         NumbersWidget(),
@@ -49,7 +53,12 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       );
-
+  Widget buildEditProfileButton() => ButtonWidget(
+        text: 'Edit Profile',
+        onClicked: () {
+          Navigator.pushNamed(context, "/edit-profile");
+        },
+      );
   Widget buildUpgradeButton() => ButtonWidget(
         text: 'Upgrade To PRO',
         onClicked: () {

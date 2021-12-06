@@ -61,27 +61,25 @@ class _TournamentsPageState extends State<TournamentsPage> {
           print(tournaments);
           print(index);
           print(half + index);
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TournamentCard(
-                    title: tournaments[index].name!,
-                    image: tournaments[index].img!,
-                    status: tournaments[index].status!,
-                  ),
-                  (tournaments.length > half + index)
-                      ? TournamentCard(
-                          title: tournaments[half + index].name!,
-                          image: tournaments[half + index].img!,
-                          status: tournaments[half + index].status!,
-                        )
-                      : Container(),
-                ],
-              ),
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TournamentCard(
+                  title: tournaments[index].name!,
+                  image: tournaments[index].img!,
+                  status: tournaments[index].status!,
+                ),
+                (tournaments.length > half + index)
+                    ? TournamentCard(
+                        title: tournaments[half + index].name!,
+                        image: tournaments[half + index].img!,
+                        status: tournaments[half + index].status!,
+                      )
+                    : Container(),
+              ],
             ),
           );
         },
@@ -105,35 +103,35 @@ class TournamentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final double _width = MediaQuery.of(context).size.width;
     Map colors = {
-      "green": Color(0xFF00FE8A),
-      "red": Color(0xFFFF3A3A),
-      "blue": Color(0xFF1DE0FF),
-      "yellow": Color(0xFFFFC400),
-      "white": Color(0xFFFFFFFF),
+      "green": const Color(0xFF00FE8A),
+      "red": const Color(0xFFFF3A3A),
+      "blue": const Color(0xFF1DE0FF),
+      "yellow": const Color(0xFFFFC400),
+      "white": const Color(0xFFFFFFFF),
     };
-    Color card_accent = Color(0xFFFFFFFF);
+    Color cardAccent = const Color(0xFFFFFFFF);
     switch (status) {
       case "Closed":
-        card_accent = colors['red'];
+        cardAccent = colors['red'];
         break;
       case "Open":
-        card_accent = colors['green'];
+        cardAccent = colors['green'];
         break;
       case "Pending":
-        card_accent = colors['yellow'];
+        cardAccent = colors['yellow'];
         break;
       case "Soon":
-        card_accent = colors['blue'];
+        cardAccent = colors['blue'];
         break;
       default:
-        card_accent = colors["white"];
+        cardAccent = colors["white"];
     }
     return Card(
       shape: RoundedRectangleBorder(
-          side: new BorderSide(color: card_accent),
-          borderRadius: BorderRadius.all(Radius.circular(12))),
+          side: BorderSide(color: cardAccent),
+          borderRadius: const BorderRadius.all(Radius.circular(12))),
       clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: InkWell(
         onLongPress: () => showModalBottomSheet(
             backgroundColor: Colors.transparent,
@@ -141,7 +139,7 @@ class TournamentCard extends StatelessWidget {
             isScrollControlled: true,
             context: context,
             builder: (context) {
-              return TournamentCardSheet();
+              return const TournamentCardSheet();
             }),
         onTap: () => Navigator.pushNamed(context, "/event"),
         child: SizedBox(
@@ -155,7 +153,7 @@ class TournamentCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
@@ -164,14 +162,14 @@ class TournamentCard extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         "25 Nov, 2021",
                         style: TextStyle(fontSize: 10, color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ],
@@ -185,7 +183,7 @@ class TournamentCard extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 40,
                           child: Stack(
                             children: [
@@ -197,7 +195,7 @@ class TournamentCard extends StatelessWidget {
                                 child: ClipRRect(
                                   clipBehavior: Clip.hardEdge,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25)),
+                                      const BorderRadius.all(Radius.circular(25)),
                                   child: Image.asset(
                                     "assets/logos/lol.jpg",
                                     fit: BoxFit.cover,
@@ -212,7 +210,7 @@ class TournamentCard extends StatelessWidget {
                                 child: ClipRRect(
                                   clipBehavior: Clip.hardEdge,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25)),
+                                      const BorderRadius.all(Radius.circular(25)),
                                   child: Image.asset(
                                     "assets/logos/fortnite-f.png",
                                     fit: BoxFit.cover,
@@ -227,7 +225,7 @@ class TournamentCard extends StatelessWidget {
                                 child: ClipRRect(
                                   clipBehavior: Clip.hardEdge,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25)),
+                                      const BorderRadius.all(Radius.circular(25)),
                                   child: Image.asset(
                                     "assets/logos/valorant-logo.png",
                                     fit: BoxFit.cover,
@@ -237,23 +235,22 @@ class TournamentCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                            child: Text(
+                        const Text(
                           "+3 More",
                           style: TextStyle(fontSize: 12),
-                        ))
+                        )
                       ],
                     ),
                   ),
                   ClipRRect(
                       borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(12)),
+                          const BorderRadius.only(topLeft: Radius.circular(12)),
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
-                        color: card_accent,
+                            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
+                        color: cardAccent,
                         child: Text(status,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,

@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
 import 'package:liquid_bash/pages/category_selection.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/pages/edit_profile.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
+import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => TournamentService()),
         ChangeNotifierProvider(create: (_) => NewsService()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/upgradetopro',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
@@ -51,11 +53,13 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/profile-settings': (context) => Container(),
         '/categories-selection': (context) => CategorySelectionPage(),
+        '/edit-profile': (context) => EditProfilePage(),
+        '/upgradetopro': (context) => UpgradeToPro(),
         '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
-          brightness: Brightness.dark,
+          // brightness: Brightness.dark,
           primaryColor: Colors.white,
           primaryColorLight: Colors.grey.shade700,
           primaryColorDark: Colors.grey.shade900,
