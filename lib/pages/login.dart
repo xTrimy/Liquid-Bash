@@ -9,10 +9,20 @@ class LoginPage extends StatefulWidget {
 
   @override
   LoginPageState createState() => LoginPageState();
+
+  
 }
 
 
 class LoginPageState extends State<LoginPage> {
+  bool passwordVisible = false;
+  void togglePassword() {
+    setState(() {
+      passwordVisible = !passwordVisible;
+    });
+  }
+
+
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -86,7 +96,7 @@ class LoginPageState extends State<LoginPage> {
                     },
                   ),
                   TextFormField(
-                    obscureText: true,
+                    obscureText: !passwordVisible,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
@@ -100,6 +110,14 @@ class LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         borderSide: BorderSide(color: Colors.green),
                       ),
+                      suffixIcon: IconButton(
+                            color: const Color(0xff94959b),
+                            splashRadius: 1,
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined),
+                            onPressed: togglePassword,
+                          ),
                     ),
                     onChanged: (value) {
                       email = value.toString().trim();
