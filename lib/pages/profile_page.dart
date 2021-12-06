@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildUpgradeButton() => ButtonWidget(
         text: 'Upgrade To PRO',
         onClicked: () {
-          Navigator.pushNamed(context, "/categories-selection");
+          Navigator.pushNamed(context, "/upgradetopro");
         },
       );
 
