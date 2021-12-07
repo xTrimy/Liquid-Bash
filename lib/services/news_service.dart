@@ -30,8 +30,8 @@ class NewsService extends ChangeNotifier {
         print("x");
         print(element);
         notifyListeners();
-        News tournament = News.fromJson(element);
-        _news.add(tournament);
+        News news = News.fromJson(element);
+        _news.add(news);
         _isLoaded = true;
       });
     } else {

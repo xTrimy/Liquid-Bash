@@ -36,31 +36,31 @@ class _HomePageState extends State<HomePage> {
         ),
         body: _screens[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).primaryColor,
+          selectedItemColor: Theme.of(context).accentColor,
+          unselectedItemColor: Theme.of(context).primaryColor,
           iconSize: 20,
-          backgroundColor: Theme.of(context).primaryColorDark,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
               icon: const Icon(Icons.rss_feed),
+              backgroundColor: Theme.of(context).primaryColorLight,
               label: 'News',
-              backgroundColor: Theme.of(context).primaryColorDark,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.star),
+              backgroundColor: Theme.of(context).primaryColorLight,
               label: 'Tournaments',
-              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.home),
+              backgroundColor: Theme.of(context).primaryColorLight,
               label: 'Home',
-              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.person),
+              backgroundColor: Theme.of(context).primaryColorLight,
               label: 'Profile',
-              backgroundColor: Theme.of(context).primaryColorDark,
             ),
           ],
         ));
