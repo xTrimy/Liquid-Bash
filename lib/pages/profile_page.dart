@@ -4,6 +4,7 @@ import 'package:liquid_bash/utils/user_preferences.dart' show UserPreferences;
 import 'package:liquid_bash/widget/button_widget.dart';
 import 'package:liquid_bash/widget/numbers_widget.dart';
 import 'package:liquid_bash/widget/profile_widget.dart';
+import 'package:liquid_bash/pages/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -15,23 +16,30 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
 
-    return ListView(
-      children: [
-        const SizedBox(height: 24),
-        ProfileWidget(
-          imagePath: user.imagePath,
-          onClicked: () async {},
-        ),
-        const SizedBox(height: 24),
-        buildName(user),
-        const SizedBox(height: 24),
-        Center(child: buildUpgradeButton()),
-        const SizedBox(height: 24),
-        NumbersWidget(),
-        const SizedBox(height: 48),
-        buildAbout(user),
-        const SizedBox(height: 24),
-      ],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      // appBar: AppBar(leading: BackButton(), title: const Text('My Profile')),
+      body: ListView(
+        physics: BouncingScrollPhysics(),
+        children: [
+          ProfileWidget(
+            imagePath: user.imagePath,
+            onClicked: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+          buildName(user),
+          const SizedBox(height: 24),
+          Center(child: buildUpgradeButton()),
+          const SizedBox(height: 24),
+          NumbersWidget(),
+          const SizedBox(height: 48),
+          buildAbout(user),
+        ],
+      ),
     );
   }
 
