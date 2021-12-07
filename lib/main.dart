@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/category_selection.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/admin-dashboard',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/profile-settings': (context) => Container(),
         '/categories-selection': (context) => CategorySelectionPage(),
+        '/admin-dashboard': (context) => Adminhome(),
         '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',

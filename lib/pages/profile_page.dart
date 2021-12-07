@@ -20,7 +20,6 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.black,
       // appBar: AppBar(leading: BackButton(), title: const Text('My Profile')),
       body: ListView(
-        physics: BouncingScrollPhysics(),
         children: [
           ProfileWidget(
             imagePath: user.imagePath,
