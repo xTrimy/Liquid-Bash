@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/response',
+      initialRoute: '/add-tournment',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
