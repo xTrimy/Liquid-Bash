@@ -15,144 +15,178 @@ class _AddTournmentState extends State<AddTournment> {
     });
   }
 
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFF2A2D3E),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 0),
-          child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Add New \nTournment',
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ).copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Image.asset(
-                    'assets/accent.png',
-                    width: 99,
-                    height: 4,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 48,
-              ),
-              Form(
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xfff1f1f5),
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          hintText: 'Tournment Name',
-                          fillColor: Colors.black,
-                          hintStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ).copyWith(color: const Color(0xff94959b)),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xfff1f1f5),
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          hintText: 'Game',
-                          fillColor: Colors.black,
-                          hintStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ).copyWith(color: const Color(0xff94959b)),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xfff1f1f5),
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          hintText: 'Status',
-                          fillColor: Colors.black,
-                          hintStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ).copyWith(color: const Color(0xff94959b)),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    width: 12,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("AddTournment"),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-            ],
-          ),
+      appBar: AppBar(
+          title: Image.asset('assets/logo.png', height: 32),
         ),
+      body: ListView(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                      'CREATE \nTOURNAMENT',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ).copyWith(color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      'assets/accent.png',
+                      width: 99,
+                      height: 4,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const SizedBox(
+                            child: Text("BASICS", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Name',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Start Date',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Start Time',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Poster Image',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const SizedBox(
+                            child: Text("CONTACT INFO", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'How will players contact you?',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'Contact URL',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const SizedBox(
+                            child: Text("TOURNAMENT INFO", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                            height: 20,
+                          ),
+                          TextFormField(
+                            maxLines: null,
+                            minLines: 4,
+                            keyboardType: TextInputType.multiline,
+                            decoration: const InputDecoration(
+                              labelText: 'Rules',
+                              isDense: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              hintStyle: TextStyle(fontSize: 12.0),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.white),),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text("Ready To Go?"),
+                            ),
+                          ),
+              ],
+            ),
+          )
+        ],
       ),
     );
-    ;
   }
+
 }
