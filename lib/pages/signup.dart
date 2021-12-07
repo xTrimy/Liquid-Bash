@@ -146,8 +146,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         try {
                           UserCredential userCredential = await FirebaseAuth
                               .instance
-                              .createUserWithEmailAndPassword(
-                                  email: email, password: password);
+                              .createUserWithEmailAndPassword(email: email, password: password);
                           const SnackBar(content: Text('Sucessfully Register'));
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {

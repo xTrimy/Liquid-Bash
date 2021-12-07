@@ -147,7 +147,7 @@ class LoginPageState extends State<LoginPage> {
                       alignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          child: const Text("SIGN UP"),
+                          child: const Text("Create Account ?\n SIGN UP", textAlign: TextAlign.center,),
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).canvasColor,
                               minimumSize: Size(width / 2, 48),

@@ -6,6 +6,7 @@ import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/pages/news.dart';
 import 'package:liquid_bash/pages/registration.dart';
 import 'package:liquid_bash/pages/tournaments.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,6 +16,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
+
+  
+
   int _selectedIndex = 0;
   final List _screens = [
     const NewsFeedPage(),
@@ -30,6 +35,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      Navigator.pushNamed(context, "/homeloggedt");
+      print(currentUser.uid);
+    }
+
+
     return Scaffold(
         appBar: AppBar(
           title: Image.asset('assets/logo.png', height: 32),

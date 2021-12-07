@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
 import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/home_logged.dart';
+import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
         '/response': (context) => const Response(),
         '/categories-selection': (context) => const CategorySelectionPage(),
         '/': (context) => const HomePage(),
+        '/homelogged': (context) => const HomeLogged(),
+        '/homeloggedt': (context) => const HomeLoggedT(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
