@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
-import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
 import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
