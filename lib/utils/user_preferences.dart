@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:liquid_bash/models/user.dart';
 
 class UserPreferences {
-  static const myUser = User(
+  var currentUser = FirebaseAuth.instance.currentUser;
+
+  static final myUser = Userr(
     imagePath:
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-    name: 'Mohammed Tarek',
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    name: 'Mohammed Trek',
     email: 'Mohammed@gmail.com',
     username: 'Tarek',
     about:
