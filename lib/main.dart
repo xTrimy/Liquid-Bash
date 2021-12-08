@@ -1,19 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
-import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
 import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
 import 'package:provider/provider.dart';
-import 'package:liquid_bash/components/drawer.dart';
-import 'package:liquid_bash/models/news.dart';
 import 'package:liquid_bash/pages/category_selection.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
-import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
@@ -50,7 +46,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/signup',
+      initialRoute: '/login',
       routes: {
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
@@ -65,6 +61,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomePage(),
         '/homelogged': (context) => const HomeLogged(),
         '/homeloggedt': (context) => const HomeLoggedT(),
+        '/admin': (context) => Adminhome(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
