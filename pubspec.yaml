@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
   firebase_core: "^1.10.0"
   firebase_auth: "^3.2.0"
+  intl: ^0.17.0
+  datetime_picker_formfield: ^2.0.0
   
 
 
