@@ -19,8 +19,8 @@ class LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-    String email = '';
-    String password = '';
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,7 +28,6 @@ class LoginPageState extends State<LoginPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        
         body: ListView(
           children: [
             Container(
@@ -75,12 +74,13 @@ class LoginPageState extends State<LoginPage> {
                           TextFormField(
                             decoration: const InputDecoration(
                               isDense: true,
-                              contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10, 20, 10, 0),
                               icon: Icon(Icons.person),
                               hintText: "Username",
                               hintStyle: TextStyle(fontSize: 12.0),
-                              enabledBorder:
-                                  OutlineInputBorder(borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide.none),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0)),
@@ -147,7 +147,10 @@ class LoginPageState extends State<LoginPage> {
                       alignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          child: const Text("Create Account ?\n SIGN UP", textAlign: TextAlign.center,),
+                          child: const Text(
+                            "Create Account ?\n SIGN UP",
+                            textAlign: TextAlign.center,
+                          ),
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).canvasColor,
                               minimumSize: Size(width / 2, 48),
@@ -170,21 +173,35 @@ class LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               try {
-                                UserCredential userCredential = await FirebaseAuth
-                                    .instance
-                                    .signInWithEmailAndPassword(
-                                        email: email, password: password);
-                                        const snackBar = SnackBar(duration: Duration(seconds: 3), content: Text("Logged In"));
-                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                        await Future.delayed(const Duration(seconds: 2), (){});
-                                        Navigator.pushNamed(context, "/");
+                                UserCredential userCredential =
+                                    await FirebaseAuth.instance
+                                        .signInWithEmailAndPassword(
+                                            email: email, password: password);
+                                const snackBar = SnackBar(
+                                    duration: Duration(seconds: 3),
+                                    content: Text("Logged In"));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                await Future.delayed(
+                                    const Duration(seconds: 2), () {});
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                                ;
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
-                                  const snackBar = SnackBar(duration: Duration(seconds: 5), content: Text("No user found for that email."));
-                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  const snackBar = SnackBar(
+                                      duration: Duration(seconds: 5),
+                                      content: Text(
+                                          "No user found for that email."));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 } else if (e.code == 'wrong-password') {
-                                  const snackBar = SnackBar(duration: Duration(seconds: 5), content: Text("Wrong password provided for that user."));
-                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  const snackBar = SnackBar(
+                                      duration: Duration(seconds: 5),
+                                      content: Text(
+                                          "Wrong password provided for that user."));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 }
                               }
                               // ScaffoldMessenger.of(context).showSnackBar(
@@ -204,5 +221,4 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'package:liquid_bash/pages/home_default.dart';
+import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/pages/news.dart';
 import 'package:liquid_bash/pages/registration.dart';
@@ -16,13 +17,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   int _selectedIndex = 0;
   final List _screens = [
-    const NewsFeedPage(),
-    const TournamentsPage(),
+    // const NewsFeedPage(),
     const HomeDefault(),
-    ProfilePage(),
+    const TournamentsPage(),
+    // ProfilePage(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -35,10 +35,8 @@ class _HomePageState extends State<HomePage> {
     var currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser != null) {
-      Navigator.pushNamed(context, "/homeloggedt");
-      print(currentUser.uid);
+      return HomeLoggedT();
     }
-
 
     return Scaffold(
         appBar: AppBar(
@@ -53,24 +51,14 @@ class _HomePageState extends State<HomePage> {
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
-              icon: const Icon(Icons.rss_feed),
-              backgroundColor: Theme.of(context).primaryColorLight,
-              label: 'News',
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.star),
-              backgroundColor: Theme.of(context).primaryColorLight,
-              label: 'Tournaments',
-            ),
-            BottomNavigationBarItem(
               icon: const Icon(Icons.home),
               backgroundColor: Theme.of(context).primaryColorLight,
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.person),
+              icon: const Icon(Icons.star),
               backgroundColor: Theme.of(context).primaryColorLight,
-              label: 'Profile',
+              label: 'Tournaments',
             ),
           ],
         ));

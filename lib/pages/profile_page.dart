@@ -5,7 +5,7 @@ import 'package:liquid_bash/models/user.dart';
 import 'package:liquid_bash/utils/user_preferences.dart' show UserPreferences;
 import 'package:liquid_bash/widget/button_widget.dart';
 import 'package:liquid_bash/widget/numbers_widget.dart';
-import 'package:liquid_bash/widget/profile_widget.dart'; 
+import 'package:liquid_bash/widget/profile_widget.dart';
 import 'package:liquid_bash/pages/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -46,6 +46,10 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 24),
         buildName(name, email),
         const SizedBox(height: 24),
+        Center(
+          child: buildEditProfileButton(),
+        ),
+        const SizedBox(height: 5),
         Center(child: buildUpgradeButton()),
         const SizedBox(height: 24),
         NumbersWidget(),
@@ -70,11 +74,17 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       );
-
+  Widget buildEditProfileButton() => ButtonWidget(
+        text: 'Edit Profile',
+        color: Colors.white,
+        onClicked: () {
+          Navigator.pushNamed(context, "/edit-profile");
+        },
+      );
   Widget buildUpgradeButton() => ButtonWidget(
         text: 'Upgrade To PRO',
         onClicked: () {
-          Navigator.pushNamed(context, "/categories-selection");
+          Navigator.pushNamed(context, "/upgradetopro");
         },
       );
 

@@ -22,10 +22,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         appBar: AppBar(leading: BackButton()),
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 32),
-          physics: BouncingScrollPhysics(),
           children: [
             ProfileWidget(
               imagePath: user.imagePath,
+              icon: true,
               isEdit: true,
               onClicked: () async {},
             ),
@@ -43,17 +43,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-
               label: 'About',
               text: user.about,
               maxLines: 5,
               onChanged: (about) {},
-            ), 
+            ),
             const SizedBox(height: 24),
-            ButtonWidget(text: 
-            'Save', onClicked: () async {}
-            )
-
+            ButtonWidget(text: 'Save', onClicked: () async {})
           ],
         ),
       );

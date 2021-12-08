@@ -7,12 +7,18 @@ import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
 import 'package:provider/provider.dart';
+import 'package:liquid_bash/components/drawer.dart';
+import 'package:liquid_bash/models/news.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/category_selection.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
+import 'package:liquid_bash/pages/edit_profile_page.dart';
+import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
 import 'pages/registration.dart';
+import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +52,9 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: {
+        '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
@@ -58,10 +65,11 @@ class MyApp extends StatelessWidget {
         '/registration-first': (context) => const RegistrationFirst(),
         '/response': (context) => const Response(),
         '/categories-selection': (context) => const CategorySelectionPage(),
-        '/': (context) => const HomePage(),
         '/homelogged': (context) => const HomeLogged(),
         '/homeloggedt': (context) => const HomeLoggedT(),
-        '/admin': (context) => Adminhome(),
+        '/admin-dashboard': (context) => Adminhome(),
+        '/edit-profile': (context) => EditProfilePage(),
+        '/upgradetopro': (context) => UpgradeToPro(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(

@@ -67,7 +67,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
   String password = '';
   String repassword = "";
   // final ageController = TextEditingController();
-  
+
   TextEditingController bdateController = TextEditingController();
   final format = DateFormat("yyyy-MM-dd");
   @override
@@ -81,21 +81,20 @@ class MyCustomerFormState extends State<MyCustomForm> {
             child: Expanded(
               child: ListView(padding: const EdgeInsets.all(30.0), children: [
                 TextFormField(
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    icon: Icon(Icons.person),
-                    labelText: "Fullname",
-                    hintStyle: TextStyle(fontSize: 14.0),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.green),
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      icon: Icon(Icons.person),
+                      labelText: "Fullname",
+                      hintStyle: TextStyle(fontSize: 14.0),
+                      enabledBorder:
+                          OutlineInputBorder(borderSide: BorderSide.none),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
-                  ),
-                  onChanged: (value) {
+                    onChanged: (value) {
                       name = value;
                     },
                     validator: (value) {
@@ -103,8 +102,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         return "Please Enter a Name";
                       }
                       return null;
-                    }
-                ),
+                    }),
                 const SizedBox(
                   height: 10,
                 ),
@@ -120,8 +118,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                     enabledBorder:
                         OutlineInputBorder(borderSide: BorderSide.none),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       borderSide: BorderSide(color: Colors.green),
                     ),
                   ),
@@ -133,29 +130,28 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         lastDate: DateTime(2100));
                   },
                   onChanged: (value) {
-                      bdate = value as String;
-                      print(bdate);
+                    bdate = value as String;
+                    print(bdate);
                   },
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    icon: Icon(Icons.email),
-                    labelText: "Email",
-                    hintStyle: TextStyle(fontSize: 14.0),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.green),
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      icon: Icon(Icons.email),
+                      labelText: "Email",
+                      hintStyle: TextStyle(fontSize: 14.0),
+                      enabledBorder:
+                          OutlineInputBorder(borderSide: BorderSide.none),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
-                  ),
-                  onChanged: (value) {
+                    onChanged: (value) {
                       email = value.toString().trim();
                     },
                     validator: (value) {
@@ -163,27 +159,25 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         return "Please Enter your email";
                       }
                       return null;
-                    }
-                ),
+                    }),
                 const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    icon: Icon(Icons.lock),
-                    labelText: "Password",
-                    hintStyle: TextStyle(fontSize: 14.0),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.green),
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      icon: Icon(Icons.lock),
+                      labelText: "Password",
+                      hintStyle: TextStyle(fontSize: 14.0),
+                      enabledBorder:
+                          OutlineInputBorder(borderSide: BorderSide.none),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
-                  ),
                     onChanged: (value) {
                       password = value;
                     },
@@ -192,27 +186,25 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         return "Please Enter your password";
                       }
                       return null;
-                    }
-                ),
+                    }),
                 const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    icon: Icon(Icons.lock),
-                    labelText: "Confirm Password",
-                    hintStyle: TextStyle(fontSize: 14.0),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.green),
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      icon: Icon(Icons.lock),
+                      labelText: "Confirm Password",
+                      hintStyle: TextStyle(fontSize: 14.0),
+                      enabledBorder:
+                          OutlineInputBorder(borderSide: BorderSide.none),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
-                  ),
                     onChanged: (value) {
                       repassword = value;
                     },
@@ -223,14 +215,12 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         return "Password Don't Match";
                       }
                       return null;
-                    }
-                ),
+                    }),
                 const SizedBox(
                   height: 30,
                   width: 200,
                 ),
-                ButtonBar(
-                  children: [
+                ButtonBar(children: [
                   ElevatedButton(
                     //minimumSize: Size(100,40),
                     style: ElevatedButton.styleFrom(
@@ -238,7 +228,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         primary: Colors.white,
                         onPrimary: Colors.black),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context, rootNavigator: true).pop();
                     },
                     child: const Text('BACK'),
                   ),
@@ -249,30 +239,45 @@ class MyCustomerFormState extends State<MyCustomForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .createUserWithEmailAndPassword(
+                                  email: email, password: password);
                           var currentUser = FirebaseAuth.instance.currentUser;
 
                           var uidd = currentUser!.uid;
 
-                          users.add({'uid' : uidd,'name': name,'bdate': bdateController.text,})
+                          users
+                              .add({
+                                'uid': uidd,
+                                'name': name,
+                                'bdate': bdateController.text,
+                              })
+                              .then((value) => print("User Added"))
+                              .catchError((error) =>
+                                  print("Failed to add user: $error"));
 
-                          .then((value) => print("User Added"))
-                          .catchError((error) => print("Failed to add user: $error"));
-
-                          const snackBar = SnackBar(duration: Duration(seconds: 3), content: Text("Sucessfully Registered"));
+                          const snackBar = SnackBar(
+                              duration: Duration(seconds: 3),
+                              content: Text("Sucessfully Registered"));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          await Future.delayed(const Duration(seconds: 2), (){});
+                          await Future.delayed(
+                              const Duration(seconds: 2), () {});
 
-
-                          
                           Navigator.pushNamed(context, "/login");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
-                            const snackBar = SnackBar(duration: Duration(seconds: 5), content: Text("Weak Password"));
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            const snackBar = SnackBar(
+                                duration: Duration(seconds: 5),
+                                content: Text("Weak Password"));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           } else if (e.code == 'email-already-in-use') {
-                            const snackBar = SnackBar(duration: Duration(seconds: 5), content: Text("Email Already Inuse"));
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            const snackBar = SnackBar(
+                                duration: Duration(seconds: 5),
+                                content: Text("Email Already Inuse"));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         } catch (e) {
                           print(e);
