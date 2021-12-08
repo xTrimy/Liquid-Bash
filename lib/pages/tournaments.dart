@@ -42,9 +42,9 @@ class _TournamentsPageState extends State<TournamentsPage> {
                   ),
                 ),
                 Image.asset(
-                  "assets/logo.png",
-                  width: 50,
-                  height: 50,
+                  "assets/Lmark.png",
+                  width: 40,
+                  height: 40,
                 )
               ],
             )
