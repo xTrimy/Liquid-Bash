@@ -5,7 +5,8 @@ import 'package:liquid_bash/models/user.dart';
 import 'package:liquid_bash/utils/user_preferences.dart' show UserPreferences;
 import 'package:liquid_bash/widget/button_widget.dart';
 import 'package:liquid_bash/widget/numbers_widget.dart';
-import 'package:liquid_bash/widget/profile_widget.dart';
+import 'package:liquid_bash/widget/profile_widget.dart'; 
+import 'package:liquid_bash/pages/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
