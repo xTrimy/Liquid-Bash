@@ -6,6 +6,7 @@ class UserPreferences {
         'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
     name: 'Mohammed Tarek',
     email: 'Mohammed@gmail.com',
+    username: 'Tarek',
     about:
         'A gamer is a person who plays interactive games, especially video games, tabletop role-playing games, and skill-based card games, and who plays for usually long periods of time. ',
     isDarkMode: false,

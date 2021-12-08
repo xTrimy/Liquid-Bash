@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/drawer.dart';
+
 import 'package:liquid_bash/components/styles.dart';
 
 class RegistrationPage extends StatelessWidget {

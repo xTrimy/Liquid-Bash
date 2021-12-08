@@ -8,16 +8,16 @@ class GameRowCard extends StatelessWidget {
     return Row(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: SizedBox(
               width: 30,
               height: 30,
               child: Image.asset("assets/logos/lol.jpg")),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
-        Text("League Of Legends")
+        const Text("League Of Legends")
       ],
     );
   }

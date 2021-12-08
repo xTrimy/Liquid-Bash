@@ -17,7 +17,7 @@ class TournamentCardSheet extends StatelessWidget {
           transform: Matrix4.translationValues(0.0, -50.0, 0.0),
           child: Column(children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
               child: Image.asset("assets/valorant.jpg"),
             ),
             Align(
@@ -26,42 +26,42 @@ class TournamentCardSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     "25 Nov, 2021",
                     style: TextStyle(color: Colors.grey.shade500),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  Text(
+                  const Text(
                     "Gamers Lounge Summer Cup V",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
                     child: Container(
-                      child: Text(
+                      child: const Text(
                         "Open",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 12),
                       ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-                      color: Theme.of(context).accentColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 4),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Expanded(
@@ -71,7 +71,7 @@ class TournamentCardSheet extends StatelessWidget {
                   Text('Organizer',
                       style:
                           TextStyle(fontSize: 12, color: Colors.grey.shade500)),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Card(
@@ -85,36 +85,36 @@ class TournamentCardSheet extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                  const BorderRadius.all(Radius.circular(20)),
                               child: SizedBox(
                                   width: 30,
                                   height: 30,
                                   child: Image.asset(
                                       "assets/logos/gamers_lounge.jpg")),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
-                            Text("Gamers Lounge")
+                            const Text("Gamers Lounge")
                           ],
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text('Tournament Games',
                       style:
                           TextStyle(fontSize: 12, color: Colors.grey.shade500)),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  GameRowCard(),
-                  SizedBox(
+                  const GameRowCard(),
+                  const SizedBox(
                     height: 5,
                   ),
-                  GameRowCard(),
+                  const GameRowCard(),
                 ],
               ),
             ),

@@ -25,6 +25,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             ProfileWidget(
               imagePath: user.imagePath,
+              icon: true,
               isEdit: true,
               onClicked: () async {},
             ),

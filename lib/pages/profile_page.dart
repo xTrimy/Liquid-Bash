@@ -16,29 +16,27 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      // appBar: AppBar(leading: BackButton(), title: const Text('My Profile')),
-      body: ListView(
-        children: [
-          ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditProfilePage()),
-              );
-            },
-          ),
-          const SizedBox(height: 24),
-          buildName(user),
-          const SizedBox(height: 24),
-          Center(child: buildUpgradeButton()),
-          const SizedBox(height: 24),
-          NumbersWidget(),
-          const SizedBox(height: 48),
-          buildAbout(user),
-        ],
-      ),
+    return ListView(
+      children: [
+        const SizedBox(height: 24),
+        ProfileWidget(
+          imagePath: user.imagePath,
+          onClicked: () async {},
+        ),
+        const SizedBox(height: 24),
+        buildName(user),
+        const SizedBox(height: 24),
+        Center(
+          child: buildEditProfileButton(),
+        ),
+        const SizedBox(height: 5),
+        Center(child: buildUpgradeButton()),
+        const SizedBox(height: 24),
+        NumbersWidget(),
+        const SizedBox(height: 48),
+        buildAbout(user),
+        const SizedBox(height: 24),
+      ],
     );
   }
 
@@ -56,11 +54,17 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       );
-
+  Widget buildEditProfileButton() => ButtonWidget(
+        text: 'Edit Profile',
+        color: Colors.white,
+        onClicked: () {
+          Navigator.pushNamed(context, "/edit-profile");
+        },
+      );
   Widget buildUpgradeButton() => ButtonWidget(
         text: 'Upgrade To PRO',
         onClicked: () {
-          Navigator.pushNamed(context, "/categories-selection");
+          Navigator.pushNamed(context, "/upgradetopro");
         },
       );
 
