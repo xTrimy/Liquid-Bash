@@ -1,8 +1,8 @@
 class Userr {
   final String imagePath;
   String name;
-  String email;
   final String username;
+  String email;
   final String about;
   final bool isDarkMode;
 
@@ -28,7 +28,7 @@ List dummyUsers = [
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "abdelrahman@gmail.com",
-      username: "Abdo",
+      username: "Bodda",
       about: "Noob Player",
       isDarkMode: true),
   Userr(
