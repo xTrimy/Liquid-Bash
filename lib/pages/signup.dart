@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:liquid_bash/components/styles.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -13,19 +16,20 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: MyCustomForm(),
     );
   }
 }
 
 class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({Key? key}) : super(key: key);
+
   @override
   MyCustomerFormState createState() {
     return MyCustomerFormState();
   }
 }
-//////////////////////////////////////////////////////////////////
 
 class TopBanner extends StatelessWidget {
   const TopBanner({Key? key}) : super(key: key);
@@ -57,45 +61,101 @@ class TopBanner extends StatelessWidget {
 ////////////////////////////////////////////////////////////
 class MyCustomerFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  String name = ''; 
+  String name = '';
   String email = '';
+  String bdate = "";
   String password = '';
+  String repassword = "";
   // final ageController = TextEditingController();
-
+  
+  TextEditingController bdateController = TextEditingController();
+  final format = DateFormat("yyyy-MM-dd");
   @override
   Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
     return Column(
       children: [
         const TopBanner(),
         Form(
             key: _formKey,
             child: Expanded(
-              child: ListView(padding: const EdgeInsets.all(8.0), children: [
+              child: ListView(padding: const EdgeInsets.all(30.0), children: [
                 TextFormField(
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person), hintText: "Name"),
-                    onChanged: (value) {
-                      password = value;
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    icon: Icon(Icons.person),
+                    labelText: "Fullname",
+                    hintStyle: TextStyle(fontSize: 14.0),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                  onChanged: (value) {
+                      name = value;
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please Enter a Name";
                       }
                       return null;
-                    }),
+                    }
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                DateTimeField(
+                  controller: bdateController,
+                  format: format,
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    icon: Icon(Icons.cake),
+                    labelText: "Birth Date",
+                    hintStyle: TextStyle(fontSize: 14.0),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                  onShowPicker: (context, currentValue) {
+                    return showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100));
+                  },
+                  onChanged: (value) {
+                      bdate = value as String;
+                      print(bdate);
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.cake), hintText: "BirthDate"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please Enter a number";
-                      }
-                      return null;
-                    }),
-                TextFormField(
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.email), hintText: "Email"),
-                    onChanged: (value) {
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    icon: Icon(Icons.email),
+                    labelText: "Email",
+                    hintStyle: TextStyle(fontSize: 14.0),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                  onChanged: (value) {
                       email = value.toString().trim();
                     },
                     validator: (value) {
@@ -103,11 +163,27 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         return "Please Enter your email";
                       }
                       return null;
-                    }),
+                    }
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.lock), hintText: "Password"),
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    icon: Icon(Icons.lock),
+                    labelText: "Password",
+                    hintStyle: TextStyle(fontSize: 14.0),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
                     onChanged: (value) {
                       password = value;
                     },
@@ -116,43 +192,87 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         return "Please Enter your password";
                       }
                       return null;
-                    }),
+                    }
+                ),
                 const SizedBox(
-                  height: 60,
+                  height: 10,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    icon: Icon(Icons.lock),
+                    labelText: "Confirm Password",
+                    hintStyle: TextStyle(fontSize: 14.0),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                    onChanged: (value) {
+                      repassword = value;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Confirm Your Password";
+                      } else if (password != repassword) {
+                        return "Password Don't Match";
+                      }
+                      return null;
+                    }
+                ),
+                const SizedBox(
+                  height: 30,
                   width: 200,
                 ),
-                ButtonBar(children: [
+                ButtonBar(
+                  children: [
                   ElevatedButton(
                     //minimumSize: Size(100,40),
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(150, 50),
+                        minimumSize: const Size(135, 40),
                         primary: Colors.white,
                         onPrimary: Colors.black),
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('data')),
-                        );
-                      }
+                      Navigator.pop(context);
                     },
                     child: const Text('BACK'),
                   ),
                   ElevatedButton(
                     //minimumSize: Size(100,40),
-                    style: ElevatedButton.styleFrom(minimumSize: const Size(150, 50)),
-                    onPressed: () async{
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(135, 40)),
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                            email: email,
-                            password: password
-                          );
-                          const SnackBar(content: Text('Sucessfully Register'));
+                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+                          var currentUser = FirebaseAuth.instance.currentUser;
+
+                          var uidd = currentUser!.uid;
+
+                          users.add({'uid' : uidd,'name': name,'bdate': bdateController.text,})
+
+                          .then((value) => print("User Added"))
+                          .catchError((error) => print("Failed to add user: $error"));
+
+                          const snackBar = SnackBar(duration: Duration(seconds: 3), content: Text("Sucessfully Registered"));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          await Future.delayed(const Duration(seconds: 2), (){});
+
+
+                          
+                          Navigator.pushNamed(context, "/login");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
-                            const SnackBar(content: Text('Weak Password'));
+                            const snackBar = SnackBar(duration: Duration(seconds: 5), content: Text("Weak Password"));
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           } else if (e.code == 'email-already-in-use') {
-                            print('The account already exists for that email.');
+                            const snackBar = SnackBar(duration: Duration(seconds: 5), content: Text("Email Already Inuse"));
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
                         } catch (e) {
                           print(e);

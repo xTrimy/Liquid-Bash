@@ -8,19 +8,22 @@ import 'package:liquid_bash/pages/registration.dart';
 import 'package:liquid_bash/pages/tournaments.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'home_logged.dart';
+
+class HomeLoggedT extends StatefulWidget {
+  const HomeLoggedT({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeLoggedT> createState() => _HomeLoggedTState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeLoggedTState extends State<HomeLoggedT> {
+  
   int _selectedIndex = 0;
   final List _screens = [
     const NewsFeedPage(),
     const TournamentsPage(),
-    const HomeDefault(),
+    const HomeLogged(),
     ProfilePage(),
   ];
   void _onItemTapped(int index) {
@@ -31,12 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = FirebaseAuth.instance.currentUser;
 
-    if (currentUser != null) {
-      Navigator.pushNamed(context, "/homeloggedt");
-      print(currentUser.uid);
-    }
 
     return Scaffold(
         appBar: AppBar(
