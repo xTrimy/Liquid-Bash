@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // brightness: Brightness.dark,
           primaryColor: Colors.white,
-          primaryColorLight: Colors.grey.shade700,
+          primaryColorLight: Color(0xff333539),
           primaryColorDark: Colors.grey.shade900,
           accentColor: mainGreenColor,
           focusColor: mainGreenColor,
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
           primaryIconTheme: const IconThemeData(color: Colors.white),
           appBarTheme: AppBarTheme(
               centerTitle: true,
-              color: Colors.grey.shade900,
+              color: Color(0xff333539),
               titleTextStyle: const TextStyle(
                 color: Colors.white,
               )),
