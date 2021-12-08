@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:liquid_bash/services/users_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -177,13 +179,19 @@ class LoginPageState extends State<LoginPage> {
                                     await FirebaseAuth.instance
                                         .signInWithEmailAndPassword(
                                             email: email, password: password);
+
                                 const snackBar = SnackBar(
                                     duration: Duration(seconds: 3),
                                     content: Text("Logged In"));
+                                UserService userService =
+                                    Provider.of<UserService>(context,
+                                        listen: false);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                await Future.delayed(
-                                    const Duration(seconds: 2), () {});
+                                await Future.delayed(const Duration(seconds: 2),
+                                    () {
+                                  userService.updateUser();
+                                });
                                 Navigator.of(context, rootNavigator: true)
                                     .pop();
                                 ;

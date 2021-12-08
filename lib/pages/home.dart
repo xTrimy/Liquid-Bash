@@ -10,6 +10,8 @@ import 'package:liquid_bash/pages/news.dart';
 import 'package:liquid_bash/pages/registration.dart';
 import 'package:liquid_bash/pages/tournaments.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:liquid_bash/services/users_service.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -49,10 +51,11 @@ class _HomePageState extends State<HomePage> {
 
   bool loggedInBefore = false;
   bool checkLoggedIn = false;
-
+  var currentUser = null;
   @override
   Widget build(BuildContext context) {
-    var currentUser = FirebaseAuth.instance.currentUser;
+    UserService userService = Provider.of<UserService>(context, listen: false);
+    currentUser = userService.getCurrentUser();
     if (currentUser != null) {
       var currentUserData = FirebaseFirestore.instance
           .collection('users')

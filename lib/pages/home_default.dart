@@ -13,27 +13,32 @@ class HomeDefault extends StatelessWidget {
     //   print("User id = "+currentUser.uid);
     // }
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(8.0),
       height: MediaQuery.of(context).size.height,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
-
-          
-          MaterialButton(
-              minWidth: double.infinity,
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, "/signup");
               },
               child: const Text("Sign Up"),
-              color: Theme.of(context).colorScheme.secondary),
-          MaterialButton(
-            minWidth: double.infinity,
-            onPressed: () {
-              Navigator.pushNamed(context, "/login");
-            },
-            child: const Text("Sign In"),
-            color: Theme.of(context).primaryColor,
-            textColor: Theme.of(context).colorScheme.secondary,
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.white)),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/login");
+              },
+              child: const Text("Sign In"),
+            ),
           ),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,

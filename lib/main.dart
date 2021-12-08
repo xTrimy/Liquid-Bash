@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'Liquid Bash',
       theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFF1E1F23),
           // brightness: Brightness.dark,
           primaryColor: Colors.white,
           primaryColorLight: Color(0xff333539),

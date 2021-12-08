@@ -32,8 +32,8 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserService newsService = Provider.of<UserService>(context, listen: false);
-    bool loggedInBefore = newsService.getIsLoggedInBefore();
+    UserService userService = Provider.of<UserService>(context, listen: false);
+    bool loggedInBefore = userService.getIsLoggedInBefore();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

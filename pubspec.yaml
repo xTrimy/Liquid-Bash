@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.0.15
   http: ^0.13.4
   json_helpers: ^0.1.5
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:
