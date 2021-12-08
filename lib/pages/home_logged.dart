@@ -21,6 +21,7 @@ class HomeLogged extends StatelessWidget {
         (route) => false);
     }
     var currentUser = FirebaseAuth.instance.currentUser;
+    
     if (currentUser == null) {
       Navigator.pushNamed(context, "/");
     }

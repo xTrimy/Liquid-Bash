@@ -1,11 +1,11 @@
-class User {
+class Userr {
   final String imagePath;
-  final String name;
-  final String email;
+  String name;
+  String email;
   final String about;
   final bool isDarkMode;
 
-  const User({
+  Userr({
     required this.imagePath,
     required this.name,
     required this.email,
@@ -15,49 +15,49 @@ class User {
 }
 
 List dummyUsers = [
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "bodda@gmail.com",
       about: "Pro Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "abdelrahman@gmail.com",
       about: "Noob Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "bodda@gmail.com",
       about: "Pro Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "abdelrahman@gmail.com",
       about: "Noob Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "bodda@gmail.com",
       about: "Pro Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "abdelrahman@gmail.com",
       about: "Noob Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "bodda@gmail.com",
       about: "Pro Player",
       isDarkMode: true),
-  const User(
+   Userr(
       imagePath: "assets/a.png",
       name: "Abdelrahman Sayed",
       email: "abdelrahman@gmail.com",

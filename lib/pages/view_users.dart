@@ -73,7 +73,7 @@ class ViewUsersView extends StatelessWidget {
     return dummyUsers.map((e) => userDataRow(e)).toList();
   }
 
-  DataRow userDataRow(User user) {
+  DataRow userDataRow(Userr user) {
     return DataRow(cells: [
       DataCell(
         Row(

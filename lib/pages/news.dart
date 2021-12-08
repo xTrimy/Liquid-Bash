@@ -12,6 +12,8 @@ class NewsFeedPage extends StatefulWidget {
 }
 
 class _NewsFeedPageState extends State<NewsFeedPage> {
+  
+
   @override
   Widget build(BuildContext context) {
     NewsService newsService = Provider.of<NewsService>(context, listen: false);
