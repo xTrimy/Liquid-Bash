@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,14 +63,16 @@ class MyCustomerFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
   String name = '';
   String email = '';
+  String bdate = "";
   String password = '';
   String repassword = "";
   // final ageController = TextEditingController();
-
+  
+  TextEditingController bdateController = TextEditingController();
   final format = DateFormat("yyyy-MM-dd");
   @override
   Widget build(BuildContext context) {
-    
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
     return Column(
       children: [
         const TopBanner(),
@@ -93,7 +96,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                     ),
                   ),
                   onChanged: (value) {
-                      password = value;
+                      name = value;
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -106,6 +109,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                   height: 10,
                 ),
                 DateTimeField(
+                  controller: bdateController,
                   format: format,
                   decoration: const InputDecoration(
                     isDense: true,
@@ -128,12 +132,10 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         initialDate: currentValue ?? DateTime.now(),
                         lastDate: DateTime(2100));
                   },
-                  validator: (value) {
-                    if (value == null) {
-                      return "Please Enter a number";
-                    }
-                    return null;
-                  }
+                  onChanged: (value) {
+                      bdate = value as String;
+                      print(bdate);
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -248,9 +250,21 @@ class MyCustomerFormState extends State<MyCustomForm> {
                       if (_formKey.currentState!.validate()) {
                         try {
                           UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+                          var currentUser = FirebaseAuth.instance.currentUser;
+
+                          var uidd = currentUser!.uid;
+
+                          users.add({'uid' : uidd,'name': name,'bdate': bdateController.text,})
+
+                          .then((value) => print("User Added"))
+                          .catchError((error) => print("Failed to add user: $error"));
+
                           const snackBar = SnackBar(duration: Duration(seconds: 3), content: Text("Sucessfully Registered"));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           await Future.delayed(const Duration(seconds: 2), (){});
+
+
+                          
                           Navigator.pushNamed(context, "/login");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
