@@ -77,26 +77,14 @@ class _EventDetailsState extends State<EventDetails> {
                   width: 2,
                 ),
                 Row(
-                  children: [
-                    Image.asset(
-                      'assets/logos/valorant.png',
-                      width: 30,
-                      height: 30,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text(
+                  children: const [
+                    Text(
                       "Gamers Lounge Summer Cup v",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text("by Gamers Lounge"),
                 const SizedBox(
                   height: 20,
                 ),
@@ -109,7 +97,18 @@ class _EventDetailsState extends State<EventDetails> {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.star_outlined, color: Colors.yellow),
+                    ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            "assets/logos/gamers_lounge.jpg",
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )),
                     const SizedBox(
                       width: 5,
                     ),
@@ -154,6 +153,9 @@ class _EventDetailsState extends State<EventDetails> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 5,
+                ),
                 Row(
                   children: [
                     ClipRRect(
@@ -162,7 +164,7 @@ class _EventDetailsState extends State<EventDetails> {
                           width: 30,
                           height: 30,
                           child: Image.asset(
-                            "assets/logos/valorant.svg",
+                            "assets/logos/lol.jpg",
                             width: double.infinity,
                             height: double.infinity,
                             fit: BoxFit.cover,
@@ -177,6 +179,9 @@ class _EventDetailsState extends State<EventDetails> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 5,
                 ),
                 Row(
                   children: [
