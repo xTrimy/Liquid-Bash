@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/models/user.dart';
 import 'package:liquid_bash/utils/user_preferences.dart' show UserPreferences;
 import 'package:liquid_bash/widget/button_widget.dart';
 import 'package:liquid_bash/widget/numbers_widget.dart';
 import 'package:liquid_bash/widget/profile_widget.dart';
+import 'package:liquid_bash/pages/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,9 +14,27 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  String name = "";
+  String email = "";
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
+    var currentUser = FirebaseAuth.instance.currentUser;
+
+    email = currentUser!.email!;
+    
+    FirebaseFirestore.instance
+    .collection('users')
+    .get()
+    .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+            name = doc["name"];
+            // email = doc["email"];
+        });
+    });
+
+    // user.name = name;
 
     return ListView(
       children: [
@@ -23,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
           onClicked: () async {},
         ),
         const SizedBox(height: 24),
-        buildName(user),
+        buildName(name, email),
         const SizedBox(height: 24),
         Center(
           child: buildEditProfileButton(),
@@ -39,22 +60,23 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildName(User user) => Column(
+  Widget buildName(String name, String email) => Column(
         children: [
           Text(
-            user.name,
+            name,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
           ),
           const SizedBox(height: 4),
           Text(
-            user.email,
+            email,
             style: TextStyle(color: Colors.white),
           )
         ],
       );
   Widget buildEditProfileButton() => ButtonWidget(
         text: 'Edit Profile',
+        color: Colors.white,
         onClicked: () {
           Navigator.pushNamed(context, "/edit-profile");
         },
@@ -66,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
 
-  Widget buildAbout(User user) => Container(
+  Widget buildAbout(Userr user) => Container(
         padding: EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

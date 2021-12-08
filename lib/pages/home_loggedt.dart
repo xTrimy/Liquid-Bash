@@ -2,27 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'package:liquid_bash/pages/home_default.dart';
-import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/pages/news.dart';
 import 'package:liquid_bash/pages/registration.dart';
 import 'package:liquid_bash/pages/tournaments.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'home_logged.dart';
+
+class HomeLoggedT extends StatefulWidget {
+  const HomeLoggedT({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeLoggedT> createState() => _HomeLoggedTState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeLoggedTState extends State<HomeLoggedT> {
+  
   int _selectedIndex = 0;
   final List _screens = [
-    // const NewsFeedPage(),
-    const HomeDefault(),
+    const NewsFeedPage(),
     const TournamentsPage(),
-    // ProfilePage(),
+    const HomeLogged(),
+    ProfilePage(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -32,11 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = FirebaseAuth.instance.currentUser;
 
-    if (currentUser != null) {
-      return HomeLoggedT();
-    }
 
     return Scaffold(
         appBar: AppBar(
@@ -51,14 +49,24 @@ class _HomePageState extends State<HomePage> {
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
-              icon: const Icon(Icons.home),
+              icon: const Icon(Icons.rss_feed),
               backgroundColor: Theme.of(context).primaryColorLight,
-              label: 'Home',
+              label: 'News',
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.star),
               backgroundColor: Theme.of(context).primaryColorLight,
               label: 'Tournaments',
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              backgroundColor: Theme.of(context).primaryColorLight,
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.person),
+              backgroundColor: Theme.of(context).primaryColorLight,
+              label: 'Profile',
             ),
           ],
         ));

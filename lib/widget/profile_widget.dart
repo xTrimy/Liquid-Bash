@@ -1,14 +1,18 @@
-// import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
+  final bool isEdit;
+  final bool icon;
   final VoidCallback onClicked;
 
   const ProfileWidget({
     Key? key,
     required this.imagePath,
+    this.icon = false,
+    this.isEdit = false,
     required this.onClicked,
   }) : super(key: key);
 
@@ -51,15 +55,30 @@ class ProfileWidget extends StatelessWidget {
       child: Container(
         width: 40,
         height: 40,
-        child: MaterialButton(
-          padding: EdgeInsets.all(0.0),
-          color: Colors.green,
-          onPressed: () {},
-          child: Icon(
-            Icons.edit,
-            color: Colors.white,
-            size: 20,
-          ),
-        ),
+        child: (icon)
+            ? ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                ),
+                onPressed: () {},
+                child: Icon(
+                  isEdit ? Icons.add_a_photo : Icons.edit,
+                  size: 20,
+                ),
+              )
+            : Container(),
       ));
+
+  Widget buildCircle({
+    required Widget child,
+    required double all,
+    required Color color,
+  }) =>
+      ClipOval(
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: color,
+          child: child,
+        ),
+      );
 }

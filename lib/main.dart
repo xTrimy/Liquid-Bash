@@ -1,12 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:liquid_bash/pages/add_tournament.dart';
+import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/home_logged.dart';
+import 'package:liquid_bash/pages/home_loggedt.dart';
+import 'package:liquid_bash/pages/registration_first.dart';
+import 'package:liquid_bash/pages/response.dart';
+import 'package:liquid_bash/pages/view_users.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/category_selection.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/event.dart';
-import 'package:liquid_bash/pages/edit_profile.dart';
+import 'package:liquid_bash/pages/edit_profile_page.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
@@ -47,15 +55,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
+        '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
+        '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
-        '/categories-selection': (context) => CategorySelectionPage(),
+        '/add-tournment': (context) => const AddTournment(),
+        '/registration-first': (context) => const RegistrationFirst(),
+        '/response': (context) => const Response(),
+        '/categories-selection': (context) => const CategorySelectionPage(),
+        '/homelogged': (context) => const HomeLogged(),
+        '/homeloggedt': (context) => const HomeLoggedT(),
+        '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
         '/upgradetopro': (context) => UpgradeToPro(),
-        '/': (context) => HomePage(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
@@ -81,7 +96,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
               )),
           colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: MaterialColor(0xff00FFA8, {}),
+                  primarySwatch: MaterialColor(0xff00FFA8, const {}),
                   brightness: Brightness.dark)
               .copyWith(secondary: Colors.greenAccent.shade700)),
     );

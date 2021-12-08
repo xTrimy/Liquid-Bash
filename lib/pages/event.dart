@@ -9,139 +9,42 @@ class EventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('assets/logo.png', height: 32),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            EventBanner(scrollController: scrollController),
-            Expanded(
-                child: EventDetails(
-              scrollController: scrollController,
-            )),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EventBanner extends StatefulWidget {
-  final ScrollController scrollController;
-
-  const EventBanner({Key? key, required this.scrollController})
-      : super(key: key);
-
-  @override
-  State<EventBanner> createState() => _EventBannerState();
-}
-
-class _EventBannerState extends State<EventBanner> {
-  double _height = 250;
-
-  _scrollListener() {
-    if (!(widget.scrollController.offset <=
-            widget.scrollController.position.minScrollExtent &&
-        !widget.scrollController.position.outOfRange)) {
-      setState(() {
-        _height = 100;
-      });
-    }
-    if (widget.scrollController.offset <=
-            widget.scrollController.position.minScrollExtent &&
-        !widget.scrollController.position.outOfRange) {
-      setState(() {
-        _height = 200;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    widget.scrollController.addListener(_scrollListener);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // ignore: avoid_print
-    print(_height);
-
-    return AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        height: _height,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              child: Image.asset(
+      //1
+      body: CustomScrollView(
+        controller: scrollController,
+        slivers: <Widget>[
+          //2
+          SliverAppBar(
+            floating: true,
+            pinned: true,
+            expandedHeight: 250.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('Tournament Name',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                  textScaleFactor: 1),
+              background: Image.asset(
                 'assets/valorant.jpg',
-                height: double.infinity,
-                width: double.infinity,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
-            Container(
-              color: const Color.fromRGBO(0, 0, 0, 0.4),
-              height: double.infinity,
-              width: double.infinity,
+          ),
+          //3
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, int index) {
+                return EventDetails(
+                  scrollController: scrollController,
+                );
+              },
+              childCount: 1,
             ),
-            Container(
-              height: double.infinity,
-              padding: const EdgeInsets.all(20),
-              alignment: Alignment.bottomLeft,
-              child: Wrap(children: [
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Text(
-                        "Valorant\nTournament Is Here",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30.0),
-                      ),
-                      AnimatedCrossFade(
-                        crossFadeState: (_height > 100)
-                            ? CrossFadeState.showFirst
-                            : CrossFadeState.showSecond,
-                        duration: const Duration(milliseconds: 100),
-                        secondChild: Container(),
-                        firstChild: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Valorant | May 17, 2020",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15.0,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              style: Styles.buttonStyle,
-                              child: const Text("Register"),
-                              onPressed: () {
-                                Navigator.pushNamed(context, "/register");
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                    ])
-              ]),
-            ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -155,31 +58,7 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
-  bool? scrollAtTop;
-
-  _scrollListener() {
-    if (!(widget.scrollController.offset <=
-            widget.scrollController.position.minScrollExtent &&
-        !widget.scrollController.position.outOfRange)) {
-      setState(() {
-        scrollAtTop = false;
-      });
-    }
-    if (widget.scrollController.offset <=
-            widget.scrollController.position.minScrollExtent &&
-        !widget.scrollController.position.outOfRange) {
-      setState(() {
-        scrollAtTop = true;
-      });
-    }
-  }
-
   @override
-  void initState() {
-    widget.scrollController.addListener(_scrollListener);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     const edgeInsets = EdgeInsets.symmetric(vertical: 10, horizontal: 20);
@@ -193,6 +72,10 @@ class _EventDetailsState extends State<EventDetails> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("25 Nov, 2021"),
+                const SizedBox(
+                  width: 2,
+                ),
                 Row(
                   children: [
                     Image.asset(
@@ -204,9 +87,9 @@ class _EventDetailsState extends State<EventDetails> {
                       width: 5,
                     ),
                     const Text(
-                      "Game Name",
+                      "Gamers Lounge Summer Cup v",
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -218,75 +101,145 @@ class _EventDetailsState extends State<EventDetails> {
                   height: 20,
                 ),
                 const Text(
-                  "Description",
-                  style: TextStyle(fontSize: 20),
+                  "Organizer",
+                  style: TextStyle(fontSize: 15),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"),
-                const SizedBox(
-                  height: 10,
-                ),
                 Row(
-                  children: const <Widget>[
+                  children: [
                     Icon(Icons.star_outlined, color: Colors.yellow),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      "Awards",
-                      style: TextStyle(fontSize: 20),
+                    const Text(
+                      "Gamers Lounge",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 15,
                 ),
                 const Text(
-                  "\$250 Prize Pool",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  "Tournament Games",
+                  style: TextStyle(fontSize: 15),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Row(
-                  children: const <Widget>[
-                    Icon(Icons.map, color: Colors.blue),
-                    SizedBox(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            "assets/logos/fortnite-f.png",
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                    const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      "Regions",
-                      style: TextStyle(fontSize: 20),
+                    const Text(
+                      "Fortnite",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            "assets/logos/valorant.svg",
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "League of legands",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            "assets/logos/valorant-logo.png",
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Valorant",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 15,
                 ),
                 const Text(
-                  "- EMEA\n- North America",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  "Awards",
+                  style: TextStyle(fontSize: 15),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            "assets/logos/fortnite-f.png",
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Prizepool: 500",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ]),
         ),
         Stack(
           children: [
-            SizedBox(
-              height: 100,
-              child: Image.asset(
-                "assets/galaxy.jpg",
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.fill,
-              ),
-            ),
-            Container(
-              height: 100,
-              color: const Color.fromRGBO(0, 0, 0, 0.8),
-            ),
             Container(
               height: 100,
               alignment: Alignment.center,

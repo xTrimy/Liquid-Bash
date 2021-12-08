@@ -22,15 +22,13 @@ class UpgradeToPro extends StatelessWidget {
               height: 2,
             ),
             Billing(),
-           ElevatedButton(
-            child: Text('become a pro!'),
-            onPressed: () {
-            },
-          ),
+            ElevatedButton(
+              child: Text('become a pro!'),
+              onPressed: () {},
+            ),
           ],
         ),
       ),
-
     );
   }
 }
@@ -56,7 +54,7 @@ class Upgrade extends StatelessWidget {
             children: [
               Icon(
                 Icons.star,
-                color: Colors.green,
+                color: Theme.of(context).accentColor,
                 size: 80.0,
               ),
               SizedBox(
@@ -73,7 +71,7 @@ class Upgrade extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
-                        color: Color(0xFFFFFFFF)),
+                        color: Theme.of(context).accentColor),
                   ),
                 ],
               ),
@@ -127,7 +125,7 @@ class Upgrade extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 38,
-                              color: Color(0xFF4CAF50)),
+                              color: Theme.of(context).accentColor),
                         ),
                         SizedBox(
                           width: 8,
