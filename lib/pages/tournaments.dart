@@ -57,10 +57,7 @@ class _TournamentsPageState extends State<TournamentsPage> {
         itemBuilder: (context, index) {
           int half = (tournaments.length / 2).round().toInt();
           // ignore: avoid_print
-          print(tournaments.length);
-          print(tournaments);
-          print(index);
-          print(half + index);
+
           return Padding(
             padding: const EdgeInsets.all(4.0),
             child: Row(
