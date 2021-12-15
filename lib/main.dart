@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/admin-dashboard',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
