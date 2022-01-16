@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.liquid_bash">
+    package="com.example.liquid_bash" android:versionCode="1" android:versionName="1.0">
    <application
-        android:label="liquid_bash"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Liquid Bash"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
