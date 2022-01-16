@@ -12,6 +12,7 @@ class AddTournment extends StatefulWidget {
 
 class _AddTournmentState extends State<AddTournment> {
   bool passwordVisible = false;
+  
   void togglePassword() {
     setState(() {
       passwordVisible = !passwordVisible;
@@ -20,23 +21,24 @@ class _AddTournmentState extends State<AddTournment> {
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
-  String start_date = "";
-  String start_time = "";
-  String poster_image = "";
+  String startDate = "";
+  String startTime = "";
+  String posterImage = "";
   String contact = "";
-  String contact_url = "";
+  String contactUrl = "";
   String rules = "";
-  String prize_type = "";
-  String prize_amount = "";
-  String tournament_format = "";
+  String prizeType = "";
+  String prizeAmount = "";
+  String tournamentFormat = "";
   String platform = "";
-  String see_participants = "";
-  String participants_limit = "";
+  String seeParticipants = "";
+  String participantsLimit = "";
   String privacy = "";
 
-  TextEditingController start_dateController = TextEditingController();
+  TextEditingController startTimeController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
   final format = DateFormat("yyyy-MM-dd");
-
+  final timeFormat = DateFormat("hh:mm a");
   @override
   Widget build(BuildContext context) {
     CollectionReference tournaments = FirebaseFirestore.instance.collection('tournaments');
@@ -97,6 +99,7 @@ class _AddTournmentState extends State<AddTournment> {
                                 height: 20,
                               ),
                               DateTimeField(
+                                controller: startDateController,
                                 format: format,
                                 decoration: const InputDecoration(
                                   labelText: 'Start Date',
@@ -109,7 +112,6 @@ class _AddTournmentState extends State<AddTournment> {
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
                                   ),
                                 ),
-                                
                                 onShowPicker: (context, currentValue) {
                                   return showDatePicker(
                                       context: context,
@@ -117,14 +119,13 @@ class _AddTournmentState extends State<AddTournment> {
                                       initialDate: currentValue ?? DateTime.now(),
                                       lastDate: DateTime(2100));
                                 },
-                                onChanged: (value) {
-                                  start_date = value as String;
-                                }, 
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              TextFormField(
+                              DateTimeField(
+                                controller: startTimeController,
+                                format: timeFormat,
                                 decoration: const InputDecoration(
                                   labelText: 'Start Time',
                                   isDense: true,
@@ -136,13 +137,18 @@ class _AddTournmentState extends State<AddTournment> {
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)), borderSide: BorderSide(color: Colors.green),
                                   ),
                                 ),
-                                onChanged: (value) {
-                                  start_time = value;
+                                onShowPicker: (context, currentValue) async {
+                                  final TimeOfDay? time = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                                  );
+                                  return time == null ? null : DateTimeField.convert(time);
                                 },
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
+                              // image == null ? Text("Choose") : Image.file(image!),
                               TextFormField(
                                 decoration: const InputDecoration(
                                   labelText: 'Poster Image',
@@ -156,7 +162,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  poster_image = value;
+                                  posterImage = value;
                                 },
                               ),
                               const SizedBox(
@@ -198,7 +204,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  contact_url = value;
+                                  contactUrl = value;
                                 },
                               ),
                               const SizedBox(
@@ -247,7 +253,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  prize_type = value;
+                                  prizeType = value;
                                 },
                               ),
                               const SizedBox(
@@ -266,7 +272,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  prize_amount = value;
+                                  prizeAmount = value;
                                 },
                               ),
                               const SizedBox(
@@ -285,7 +291,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  tournament_format = value;
+                                  tournamentFormat = value;
                                 },
                               ),
                               const SizedBox(
@@ -327,7 +333,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  see_participants = value;
+                                  seeParticipants = value;
                                 },
                               ),
                               const SizedBox(
@@ -346,7 +352,7 @@ class _AddTournmentState extends State<AddTournment> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  participants_limit = value;
+                                  participantsLimit = value;
                                 },
                               ),
                               const SizedBox(
@@ -377,18 +383,18 @@ class _AddTournmentState extends State<AddTournment> {
                                     try {
                                       tournaments.add({
                                       'name': name,
-                                      'start_date': start_date,
-                                      'start_time': start_time,
-                                      'img': poster_image,
+                                      'start_date': startDateController.text,
+                                      'start_time': startTimeController.text,
+                                      'img': posterImage,
                                       'contact': contact,
-                                      'contact_url': contact_url,
+                                      'contact_url': contactUrl,
                                       'rules': rules,
-                                      'prize_type': prize_type,
-                                      'prize_amount': prize_amount,
-                                      'tournament_format': tournament_format,
+                                      'prize_type': prizeType,
+                                      'prize_amount': prizeAmount,
+                                      'tournament_format': tournamentFormat,
                                       'platform': platform,
-                                      'see_participants': see_participants,
-                                      'participants_limit': participants_limit,
+                                      'see_participants': seeParticipants,
+                                      'participants_limit': participantsLimit,
                                       'privacy': privacy,
                                     });
                                     const snackBar = SnackBar(duration: Duration(seconds: 3),content: Text("Tournament Added"));

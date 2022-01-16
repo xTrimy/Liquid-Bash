@@ -41,7 +41,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.23.0+1
   email_validator: ^2.0.1
-  image_picker: ^0.8.4+1
   path_provider: ^2.0.4
   string_validator: ^0.3.0
   page_transition: ^2.0.4
@@ -50,8 +49,10 @@ dependencies:
   url_launcher: ^6.0.15
   http: ^0.13.4
   json_helpers: ^0.1.5
+  image_picker: ^0.8.4+4
 
 dev_dependencies:
+  flutter_lints: ^1.0.0
   flutter_launcher_icons: "^0.9.2"
   flutter_test:
     sdk: flutter
@@ -66,7 +67,7 @@ flutter_icons:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
