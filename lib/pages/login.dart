@@ -1,15 +1,61 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
-  LoginPageState createState() => LoginPageState();
+  _SignInState createState() => _SignInState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class _SignInState extends State<SignIn> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: SignInForm(),
+    );
+  }
+}
+
+class SignInForm extends StatefulWidget {
+  const SignInForm({Key? key}) : super(key: key);
+
+  @override
+  FormContainer createState() {
+    return FormContainer();
+  }
+}
+
+class TopBanner extends StatelessWidget {
+  const TopBanner({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double height = 250;
+    return Stack(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          child: Image.asset(
+            'assets/valorant.jpg',
+            height: height,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          color: const Color.fromRGBO(0, 0, 0, 0.4),
+          height: height,
+          width: double.infinity,
+        ),
+      ],
+    );
+  }
+}
+
+class FormContainer extends State<SignInForm> {
   bool passwordVisible = false;
   void togglePassword() {
     setState(() {
@@ -19,32 +65,21 @@ class LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String email = '';
-  String password = '';
+  String email = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
     double width = (MediaQuery.of(context).size.width) - 30;
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: ListView(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 250.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/login.jpg'),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.9), BlendMode.softLight),
-                ),
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
+    return Column(
+      children: [
+        const TopBanner(),
+        Form(
+          key: _formKey,
+          child: Expanded(
+            child: ListView(
+              children: [
+                Column(
                 children: [
                   Container(
                       height: (MediaQuery.of(context).size.height - 335),
@@ -141,84 +176,81 @@ class LoginPageState extends State<LoginPage> {
                         ],
                       )),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Expanded(
-                        child: ButtonBar(
+                    child: ButtonBar(
                       alignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          child: const Text(
-                            "Create Account ?\n SIGN UP",
-                            textAlign: TextAlign.center,
+                    ElevatedButton(
+                      child: const Text(
+                        "Create Account ?\n SIGN UP",
+                        textAlign: TextAlign.center,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).canvasColor,
+                          minimumSize: Size(width / 2, 48),
+                          onPrimary: Colors.white,
+                          elevation: 0,
+                          textStyle: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)
                           ),
-                          style: ElevatedButton.styleFrom(
-                              primary: Theme.of(context).canvasColor,
-                              minimumSize: Size(width / 2, 48),
-                              onPrimary: Colors.white,
-                              elevation: 0,
-                              textStyle: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold)
-                              // takes postional arguments as width and height
-                              ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/signup");
-                          },
-                        ),
-                        ElevatedButton(
-                          child: const Text("SIGN IN"),
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(width / 2,
-                                48), // takes postional arguments as width and height
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              try {
-                                UserCredential userCredential =
-                                    await FirebaseAuth.instance
-                                        .signInWithEmailAndPassword(
-                                            email: email, password: password);
-                                const snackBar = SnackBar(
-                                    duration: Duration(seconds: 3),
-                                    content: Text("Logged In"));
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                await Future.delayed(
-                                    const Duration(seconds: 2), () {});
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                                ;
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'user-not-found') {
-                                  const snackBar = SnackBar(
-                                      duration: Duration(seconds: 5),
-                                      content: Text(
-                                          "No user found for that email."));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                } else if (e.code == 'wrong-password') {
-                                  const snackBar = SnackBar(
-                                      duration: Duration(seconds: 5),
-                                      content: Text(
-                                          "Wrong password provided for that user."));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                }
-                              }
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   const SnackBar(content: Text('data')),
-                              // );
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/signup");
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text("SIGN IN"),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(width / 2,48),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          try {
+                            UserCredential userCredential =
+                                await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: email, password: password);
+                            const snackBar = SnackBar(
+                                duration: Duration(seconds: 3),
+                                content: Text("Logged In"));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                            await Future.delayed(
+                                const Duration(seconds: 2), () {});
+                            Navigator.of(context, rootNavigator: true)
+                                .pop();
+                            ;
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              const snackBar = SnackBar(
+                                  duration: Duration(seconds: 5),
+                                  content: Text(
+                                      "No user found for that email."));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (e.code == 'wrong-password') {
+                              const snackBar = SnackBar(
+                                  duration: Duration(seconds: 5),
+                                  content: Text(
+                                      "Wrong password provided for that user."));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             }
-                          },
-                        ),
+                          }
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(content: Text('data')),
+                          // );
+                        }
+                      },
+                    ),
                       ],
-                    )),
+                    ),
                   ),
                 ],
               ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ]
     );
   }
 }

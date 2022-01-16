@@ -52,13 +52,13 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/add-tournment',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
-        '/login': (context) => const LoginPage(),
+        '/login': (context) => const SignIn(),
         '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
         '/add-tournment': (context) => const AddTournment(),
@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
               )),
           colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: MaterialColor(0xff00FFA8, const {}),
+                  primarySwatch: const MaterialColor(0xff00FFA8, {}),
                   brightness: Brightness.dark)
               .copyWith(secondary: Colors.greenAccent.shade700)),
     );
