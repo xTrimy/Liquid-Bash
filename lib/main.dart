@@ -22,6 +22,7 @@ import 'pages/registration.dart';
 import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
+import 'pages/tournament_brackets.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/admin-dashboard',
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
         '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
         '/upgradetopro': (context) => UpgradeToPro(),
+        '/tournament_brackets': (context) => const TournamentBrackets(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
