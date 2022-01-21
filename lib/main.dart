@@ -18,6 +18,9 @@ import 'package:liquid_bash/pages/edit_profile_page.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
+import 'package:liquid_bash/pages/history_page.dart';
+import 'package:liquid_bash/pages/participants_page.dart';
+import 'package:liquid_bash/pages/tournament_register.dart';
 import 'pages/registration.dart';
 import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/tournament_register',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
@@ -71,6 +74,9 @@ class MyApp extends StatelessWidget {
         '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
         '/upgradetopro': (context) => UpgradeToPro(),
+        '/HistoryPage': (context) => HistoryPage(),
+        '/participants_page': (context) => ParticipantsPage(),
+        '/tournament_register': (context) => TournamentRegister(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
