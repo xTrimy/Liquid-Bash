@@ -1,6 +1,10 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/services/users_service.dart';
+import 'package:provider/provider.dart';
 
 class CategorySelectionPage extends StatefulWidget {
   const CategorySelectionPage({Key? key}) : super(key: key);
@@ -10,8 +14,26 @@ class CategorySelectionPage extends StatefulWidget {
 }
 
 class _CategorySelectionPageState extends State<CategorySelectionPage> {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  var currentUser = FirebaseAuth.instance.currentUser;
+
+  Future<void> updateUserLoggedIn({required uid}) async {
+    var document = null;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('uid', isEqualTo: uid)
+        .get()
+        .then((doc) {
+      document = (doc.docs.first.id); // For doc name
+    });
+    return await users.doc(document).update({'logged_in': true}).catchError(
+        (error) => print("Failed to update user: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
+    UserService userService = Provider.of<UserService>(context, listen: false);
+    bool loggedInBefore = userService.getIsLoggedInBefore();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -31,6 +53,19 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
               height: MediaQuery.of(context).size.height - 250,
               child: Stack(
                 children: [
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                          child: Text("Back to Home"),
+                          onPressed: () {
+                            loggedInBefore = true;
+                            updateUserLoggedIn(uid: currentUser!.uid);
+                          }),
+                    ),
+                  ),
                   SwipeCard(
                       image:
                           "https://amayei.nyc3.digitaloceanspaces.com/2021/06/fortnite-button-1520296499714.jpg"),

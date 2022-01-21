@@ -23,6 +23,7 @@ class _TournamentsPageState extends State<TournamentsPage> {
       torService.getTournamentsCollectionFromFirebase().then((value) {});
     });
     List<Tournament> tournaments = torService.getTorunaments();
+    print(tournaments[0].status);
     final double _width = MediaQuery.of(context).size.width;
     if (!torService.getIsLoaded()) {
       return SizedBox(
@@ -57,10 +58,7 @@ class _TournamentsPageState extends State<TournamentsPage> {
         itemBuilder: (context, index) {
           int half = (tournaments.length / 2).round().toInt();
           // ignore: avoid_print
-          print(tournaments.length);
-          print(tournaments);
-          print(index);
-          print(half + index);
+
           return Padding(
             padding: const EdgeInsets.all(4.0),
             child: Row(

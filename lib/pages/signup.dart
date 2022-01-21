@@ -251,6 +251,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                               .add({
                                 'uid': uidd,
                                 'name': name,
+                                'logged_in': false,
                                 'bdate': bdateController.text,
                               })
                               .then((value) => print("User Added"))

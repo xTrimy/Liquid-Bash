@@ -164,7 +164,6 @@ class _EventDetailsState extends State<EventDetails> {
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_print
-    print(scrollAtTop);
     return ListView(
       controller: widget.scrollController,
       shrinkWrap: true,

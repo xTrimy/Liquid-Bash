@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
-import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
 import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
+import 'package:liquid_bash/services/users_service.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
@@ -32,6 +32,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => TournamentService()),
         ChangeNotifierProvider(create: (_) => NewsService()),
+        ChangeNotifierProvider(create: (_) => UserService()),
       ],
       child: const MyApp(),
     ),
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/admin-dashboard',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => const EventPage(),
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'Liquid Bash',
       theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFF1E1F23),
           // brightness: Brightness.dark,
           primaryColor: Colors.white,
           primaryColorLight: Color(0xff333539),
