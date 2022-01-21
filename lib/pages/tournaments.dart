@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/tournament_card_sheet.dart';
+import 'package:liquid_bash/models/organizer.dart';
 import 'package:liquid_bash/models/tournament.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +19,10 @@ class _TournamentsPageState extends State<TournamentsPage> {
   Widget build(BuildContext context) {
     TournamentService torService =
         Provider.of<TournamentService>(context, listen: true);
-    Future.delayed(Duration(seconds: 0), () async {
+    Future.delayed(Duration(seconds: 1), () async {
       torService.getTournamentsCollectionFromFirebase().then((value) {});
     });
     List<Tournament> tournaments = torService.getTorunaments();
-    print(tournaments[0].status);
     final double _width = MediaQuery.of(context).size.width;
     if (!torService.getIsLoaded()) {
       return SizedBox(
@@ -68,12 +68,14 @@ class _TournamentsPageState extends State<TournamentsPage> {
                   title: tournaments[index].name!,
                   image: tournaments[index].img!,
                   status: tournaments[index].status!,
+                  organizer: tournaments[index].organizer!,
                 ),
                 (tournaments.length > half + index)
                     ? TournamentCard(
                         title: tournaments[half + index].name!,
                         image: tournaments[half + index].img!,
                         status: tournaments[half + index].status!,
+                        organizer: tournaments[half + index].organizer!,
                       )
                     : Container(),
               ],
@@ -89,12 +91,14 @@ class TournamentCard extends StatelessWidget {
   final String title;
   final String image;
   final String status;
-  const TournamentCard({
-    Key? key,
-    required this.title,
-    required this.image,
-    required this.status,
-  }) : super(key: key);
+  final Organizer organizer;
+  const TournamentCard(
+      {Key? key,
+      required this.title,
+      required this.image,
+      required this.status,
+      required this.organizer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +140,18 @@ class TournamentCard extends StatelessWidget {
             isScrollControlled: true,
             context: context,
             builder: (context) {
-              return const TournamentCardSheet();
+              return TournamentCardSheet(
+                name: title,
+                image: image,
+                status: status,
+                organizer: organizer,
+              );
             }),
-        onTap: () => Navigator.pushNamed(context, "/event"),
+        onTap: () => Navigator.pushNamed(context, "/event", arguments: {
+          'img': image,
+          'name': title,
+          'status': status,
+        }),
         child: SizedBox(
           width: _width * 0.5 - 25,
           child: Column(

@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:liquid_bash/models/organizer.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
 import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
@@ -7,6 +8,7 @@ import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
 import 'package:liquid_bash/services/game_service.dart';
+import 'package:liquid_bash/services/organizer_service.dart';
 import 'package:liquid_bash/services/users_service.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
@@ -35,6 +37,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => NewsService()),
         ChangeNotifierProvider(create: (_) => UserService()),
         ChangeNotifierProvider(create: (_) => GameService()),
+        ChangeNotifierProvider(create: (_) => OrganizerService()),
       ],
       child: const MyApp(),
     ),
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/admin-dashboard',
       routes: {
         '/': (context) => const HomePage(),
-        '/event': (context) => const EventPage(),
+        '/event': (context) => EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
         '/login': (context) => const LoginPage(),
