@@ -23,6 +23,7 @@ class _TournamentsPageState extends State<TournamentsPage> {
       torService.getTournamentsCollectionFromFirebase().then((value) {});
     });
     List<Tournament> tournaments = torService.getTorunaments();
+    print(tournaments[0].status);
     final double _width = MediaQuery.of(context).size.width;
     if (!torService.getIsLoaded()) {
       return SizedBox(

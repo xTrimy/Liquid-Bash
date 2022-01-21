@@ -25,7 +25,10 @@ class TournamentService extends ChangeNotifier {
     for (var element in allData) {
       notifyListeners();
       Tournament tournament = Tournament.fromJson(element);
-      _tournaments.add(tournament);
+      if (tournament.status != null &&
+          tournament.name != null &&
+          tournament.date != null &&
+          tournament.img != null) _tournaments.add(tournament);
       _isLoaded = true;
     }
   }
