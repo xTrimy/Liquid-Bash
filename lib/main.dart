@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:liquid_bash/models/organizer.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
-import 'package:liquid_bash/pages/edit_user.dart';
+import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
 import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
+import 'package:liquid_bash/services/game_service.dart';
+import 'package:liquid_bash/services/organizer_service.dart';
+import 'package:liquid_bash/services/users_service.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
 import 'package:liquid_bash/models/news.dart';
@@ -35,6 +38,9 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => TournamentService()),
         ChangeNotifierProvider(create: (_) => NewsService()),
+        ChangeNotifierProvider(create: (_) => UserService()),
+        ChangeNotifierProvider(create: (_) => GameService()),
+        ChangeNotifierProvider(create: (_) => OrganizerService()),
       ],
       child: const MyApp(),
     ),
@@ -59,10 +65,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/tournament_register',
       routes: {
         '/': (context) => const HomePage(),
-        '/event': (context) => const EventPage(),
+        '/event': (context) => EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
-        '/login': (context) => const LoginPage(),
+        '/login': (context) => const SignIn(),
         '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
         '/add-tournment': (context) => const AddTournment(),
@@ -73,16 +79,15 @@ class MyApp extends StatelessWidget {
         '/homeloggedt': (context) => const HomeLoggedT(),
         '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
-        '/upgradetopro': (context) => UpgradeToPro(),
-        '/HistoryPage': (context) => HistoryPage(),
-        '/participants_page': (context) => ParticipantsPage(),
         '/tournament_register': (context) => TournamentRegister(),
+        '/upgradetopro': (context) => const UpgradeToPro(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFF1E1F23),
           // brightness: Brightness.dark,
           primaryColor: Colors.white,
-          primaryColorLight: Colors.grey.shade700,
+          primaryColorLight: Color(0xff333539),
           primaryColorDark: Colors.grey.shade900,
           accentColor: mainGreenColor,
           focusColor: mainGreenColor,
@@ -97,12 +102,12 @@ class MyApp extends StatelessWidget {
           primaryIconTheme: const IconThemeData(color: Colors.white),
           appBarTheme: AppBarTheme(
               centerTitle: true,
-              color: Colors.grey.shade900,
+              color: Color(0xff333539),
               titleTextStyle: const TextStyle(
                 color: Colors.white,
               )),
           colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: MaterialColor(0xff00FFA8, const {}),
+                  primarySwatch: const MaterialColor(0xff00FFA8, {}),
                   brightness: Brightness.dark)
               .copyWith(secondary: Colors.greenAccent.shade700)),
     );

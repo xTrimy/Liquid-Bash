@@ -239,6 +239,8 @@ class MyCustomerFormState extends State<MyCustomForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
+                          CollectionReference users =
+                              FirebaseFirestore.instance.collection('users');
                           UserCredential userCredential = await FirebaseAuth
                               .instance
                               .createUserWithEmailAndPassword(
@@ -247,15 +249,12 @@ class MyCustomerFormState extends State<MyCustomForm> {
 
                           var uidd = currentUser!.uid;
 
-                          users
-                              .add({
-                                'uid': uidd,
-                                'name': name,
-                                'bdate': bdateController.text,
-                              })
-                              .then((value) => print("User Added"))
-                              .catchError((error) =>
-                                  print("Failed to add user: $error"));
+                          users.add({
+                            'uid': uidd,
+                            'logged_in': false,
+                            'name': name,
+                            'bdate': bdateController.text,
+                          });
 
                           const snackBar = SnackBar(
                               duration: Duration(seconds: 3),

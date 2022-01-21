@@ -19,16 +19,14 @@ class NewsService extends ChangeNotifier {
   Future<void> fetchNews() async {
     if (_news.length > 0) return;
 
-    final response =
-        await http.get(Uri.parse('https://api.gamerslegacy.net/news/api/news'));
+    final response = await http.get(
+        Uri.parse('https://api.gamerslegacy.net/news/api/news/with_image'));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       var allData = jsonDecode(utf8.decode(response.bodyBytes));
 
       allData.forEach((element) {
-        print("x");
-        print(element);
         notifyListeners();
         News news = News.fromJson(element);
         _news.add(news);

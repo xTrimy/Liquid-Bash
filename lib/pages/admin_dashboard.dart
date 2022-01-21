@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/pages/view_users.dart';
 
 class Adminhome extends StatelessWidget {
   Widget _buildcontainer(
-      {IconData? icon, int? count, String? name, BuildContext? context}) {
+      {IconData? icon,
+      int? count,
+      String? name,
+      BuildContext? context,
+      String? path}) {
     return Card(
       child: Container(
         child: Column(
@@ -11,7 +16,11 @@ class Adminhome extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 35, color: Colors.white),
+                IconButton(
+                  icon: Icon(icon),
+                  color: Colors.white,
+                  onPressed: () {},
+                ),
                 SizedBox(
                   width: 20,
                 ),
@@ -86,11 +95,16 @@ class Adminhome extends StatelessWidget {
                     crossAxisSpacing: 5,
                     crossAxisCount: 2,
                     children: [
-                      _buildcontainer(
-                        context: context,
-                        count: 20,
-                        icon: Icons.person,
-                        name: "User",
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/view-users");
+                        },
+                        child: _buildcontainer(
+                          context: context,
+                          count: 9,
+                          icon: Icons.person,
+                          name: "User",
+                        ),
                       ),
                       _buildcontainer(
                         context: context,
