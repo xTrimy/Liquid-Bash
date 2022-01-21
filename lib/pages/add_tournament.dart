@@ -1,7 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
+
+import 'notification.dart';
+
+
+
+class PushNotification {
+  PushNotification({
+    this.title,
+    this.body,
+  });
+  String? title;
+  String? body;
+}
 
 class AddTournment extends StatefulWidget {
   const AddTournment({Key? key}) : super(key: key);
@@ -11,6 +25,67 @@ class AddTournment extends StatefulWidget {
 }
 
 class _AddTournmentState extends State<AddTournment> {
+
+    String messageTitle = "Empty";
+    String notificationAlert = "alert";
+    String notificationData = "Data";
+
+
+    late int _totalNotifications;
+
+    late final FirebaseMessaging _messaging;
+
+    void registerNotification() async {
+
+    // 2. Instantiate Firebase Messaging
+    _messaging = FirebaseMessaging.instance;
+
+    // 3. On iOS, this helps to take the user permissions
+    NotificationSettings settings = await _messaging.requestPermission(
+      alert: true,
+      badge: true,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      // Parse the message received
+      PushNotification notification = PushNotification(
+        title: message.notification?.title,
+        body: message.notification?.body,
+      );
+
+      setState(() {
+        var _notificationInfo = notification;
+        _totalNotifications++;
+      });
+    });
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+  
+
+  @override
+  void initState() {
+    _totalNotifications = 0;
+
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+
+    firebaseMessaging.streamCtlr.stream.listen(_changeData);
+    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+
+    super.initState();
+  }
+
+  _changeData(String msg) => setState(() => notificationData = msg);
+  _changeBody(String msg) => setState(() => notificationAlert = msg);
+  _changeTitle(String msg) => setState(() => messageTitle = msg);
+
   bool passwordVisible = false;
   
   void togglePassword() {

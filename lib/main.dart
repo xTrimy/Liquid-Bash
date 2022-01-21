@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         '/homeloggedt': (context) => const HomeLoggedT(),
         '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
-        '/upgradetopro': (context) => UpgradeToPro(),
+        '/upgradetopro': (context) => const UpgradeToPro(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(

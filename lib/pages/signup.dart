@@ -239,27 +239,21 @@ class MyCustomerFormState extends State<MyCustomForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          UserCredential userCredential = await FirebaseAuth
-                              .instance
-                              .createUserWithEmailAndPassword(
-                                  email: email, password: password);
+                          CollectionReference users = FirebaseFirestore.instance.collection('users');
+                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              email: email, 
+                              password: password
+                          );
                           var currentUser = FirebaseAuth.instance.currentUser;
 
                           var uidd = currentUser!.uid;
 
-                          users
-                              .add({
-                                'uid': uidd,
-                                'name': name,
-                                'bdate': bdateController.text,
-                              })
-                              .then((value) => print("User Added"))
-                              .catchError((error) =>
-                                  print("Failed to add user: $error"));
+                          users.add({'uid': uidd,'name': name,'bdate': bdateController.text,});
 
                           const snackBar = SnackBar(
                               duration: Duration(seconds: 3),
-                              content: Text("Sucessfully Registered"));
+                              content: Text("Sucessfully Registered")
+                              );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           await Future.delayed(
                               const Duration(seconds: 2), () {});
