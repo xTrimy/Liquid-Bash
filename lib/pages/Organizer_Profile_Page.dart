@@ -6,7 +6,7 @@ class OrganizerProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<OrganizerProfilePage> {
   bool _isOpen = false;
   PanelController _panelController = PanelController();
   var _imageList = [
