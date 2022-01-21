@@ -19,7 +19,6 @@ class _TournamentsPageState extends State<TournamentsPage> {
     TournamentService torService =
         Provider.of<TournamentService>(context, listen: true);
     Future.delayed(Duration(seconds: 0), () async {
-      FirebaseApp app = await Firebase.initializeApp();
       torService.getTournamentsCollectionFromFirebase().then((value) {});
     });
     List<Tournament> tournaments = torService.getTorunaments();
