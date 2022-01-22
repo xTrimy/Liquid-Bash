@@ -6,6 +6,7 @@ import 'package:liquid_bash/services/organizer_service.dart';
 import 'package:provider/provider.dart';
 
 class Tournament {
+  String id;
   String? name;
   String? img;
   String? status;
@@ -14,6 +15,7 @@ class Tournament {
   List<Game> games;
   Tournament(
       {this.name,
+      required this.id,
       this.img,
       this.status,
       this.date,
@@ -22,10 +24,11 @@ class Tournament {
 
   factory Tournament.fromJson(Map json, Map organizerData, List<Game> games) {
     return Tournament(
-      name: json['name'],
-      img: json['img'],
-      status: json['status'],
-      date: json['date'],
+      name: json['data']['name'],
+      id: json['id'],
+      img: json['data']['img'],
+      status: json['data']['status'],
+      date: json['data']['date'],
       organizer: Organizer.fromJson(organizerData),
       games: games,
     );

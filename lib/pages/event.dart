@@ -196,7 +196,11 @@ class _EventDetailsState extends State<EventDetails> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/register");
+                  Navigator.pushNamed(context, "/tournament_register",
+                      arguments: {
+                        "name": widget.eventData["name"],
+                        "index": widget.eventData["index"]
+                      });
                 },
                 child: const Text(
                   "Register Now",
