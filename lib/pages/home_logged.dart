@@ -102,6 +102,14 @@ class _HomeLoggedState extends State<HomeLogged> {
             },
             child: const Text("Sign Out"),
           ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
+            child: const Text("Search"),
+          ),
+          
         ],
       ),
     );

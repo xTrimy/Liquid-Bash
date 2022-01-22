@@ -33,9 +33,12 @@ class _SearchState extends State<Search> {
           int half = (tournaments.length / 2).round().toInt();
           return GestureDetector(
             onTap: () {
-              Get.to(TournamentsPage(),
-                  transition: Transition.downToUp,
-                  arguments: tournaments[index]);
+              // Get.to(TournamentsPage(),transition: Transition.downToUp,arguments: tournaments[index]);
+              Navigator.pushNamed(context, "/event", arguments: {
+          'img': tournaments[index].img!,
+          'name': tournaments[index].name!,
+          'status': tournaments[index].status,
+        });
             },
             child: ListTile(
               leading: CircleAvatar(
@@ -70,7 +73,6 @@ class _SearchState extends State<Search> {
           });
         },
       ),
-      backgroundColor: Colors.black,
       appBar: AppBar(
         actions: [
           GetBuilder<DataController>(
@@ -95,7 +97,6 @@ class _SearchState extends State<Search> {
               hintStyle: TextStyle(color: Colors.white)),
           controller: searchController,
         ),
-        backgroundColor: Colors.black,
       ),
       body: isExcecuted
           ? searchedData()
