@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/styles.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
 
-class EventPage extends StatelessWidget {
-  const EventPage({Key? key}) : super(key: key);
+class EventPage extends StatefulWidget {
+  EventPage({Key? key}) : super(key: key);
 
   @override
+  State<EventPage> createState() => _EventPageState();
+}
+
+class _EventPageState extends State<EventPage> {
+  @override
   Widget build(BuildContext context) {
+    final Map eventData = ModalRoute.of(context)!.settings.arguments as Map;
     ScrollController scrollController = ScrollController();
     return Scaffold(
       //1
@@ -19,14 +25,8 @@ class EventPage extends StatelessWidget {
             pinned: true,
             expandedHeight: 250.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('Tournament Name',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                  textScaleFactor: 1),
-              background: Image.asset(
-                'assets/valorant.jpg',
+              background: Image.network(
+                eventData["img"],
                 fit: BoxFit.fill,
               ),
             ),
@@ -37,6 +37,7 @@ class EventPage extends StatelessWidget {
               (_, int index) {
                 return EventDetails(
                   scrollController: scrollController,
+                  eventData: eventData,
                 );
               },
               childCount: 1,
@@ -49,8 +50,10 @@ class EventPage extends StatelessWidget {
 }
 
 class EventDetails extends StatefulWidget {
+  final Map eventData;
   final ScrollController scrollController;
-  const EventDetails({Key? key, required this.scrollController})
+  const EventDetails(
+      {Key? key, required this.scrollController, required this.eventData})
       : super(key: key);
 
   @override
@@ -58,7 +61,6 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
-  @override
   @override
   Widget build(BuildContext context) {
     const edgeInsets = EdgeInsets.symmetric(vertical: 10, horizontal: 20);
@@ -77,9 +79,9 @@ class _EventDetailsState extends State<EventDetails> {
                   width: 2,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Text(
-                      "Gamers Lounge Summer Cup v",
+                      widget.eventData["name"],
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),

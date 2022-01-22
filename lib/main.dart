@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:liquid_bash/models/organizer.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
 import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
@@ -6,6 +7,8 @@ import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
 import 'package:liquid_bash/pages/view_users.dart';
+import 'package:liquid_bash/services/game_service.dart';
+import 'package:liquid_bash/services/organizer_service.dart';
 import 'package:liquid_bash/services/users_service.dart';
 import 'package:provider/provider.dart';
 import 'package:liquid_bash/components/drawer.dart';
@@ -34,6 +37,8 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => TournamentService()),
         ChangeNotifierProvider(create: (_) => NewsService()),
         ChangeNotifierProvider(create: (_) => UserService()),
+        ChangeNotifierProvider(create: (_) => GameService()),
+        ChangeNotifierProvider(create: (_) => OrganizerService()),
       ],
       child: const MyApp(),
     ),
@@ -58,10 +63,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
-        '/event': (context) => const EventPage(),
+        '/event': (context) => EventPage(),
         '/register': (context) => const RegistrationPage(),
         '/signup': (context) => const SignUp(),
-        '/login': (context) => const LoginPage(),
+        '/login': (context) => const SignIn(),
         '/view-users': (context) => const ViewUsers(),
         '/profile-settings': (context) => Container(),
         '/add-tournment': (context) => const AddTournment(),
@@ -72,7 +77,7 @@ class MyApp extends StatelessWidget {
         '/homeloggedt': (context) => const HomeLoggedT(),
         '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
-        '/upgradetopro': (context) => UpgradeToPro(),
+        '/upgradetopro': (context) => const UpgradeToPro(),
         '/tournament_brackets': (context) => const TournamentBrackets(),
       },
       title: 'Liquid Bash',
@@ -100,7 +105,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
               )),
           colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: MaterialColor(0xff00FFA8, const {}),
+                  primarySwatch: const MaterialColor(0xff00FFA8, {}),
                   brightness: Brightness.dark)
               .copyWith(secondary: Colors.greenAccent.shade700)),
     );

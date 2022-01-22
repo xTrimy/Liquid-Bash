@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:liquid_bash/models/organizer.dart';
 import 'package:liquid_bash/models/tournament.dart';
+import 'package:liquid_bash/services/organizer_service.dart';
 
 class TournamentService extends ChangeNotifier {
   FirebaseFirestore? _instance;
@@ -24,7 +26,10 @@ class TournamentService extends ChangeNotifier {
     final allData = List.from(querySnapshot.docs.map((doc) => doc.data()));
     for (var element in allData) {
       notifyListeners();
-      Tournament tournament = Tournament.fromJson(element);
+      OrganizerService organizerService = new OrganizerService();
+      Map organizerData = await organizerService
+          .fetchOrganizer(element['organizer'].toString().split('/')[1]);
+      Tournament tournament = Tournament.fromJson(element, organizerData);
       if (tournament.status != null &&
           tournament.name != null &&
           tournament.date != null &&

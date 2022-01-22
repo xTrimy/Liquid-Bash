@@ -1,17 +1,63 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:liquid_bash/services/users_service.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
-  LoginPageState createState() => LoginPageState();
+  _SignInState createState() => _SignInState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class _SignInState extends State<SignIn> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: SignInForm(),
+    );
+  }
+}
+
+class SignInForm extends StatefulWidget {
+  const SignInForm({Key? key}) : super(key: key);
+
+  @override
+  FormContainer createState() {
+    return FormContainer();
+  }
+}
+
+class TopBanner extends StatelessWidget {
+  const TopBanner({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double height = 250;
+    return Stack(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          child: Image.asset(
+            'assets/valorant.jpg',
+            height: height,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          color: const Color.fromRGBO(0, 0, 0, 0.4),
+          height: height,
+          width: double.infinity,
+        ),
+      ],
+    );
+  }
+}
+
+class FormContainer extends State<SignInForm> {
   bool passwordVisible = false;
   void togglePassword() {
     setState(() {
@@ -21,32 +67,20 @@ class LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String email = '';
-  String password = '';
+  String email = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
     double width = (MediaQuery.of(context).size.width) - 30;
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: ListView(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 250.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/login.jpg'),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.9), BlendMode.softLight),
-                ),
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
+    return Column(children: [
+      const TopBanner(),
+      Form(
+        key: _formKey,
+        child: Expanded(
+          child: ListView(
+            children: [
+              Column(
                 children: [
                   Container(
                       height: (MediaQuery.of(context).size.height - 335),
@@ -143,9 +177,7 @@ class LoginPageState extends State<LoginPage> {
                         ],
                       )),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Expanded(
-                        child: ButtonBar(
+                    child: ButtonBar(
                       alignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
@@ -159,9 +191,7 @@ class LoginPageState extends State<LoginPage> {
                               onPrimary: Colors.white,
                               elevation: 0,
                               textStyle: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold)
-                              // takes postional arguments as width and height
-                              ),
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
                           onPressed: () {
                             Navigator.pushNamed(context, "/signup");
                           },
@@ -169,8 +199,7 @@ class LoginPageState extends State<LoginPage> {
                         ElevatedButton(
                           child: const Text("SIGN IN"),
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(width / 2,
-                                48), // takes postional arguments as width and height
+                            minimumSize: Size(width / 2, 48),
                           ),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
@@ -179,10 +208,12 @@ class LoginPageState extends State<LoginPage> {
                                     await FirebaseAuth.instance
                                         .signInWithEmailAndPassword(
                                             email: email, password: password);
-
                                 const snackBar = SnackBar(
                                     duration: Duration(seconds: 3),
                                     content: Text("Logged In"));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+
                                 UserService userService =
                                     Provider.of<UserService>(context,
                                         listen: false);
@@ -219,14 +250,14 @@ class LoginPageState extends State<LoginPage> {
                           },
                         ),
                       ],
-                    )),
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    );
+    ]);
   }
 }
