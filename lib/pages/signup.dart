@@ -137,7 +137,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(
+                TextFormField( 
                     decoration: const InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
@@ -249,11 +249,16 @@ class MyCustomerFormState extends State<MyCustomForm> {
 
                           var uidd = currentUser!.uid;
 
-                          users.add({
+                          FirebaseFirestore.instance.collection("users").doc(uidd).set({
                             'uid': uidd,
                             'logged_in': false,
                             'name': name,
                             'bdate': bdateController.text,
+                            'about': " ",
+                            'image': "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+                            'ranking': "0.0",
+                            'followers': "0",
+                            'following': "0",
                           });
 
                           const snackBar = SnackBar(

@@ -9,14 +9,14 @@ class EditProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Profile"),
+        title: const Text("Edit Profile"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
           children: [
-            ProfilePicture(),
-            SizedBox(
+            const ProfilePicture(),
+            const SizedBox(
               height: 20,
             ),
             EditProfileForm(),
@@ -54,18 +54,18 @@ class EditProfileForm extends StatelessWidget {
     return Form(
       child: Expanded(
         child: ListView(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12.0),
           children: [
-            Text("Username", style: TextStyle(fontSize: 15)),
+            const Text("Username", style: TextStyle(fontSize: 15)),
             TextFormField(
               initialValue: UserPreferences.myUser.username,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person), hintText: "Username"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text("Email Address", style: TextStyle(fontSize: 15)),
+            const Text("Email Address", style: TextStyle(fontSize: 15)),
             TextFormField(
               initialValue: UserPreferences.myUser.email,
               decoration: const InputDecoration(

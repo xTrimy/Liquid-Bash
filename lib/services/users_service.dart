@@ -48,6 +48,7 @@ class UserService extends ChangeNotifier {
     notifyListeners();
     _isGamesLoaded = true;
   }
+  
 
   List<Game> getUserGames() {
     return games;

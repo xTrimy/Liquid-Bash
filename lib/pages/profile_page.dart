@@ -20,6 +20,11 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String name = "";
   String email = "";
+  String about = "";
+  String image = "";
+
+  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
   List<Game> games = [];
   UserService? userService = null;
   ScrollController _controller = ScrollController();
@@ -33,51 +38,140 @@ class _ProfilePageState extends State<ProfilePage> {
     _controller = ScrollController();
     super.initState();
   }
+  
 
   @override
   Widget build(BuildContext context) {
+    
     userService = Provider.of<UserService>(context, listen: true);
 
-    final user = UserPreferences.myUser;
     var currentUser = FirebaseAuth.instance.currentUser;
 
     email = currentUser!.email!;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        name = doc["name"];
-        // email = doc["email"];
-      });
-    });
-
-    // user.name = name;
-
     return SizedBox(
       height: double.infinity,
-      child: ListView(
-        children: [
-          const SizedBox(height: 24),
-          ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () async {},
-          ),
-          const SizedBox(height: 24),
-          buildName(name, email),
-          const SizedBox(height: 24),
-          Center(
-            child: buildEditProfileButton(),
-          ),
-          const SizedBox(height: 5),
-          Center(child: buildUpgradeButton()),
-          const SizedBox(height: 24),
-          NumbersWidget(),
-          const SizedBox(height: 48),
-          buildAbout(user),
-          const SizedBox(height: 24),
-        ],
+      child: StreamBuilder<DocumentSnapshot>(
+        stream: usersCollection.doc(currentUser.uid).snapshots(),
+        builder: (context, streamSnapshot) {
+          if (streamSnapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              );
+            }
+          return ListView(
+            children: [
+              const SizedBox(height: 24),
+              ProfileWidget(
+                imagePath: streamSnapshot.data!['image'],
+                onClicked: () async {},
+              ),
+              const SizedBox(height: 24),
+              buildName(streamSnapshot.data!['name'], email),
+              const SizedBox(height: 24),
+              Center(
+                child: buildEditProfileButton(),
+              ),
+              const SizedBox(height: 5),
+              Center(child: buildUpgradeButton()),
+              const SizedBox(height: 24),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MaterialButton(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      onPressed: () {},
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            streamSnapshot.data!['ranking'],
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.white),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Ranking',
+                            style:
+                                TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                      width: 5,
+                      child: VerticalDivider(color: Colors.white),
+                    ),
+                    MaterialButton(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      onPressed: () {},
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            streamSnapshot.data!['following'],
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.white),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Following',
+                            style:
+                                TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                      width: 5,
+                      child: VerticalDivider(color: Colors.white),
+                    ),
+                    MaterialButton(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      onPressed: () {},
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            streamSnapshot.data!['followers'],
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.white),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Followers',
+                            style:
+                                TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 48),
+              buildAbout(streamSnapshot.data!['about']),
+              const SizedBox(height: 24),
+            ],
+          );
+        }
       ),
     );
   }
@@ -86,13 +180,12 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             name,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
           ),
           const SizedBox(height: 4),
           Text(
             email,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           )
         ],
       );
@@ -110,12 +203,12 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
 
-  Widget buildAbout(Userr user) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 48),
+  Widget buildAbout(String about) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'About',
               style: TextStyle(
                   fontSize: 24,
@@ -124,11 +217,11 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              user.about,
-              style: TextStyle(fontSize: 16, height: 1.4, color: Colors.white),
+              about,
+              style: const TextStyle(fontSize: 16, height: 1.4, color: Colors.white),
             ),
             const SizedBox(height: 20),
-            Text(
+            const Text(
               'Favourite Games',
               style: TextStyle(
                   fontSize: 24,
@@ -141,7 +234,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
   Widget buildGames() {
     if (userService!.isUserGamesLoaded()) {
-      return Container(
+      return SizedBox(
         height: 200,
         child: ListView.builder(
             itemCount: games.length,
@@ -150,7 +243,7 @@ class _ProfilePageState extends State<ProfilePage> {
             }),
       );
     } else {
-      return Center(
+      return const Center(
         child: Text('loading'),
       );
     }

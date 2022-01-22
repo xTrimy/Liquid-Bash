@@ -6,6 +6,7 @@ import 'package:liquid_bash/pages/home_logged.dart';
 import 'package:liquid_bash/pages/home_loggedt.dart';
 import 'package:liquid_bash/pages/registration_first.dart';
 import 'package:liquid_bash/pages/response.dart';
+import 'package:liquid_bash/pages/tournaments.dart';
 import 'package:liquid_bash/pages/view_users.dart';
 import 'package:liquid_bash/services/game_service.dart';
 import 'package:liquid_bash/services/organizer_service.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
@@ -81,6 +83,8 @@ class MyApp extends StatelessWidget {
         '/edit-profile': (context) => EditProfilePage(),
         '/tournament_register': (context) => TournamentRegister(),
         '/upgradetopro': (context) => const UpgradeToPro(),
+        '/tournaments': (context) => const TournamentsPage(),
+        '/profile': (context) => ProfilePage(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(

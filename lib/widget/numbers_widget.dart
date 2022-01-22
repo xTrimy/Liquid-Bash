@@ -5,22 +5,22 @@ class NumbersWidget extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          buildButton(context, '2.5', 'Ranking'),
+          buildButton(context, '0.0', 'Ranking'),
           buildDivider(),
-          buildButton(context, '35', 'Following'),
+          buildButton(context, '0', 'Following'),
           buildDivider(),
-          buildButton(context, '50', 'Followers'),
+          buildButton(context, '0', 'Followers'),
         ],
       );
   Widget buildDivider() => Container(
         height: 24,
         width: 5,
-        child: VerticalDivider(color: Colors.white),
+        child: const VerticalDivider(color: Colors.white),
       );
 
   Widget buildButton(BuildContext context, String value, String text) =>
       MaterialButton(
-        padding: EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(vertical: 4),
         onPressed: () {},
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         child: Column(
@@ -29,16 +29,16 @@ class NumbersWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               value,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                   color: Colors.white),
             ),
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Text(
               text,
               style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ],
         ),
