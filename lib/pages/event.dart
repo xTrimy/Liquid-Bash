@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/components/game_row_card.dart';
 import 'package:liquid_bash/components/styles.dart';
+import 'package:liquid_bash/models/game.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
+import 'package:provider/provider.dart';
 
 class EventPage extends StatefulWidget {
   EventPage({Key? key}) : super(key: key);
@@ -61,8 +64,15 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
+  late List<Game> games = [];
+
   @override
   Widget build(BuildContext context) {
+    TournamentService torService =
+        Provider.of<TournamentService>(context, listen: true);
+    if (torService.getIsLoaded() && games.isEmpty) {
+      games = torService.getTorunaments()[widget.eventData["index"]].games;
+    }
     const edgeInsets = EdgeInsets.symmetric(vertical: 10, horizontal: 20);
     return ListView(
       controller: widget.scrollController,
@@ -131,83 +141,17 @@ class _EventDetailsState extends State<EventDetails> {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          child: Image.asset(
-                            "assets/logos/fortnite-f.png",
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text(
-                      "Fortnite",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          child: Image.asset(
-                            "assets/logos/lol.jpg",
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text(
-                      "League of legands",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          child: Image.asset(
-                            "assets/logos/valorant-logo.png",
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text(
-                      "Valorant",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                Column(
+                  children: games
+                      .asMap()
+                      .entries
+                      .map((e) => Column(children: [
+                            GameRowCard(name: e.value.name, icon: e.value.icon),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ]))
+                      .toList(),
                 ),
                 const SizedBox(
                   height: 15,

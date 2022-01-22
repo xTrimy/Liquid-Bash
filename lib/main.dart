@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/tournament_register',
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => EventPage(),

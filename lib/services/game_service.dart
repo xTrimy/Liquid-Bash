@@ -24,11 +24,18 @@ class GameService extends ChangeNotifier {
     final allData = List.from(
         querySnapshot.docs.map((doc) => {'data': doc.data(), 'id': doc.id}));
     for (var element in allData) {
-      print(allData);
-      notifyListeners();
       Game game = Game.fromJson(element);
       if (game.name != null && game.img != null) _games.add(game);
       _isLoaded = true;
+      notifyListeners();
     }
+  }
+
+  Future<Map> fetchGame(String id) async {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('games').doc(id).get();
+    Map data = {'data': querySnapshot.data(), 'id': querySnapshot.id};
+    notifyListeners();
+    return data;
   }
 }
