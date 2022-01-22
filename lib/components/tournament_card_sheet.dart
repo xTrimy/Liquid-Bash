@@ -1,11 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/components/game_row_card.dart';
+import 'package:liquid_bash/models/organizer.dart';
 
-class TournamentCardSheet extends StatelessWidget {
-  const TournamentCardSheet({Key? key}) : super(key: key);
+class TournamentCardSheet extends StatefulWidget {
+  final String image;
+  final String name;
+  final String status;
+  final Organizer organizer;
+  const TournamentCardSheet(
+      {Key? key,
+      required this.image,
+      required this.organizer,
+      required this.status,
+      required this.name})
+      : super(key: key);
 
   @override
+  State<TournamentCardSheet> createState() => _TournamentCardSheetState();
+}
+
+class _TournamentCardSheetState extends State<TournamentCardSheet> {
+  @override
   Widget build(BuildContext context) {
+    Map colors = {
+      "green": const Color(0xFF00FE8A),
+      "red": const Color(0xFFFF3A3A),
+      "blue": const Color(0xFF1DE0FF),
+      "yellow": const Color(0xFFFFC400),
+      "white": const Color(0xFFFFFFFF),
+    };
+    Color cardAccent = const Color(0xFFFFFFFF);
+    switch (widget.status) {
+      case "Closed":
+        cardAccent = colors['red'];
+        break;
+      case "Open":
+        cardAccent = colors['green'];
+        break;
+      case "Pending":
+        cardAccent = colors['yellow'];
+        break;
+      case "Soon":
+        cardAccent = colors['blue'];
+        break;
+      default:
+        cardAccent = colors["white"];
+    }
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
       maxChildSize: 0.9,
@@ -18,7 +58,7 @@ class TournamentCardSheet extends StatelessWidget {
           child: Column(children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(15)),
-              child: Image.asset("assets/valorant.jpg"),
+              child: Image.network(widget.image),
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -36,8 +76,8 @@ class TournamentCardSheet extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
-                    "Gamers Lounge Summer Cup V",
+                  Text(
+                    widget.name,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
@@ -46,8 +86,8 @@ class TournamentCardSheet extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(25)),
                     child: Container(
-                      child: const Text(
-                        "Open",
+                      child: Text(
+                        widget.status,
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -55,7 +95,7 @@ class TournamentCardSheet extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 4),
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: cardAccent,
                     ),
                   ),
                 ],
@@ -89,13 +129,12 @@ class TournamentCardSheet extends StatelessWidget {
                               child: SizedBox(
                                   width: 30,
                                   height: 30,
-                                  child: Image.asset(
-                                      "assets/logos/gamers_lounge.jpg")),
+                                  child: Image.network(widget.organizer.img)),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text("Gamers Lounge")
+                            Text(widget.organizer.name)
                           ],
                         ),
                       ),

@@ -137,7 +137,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(
+                TextFormField( 
                     decoration: const InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 0),
@@ -239,6 +239,8 @@ class MyCustomerFormState extends State<MyCustomForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
+                          CollectionReference users =
+                              FirebaseFirestore.instance.collection('users');
                           UserCredential userCredential = await FirebaseAuth
                               .instance
                               .createUserWithEmailAndPassword(
@@ -247,15 +249,13 @@ class MyCustomerFormState extends State<MyCustomForm> {
 
                           var uidd = currentUser!.uid;
 
-                          users
-                              .add({
-                                'uid': uidd,
-                                'name': name,
-                                'bdate': bdateController.text,
-                              })
-                              .then((value) => print("User Added"))
-                              .catchError((error) =>
-                                  print("Failed to add user: $error"));
+                          FirebaseFirestore.instance.collection("users").doc(uidd).set({
+                            'uid': uidd,
+                            'logged_in': false,
+                            'name': name,
+                            'bdate': bdateController.text,
+                            'about': " "
+                          });
 
                           const snackBar = SnackBar(
                               duration: Duration(seconds: 3),

@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Userr {
   final String imagePath;
-  String name;
+  final String name;
   final String username;
-  String email;
+  final String email;
   final String about;
   final bool isDarkMode;
 
@@ -14,6 +16,17 @@ class Userr {
     required this.about,
     required this.isDarkMode,
   });
+
+  factory Userr.fromDocument(DocumentSnapshot doc) {
+    return Userr(
+      imagePath: doc['name'],
+      name: doc['name'],
+      username: doc['name'],
+      email: doc['email'],
+      about: doc['name'],
+      isDarkMode: true,
+    );
+  }
 }
 
 List dummyUsers = [

@@ -66,7 +66,6 @@ class _EventBannerState extends State<EventBanner> {
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_print
-    print(_height);
 
     return AnimatedContainer(
         duration: const Duration(milliseconds: 100),
