@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
     });
 
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/tournament_brackets',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => EventPage(),
