@@ -254,7 +254,8 @@ class MyCustomerFormState extends State<MyCustomForm> {
                             'logged_in': false,
                             'name': name,
                             'bdate': bdateController.text,
-                            'about': " "
+                            'about': " ",
+                            'image': " "
                           });
 
                           const snackBar = SnackBar(

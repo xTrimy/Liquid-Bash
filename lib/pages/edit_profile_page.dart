@@ -3,7 +3,9 @@ import 'dart:io';
 // import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/services/users_service.dart';
 import 'package:path/path.dart';
@@ -21,9 +23,56 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  late File _imageFile;
+  final picker = ImagePicker();
+  FirebaseStorage _storage = FirebaseStorage.instance;
+
+  Future pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _imageFile = File(pickedFile!.path);
+    });
+  }
+
   TextEditingController aboutController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController imageController = TextEditingController();
+
+  String url = "";
+
+  Future<Uri?> uploadPic() async {
+      late File _imageFile;
+      
+
+      final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+      setState(() {
+        _imageFile = File(pickedFile!.path);
+      });
+ 
+      Reference reference = _storage.ref().child("profileImages/image" + DateTime.now().toString());
+
+      UploadTask uploadTask = reference.putFile(_imageFile);
+
+      uploadTask.whenComplete(() async {
+        url = await reference.getDownloadURL();
+        imageController.text = await reference.getDownloadURL();
+        print(url);
+        print(imageController.text);
+      });
+
+      // uploadTask.then((res) {
+      //    url = res.ref.getDownloadURL() as String;
+      //    imageController.text = res.ref.getDownloadURL() as String;
+      // });
+
+      return null;
+   }
+
+
+  
   
   Userr user = UserPreferences.myUser;
   User? userx = FirebaseAuth.instance.currentUser;
@@ -101,12 +150,48 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 children: [
-                  ProfileWidget(
-                    imagePath: user.imagePath,
-                    icon: true,
-                    isEdit: true,
-                    onClicked: () async {},
+
+                  Center(
+                    child: Stack(
+                      children: [
+                        const SizedBox(height: 24),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Ink.image(
+                              image: NetworkImage(streamSnapshot.data!['image']),
+                              fit: BoxFit.cover,
+                              width: 128,
+                              height: 128,
+                              child: InkWell(onTap: () {}),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 4,
+                          child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    onPressed: () {
+                                      uploadPic();
+                                    },
+                                    child: const Icon(Icons.edit,size: 20),
+                                  )
+                                 
+                          )
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+
                   const SizedBox(height: 24),
                   const Text(
                     'Full Name',
@@ -191,9 +276,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         .catchError((onError) => message = 'error');
                       }
 
+                      print("image"+imageController.text);
+
                       usersCollection
                       .doc(userx!.uid)
-                      .update({'name': newName,'email': newEmail,'about': newAbout});
+                      .update({'name': newName,'email': newEmail,'image': url,'about': newAbout});
 
                       if(oldEmail != newEmail) {
                         logout();
