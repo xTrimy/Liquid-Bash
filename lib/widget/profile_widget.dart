@@ -60,14 +60,16 @@ class ProfileWidget extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(0),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                },
                 child: Icon(
                   isEdit ? Icons.add_a_photo : Icons.edit,
                   size: 20,
                 ),
               )
             : Container(),
-      ));
+      )
+      );
 
   Widget buildCircle({
     required Widget child,
