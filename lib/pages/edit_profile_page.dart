@@ -40,39 +40,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController imageController = TextEditingController();
 
-  String url = "";
+String url = "";
 
-  Future<Uri?> uploadPic() async {
-      late File _imageFile;
-      
+Future<Uri?> uploadPic() async {
+    late File _imageFile;
+    
 
-      final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-      setState(() {
-        _imageFile = File(pickedFile!.path);
-      });
- 
-      Reference reference = _storage.ref().child("profileImages/image" + DateTime.now().toString());
+    setState(() {
+      _imageFile = File(pickedFile!.path);
+    });
 
-      UploadTask uploadTask = reference.putFile(_imageFile);
+    Reference reference = _storage.ref().child("profileImages/image" + DateTime.now().toString());
 
-      uploadTask.whenComplete(() async {
-        url = await reference.getDownloadURL();
-        imageController.text = await reference.getDownloadURL();
-        print(url);
-        print(imageController.text);
-      });
+    UploadTask uploadTask = reference.putFile(_imageFile);
 
-      // uploadTask.then((res) {
-      //    url = res.ref.getDownloadURL() as String;
-      //    imageController.text = res.ref.getDownloadURL() as String;
-      // });
+    uploadTask.whenComplete(() async {
+      url = await reference.getDownloadURL();
+      imageController.text = await reference.getDownloadURL();
+      print(url);
+      print(imageController.text);
+    });
+    return null;
+  }
 
-      return null;
-   }
-
-
-  
   
   Userr user = UserPreferences.myUser;
   User? userx = FirebaseAuth.instance.currentUser;
@@ -82,12 +74,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String newName = "";
   String newEmail = "";
   String newAbout = "";
+  String newImage = "";
 
 
   String oldAbout = "";
   String oldEmail = "";
   String oldName = "";
-
+  String oldImage = "";
   
 
   final _formKey = GlobalKey<FormState>();
@@ -115,6 +108,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         oldAbout = documentSnapshot['about'];
         oldName = documentSnapshot['name'];
         oldEmail = documentSnapshot['email'];
+        oldImage = documentSnapshot['image'];
 
         aboutController.text = oldAbout;
         nameController.text = oldName;
@@ -159,7 +153,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: Material(
                             color: Colors.transparent,
                             child: Ink.image(
-                              image: NetworkImage(streamSnapshot.data!['image']),
+                              image: NetworkImage(streamSnapshot.data!['image'] ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                               fit: BoxFit.cover,
                               width: 128,
                               height: 128,
@@ -266,6 +260,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                       if(newAbout == "") {
                         newAbout = streamSnapshot.data!['about'];
+                      }
+
+                      if(url == "") {
+                        url = oldImage;
                       }
 
                       if(newEmail == "" || newEmail == streamSnapshot.data!['email']) {

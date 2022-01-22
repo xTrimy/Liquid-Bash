@@ -255,7 +255,10 @@ class MyCustomerFormState extends State<MyCustomForm> {
                             'name': name,
                             'bdate': bdateController.text,
                             'about': " ",
-                            'image': " "
+                            'image': "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+                            'ranking': "0.0",
+                            'followers': "0",
+                            'following': "0",
                           });
 
                           const snackBar = SnackBar(
