@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      drawer:NavigationDrawerWidget() ,
         appBar: AppBar(
           title: Image.asset('assets/logo.png', height: 32),
         ),

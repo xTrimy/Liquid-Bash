@@ -11,7 +11,7 @@ class DataController extends GetxController {
 
   Future queryData(String Data) async {
     return FirebaseFirestore.instance
-        .collection('featured')
+        .collection('tournaments')
         .where('name', isEqualTo: Data)
         .get();
   }

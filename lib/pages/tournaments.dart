@@ -32,6 +32,14 @@ class _TournamentsPageState extends State<TournamentsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+             ElevatedButton(
+                    onPressed: () async {
+          
+                      Navigator.pushNamed(context, '/Search');
+                    },
+                    child: const Text("Search"),
+                  ),
+                  const SizedBox(height: 20),
             Stack(
               alignment: Alignment.center,
               children: [

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:liquid_bash/models/organizer.dart';
-import 'package:liquid_bash/pages/Organizer_Profile_Page.dart';
+import 'package:liquid_bash/pages/Search.dart';
+import 'package:liquid_bash/pages/organizer_profile_page.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
 import 'package:liquid_bash/pages/admin_dashboard.dart';
 import 'package:liquid_bash/pages/home_logged.dart';
@@ -83,6 +84,7 @@ class MyApp extends StatelessWidget {
         '/tournaments': (context) => const TournamentsPage(),
         '/profile': (context) => ProfilePage(),
         '/Organizer-Profile-Page' : (context) => OrganizerProfilePage(),
+        'Search': (context)=>const  Search(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
