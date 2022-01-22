@@ -85,6 +85,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
         '/Organizer-Profile-Page' : (context) => OrganizerProfilePage(),
         'Search': (context)=>const  Search(),
+        
       },
       title: 'Liquid Bash',
       theme: ThemeData(
