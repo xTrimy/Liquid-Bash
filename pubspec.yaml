@@ -49,9 +49,11 @@ dependencies:
   url_launcher: ^6.0.15
   http: ^0.13.4
   json_helpers: ^0.1.5
+  sliding_up_panel: ^2.0.0+1
   carousel_slider: ^4.0.0
   image_picker: ^0.8.4+4
   firebase_messaging: ^11.2.5
+  get: ^4.6.1
   firebase_storage: ^10.2.5
 
 dev_dependencies:
