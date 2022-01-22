@@ -17,7 +17,6 @@ import 'package:liquid_bash/widget/textfield_widget.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
-
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -40,11 +39,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController imageController = TextEditingController();
 
-String url = "";
+  String url = "";
 
-Future<Uri?> uploadPic() async {
+  Future<Uri?> uploadPic() async {
     late File _imageFile;
-    
 
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -52,42 +50,37 @@ Future<Uri?> uploadPic() async {
       _imageFile = File(pickedFile!.path);
     });
 
-    Reference reference = _storage.ref().child("profileImages/image" + DateTime.now().toString());
+    Reference reference =
+        _storage.ref().child("profileImages/image" + DateTime.now().toString());
 
     UploadTask uploadTask = reference.putFile(_imageFile);
 
     uploadTask.whenComplete(() async {
       url = await reference.getDownloadURL();
       imageController.text = await reference.getDownloadURL();
-      print(url);
-      print(imageController.text);
     });
     return null;
   }
 
-  
   Userr user = UserPreferences.myUser;
   User? userx = FirebaseAuth.instance.currentUser;
-  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-  
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   String newName = "";
   String newEmail = "";
   String newAbout = "";
   String newImage = "";
 
-
   String oldAbout = "";
   String oldEmail = "";
   String oldName = "";
   String oldImage = "";
-  
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     Future logout() async {
       await FirebaseAuth.instance.signOut();
       Navigator.of(context).pushAndRemoveUntil(
@@ -98,16 +91,17 @@ Future<Uri?> uploadPic() async {
       userService.updateUser();
     }
 
-
     FirebaseFirestore.instance
-    .collection('users')
-    .doc(userx!.uid)
-    .get()
-    .then((DocumentSnapshot documentSnapshot) {
+        .collection('users')
+        .doc(userx!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      print("x" + documentSnapshot.exists.toString());
       if (documentSnapshot.exists) {
+        print("about: " + documentSnapshot['name']);
         oldAbout = documentSnapshot['about'];
         oldName = documentSnapshot['name'];
-        oldEmail = documentSnapshot['email'];
+        oldEmail = userx!.email.toString();
         oldImage = documentSnapshot['image'];
 
         aboutController.text = oldAbout;
@@ -116,18 +110,15 @@ Future<Uri?> uploadPic() async {
       }
     });
 
-
     setState(() {
       aboutController.text = oldAbout;
-        nameController.text = oldName;
-        emailController.text = oldEmail;
+      nameController.text = oldName;
+      emailController.text = oldEmail;
     });
 
-
-
     return Scaffold(
-        appBar: AppBar(leading: const BackButton()),
-        body: StreamBuilder<DocumentSnapshot>(
+      appBar: AppBar(leading: const BackButton()),
+      body: StreamBuilder<DocumentSnapshot>(
           stream: usersCollection.doc(userx!.uid).snapshots(),
           builder: (context, streamSnapshot) {
             if (streamSnapshot.connectionState == ConnectionState.waiting) {
@@ -138,13 +129,11 @@ Future<Uri?> uploadPic() async {
               );
             }
 
-            
             return Form(
               key: _formKey,
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 children: [
-
                   Center(
                     child: Stack(
                       children: [
@@ -153,7 +142,9 @@ Future<Uri?> uploadPic() async {
                           child: Material(
                             color: Colors.transparent,
                             child: Ink.image(
-                              image: NetworkImage(streamSnapshot.data!['image'] ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+                              image: NetworkImage(streamSnapshot
+                                      .data!['image'] ??
+                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                               fit: BoxFit.cover,
                               width: 128,
                               height: 128,
@@ -165,27 +156,24 @@ Future<Uri?> uploadPic() async {
                           bottom: 0,
                           right: 4,
                           child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            child: ElevatedButton(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                              child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       padding: const EdgeInsets.all(0),
                                     ),
                                     onPressed: () {
                                       uploadPic();
                                     },
-                                    child: const Icon(Icons.edit,size: 20),
-                                  )
-                                 
-                          )
-                          ),
+                                    child: const Icon(Icons.edit, size: 20),
+                                  ))),
                         ),
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 24),
                   const Text(
                     'Full Name',
@@ -200,12 +188,11 @@ Future<Uri?> uploadPic() async {
                       ),
                     ),
                     onChanged: (value) {
-                      if(value == "") {
+                      if (value == "") {
                         newName = streamSnapshot.data!['name'];
                       } else {
                         newName = value;
                       }
-                      
                     },
                   ),
                   const SizedBox(height: 24),
@@ -222,7 +209,7 @@ Future<Uri?> uploadPic() async {
                       ),
                     ),
                     onChanged: (value) {
-                      if(value == "") {
+                      if (value == "") {
                         newEmail = streamSnapshot.data!['email'];
                       } else {
                         newEmail = value;
@@ -244,7 +231,7 @@ Future<Uri?> uploadPic() async {
                     ),
                     maxLines: 5,
                     onChanged: (value) {
-                      if(value == "") {
+                      if (value == "") {
                         newAbout = streamSnapshot.data!['about'];
                       } else {
                         newAbout = value;
@@ -254,48 +241,53 @@ Future<Uri?> uploadPic() async {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () async {
-                      if(newName == "") {
+                      if (newName == "") {
                         newName = streamSnapshot.data!['name'];
                       }
 
-                      if(newAbout == "") {
+                      if (newAbout == "") {
                         newAbout = streamSnapshot.data!['about'];
                       }
 
-                      if(url == "") {
+                      if (url == "") {
                         url = oldImage;
                       }
 
-                      if(newEmail == "" || newEmail == streamSnapshot.data!['email']) {
-                        newEmail = streamSnapshot.data!['email'];
+                      if (newEmail == "" ||
+                          newEmail == streamSnapshot.data!['email']) {
+                        newEmail = userx!.email.toString();
                       } else {
                         String message;
-                        userx!.updateEmail(newEmail).then((value) => message = 'Success',)
-                        .catchError((onError) => message = 'error');
+                        userx!
+                            .updateEmail(newEmail)
+                            .then(
+                              (value) => message = 'Success',
+                            )
+                            .catchError((onError) => message = 'error');
                       }
 
-                      print("image"+imageController.text);
+                      print("image" + imageController.text);
 
-                      usersCollection
-                      .doc(userx!.uid)
-                      .update({'name': newName,'email': newEmail,'image': url,'about': newAbout});
+                      usersCollection.doc(userx!.uid).update({
+                        'name': newName,
+                        'email': newEmail,
+                        'image': imageController.text,
+                        'about': newAbout
+                      });
 
-                      if(oldEmail != newEmail) {
+                      if (oldEmail != newEmail) {
                         logout();
                       }
-                      
 
                       Navigator.of(context, rootNavigator: true).pop();
                     },
                     child: const Text("Save"),
                   ),
                   const SizedBox(height: 24),
-                  
                 ],
               ),
             );
-          }
-        ),
-      );
+          }),
+    );
   }
 }
