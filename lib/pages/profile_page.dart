@@ -47,10 +47,10 @@ class _ProfilePageState extends State<ProfilePage> {
         .collection('users')
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         name = doc["name"];
         // email = doc["email"];
-      });
+      }
     });
 
     // user.name = name;
@@ -86,8 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             name,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.white),
           ),
           const SizedBox(height: 4),
           Text(
@@ -111,13 +110,13 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
   Widget buildAbout(Userr user) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 48),
+        padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'About',
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
