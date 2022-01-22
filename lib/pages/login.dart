@@ -99,7 +99,7 @@ class FormContainer extends State<SignInForm> {
                             height: 10,
                           ),
                           const Text(
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                            "Login to start your journey.",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontWeight: FontWeight.normal, fontSize: 12.0),
@@ -110,16 +110,13 @@ class FormContainer extends State<SignInForm> {
                           TextFormField(
                             decoration: const InputDecoration(
                               isDense: true,
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              contentPadding:EdgeInsets.fromLTRB(10, 20, 10, 0),
                               icon: Icon(Icons.person),
-                              hintText: "Username",
+                              labelText: "Username",
                               hintStyle: TextStyle(fontSize: 12.0),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderRadius:BorderRadius.all(Radius.circular(10.0)),
                                 borderSide: BorderSide(color: Colors.green),
                               ),
                             ),
@@ -134,7 +131,7 @@ class FormContainer extends State<SignInForm> {
                               contentPadding:
                                   const EdgeInsets.fromLTRB(10, 20, 10, 0),
                               icon: const Icon(Icons.lock),
-                              hintText: "Password",
+                              labelText: "Password",
                               hintStyle: TextStyle(
                                   fontSize: 12.0, color: Colors.grey[500]),
                               enabledBorder: const OutlineInputBorder(
@@ -217,15 +214,14 @@ class FormContainer extends State<SignInForm> {
                                 UserService userService =
                                     Provider.of<UserService>(context,
                                         listen: false);
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
                                 await Future.delayed(const Duration(seconds: 2),
                                     () {
                                   userService.updateUser();
                                 });
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                                ;
+
+                                Navigator.pushNamed(context, "/");
+                                // Navigator.of(context, rootNavigator: true).pop();
+                                
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   const snackBar = SnackBar(
