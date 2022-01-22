@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/components/navigation_drawer_widget.dart';
 import 'package:liquid_bash/pages/category_selection.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'package:liquid_bash/pages/home_default.dart';
@@ -76,6 +77,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
+      drawer:NavigationDrawerWidget() ,
         appBar: AppBar(
           title: Image.asset('assets/logo.png', height: 32),
         ),
