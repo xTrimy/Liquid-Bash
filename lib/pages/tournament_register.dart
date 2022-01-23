@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_bash/models/game.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
+import 'package:liquid_bash/services/users_service.dart';
 import 'package:provider/provider.dart';
 
 class TournamentRegister extends StatefulWidget {
@@ -21,12 +22,12 @@ class _TournamentRegisterState extends State<TournamentRegister> {
       required BuildContext context}) {
     TournamentService torService =
         Provider.of<TournamentService>(context, listen: true);
-
+    UserService userService = Provider.of<UserService>(context, listen: false);
     return Card(
       child: InkWell(
         onTap: () => {
           Future.delayed(Duration(seconds: 0), () async {
-            return torService.register_user_to_tournament(
+            return userService.register_user_to_tournament(
                 tournament_id: tournamentId, game_id: gameId);
           }).then((value) {
             if (value == 0) {

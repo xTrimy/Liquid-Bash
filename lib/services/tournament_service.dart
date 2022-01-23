@@ -6,6 +6,8 @@ import 'package:liquid_bash/models/organizer.dart';
 import 'package:liquid_bash/models/tournament.dart';
 import 'package:liquid_bash/services/game_service.dart';
 import 'package:liquid_bash/services/organizer_service.dart';
+import 'package:liquid_bash/services/users_service.dart';
+import 'package:provider/provider.dart';
 
 class TournamentService extends ChangeNotifier {
   FirebaseFirestore? _instance;
@@ -42,9 +44,8 @@ class TournamentService extends ChangeNotifier {
       OrganizerService organizerService = new OrganizerService();
       Map organizerData = await organizerService
           .fetchOrganizer(element['data']['organizer'].id);
-
-      Tournament tournament =
-          Tournament.fromJson(element, organizerData, games);
+      Organizer organizer = Organizer.fromJson(organizerData);
+      Tournament tournament = Tournament.fromJson(element, organizer, games);
       if (tournament.status != null &&
           tournament.name != null &&
           tournament.date != null &&
@@ -54,30 +55,28 @@ class TournamentService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<int> register_user_to_tournament(
-      {required String tournament_id, required String game_id}) async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      _instance = FirebaseFirestore.instance;
-      var checkRegistrationExists = _instance!
-          .collection("tournament_game_user")
-          .where('game', isEqualTo: 'games/' + game_id)
-          .where('user_id',
-              isEqualTo:
-                  'users/' + FirebaseAuth.instance.currentUser!.uid.toString())
-          .where('tournament', isEqualTo: 'tournaments/' + tournament_id);
-      var doc = await checkRegistrationExists.get();
-      if (doc.docs.isEmpty) {
-        _instance!.collection('tournament_game_user').add({
-          'user_id': 'users/' + FirebaseAuth.instance.currentUser!.uid,
-          'game': 'games/' + game_id,
-          'tournament': 'tournaments/' + tournament_id
-        });
-        return 0;
-      } else {
-        return 2;
+  Future<Tournament> getTournament({required String id}) async {
+    _instance = FirebaseFirestore.instance;
+
+    DocumentReference tournaments =
+        _instance!.collection("tournaments").doc(id);
+    DocumentSnapshot querySnapshot = await tournaments.get();
+    Map element = {'data': querySnapshot.data(), 'id': querySnapshot.id};
+    GameService gameService = GameService();
+
+    List<Game> games = [];
+    if (element['data']["games"] != null) {
+      for (var game in element['data']["games"]) {
+        Map gameData = await gameService.fetchGame(game.id);
+        Game gamex = Game.fromJson(gameData);
+        games.add(gamex);
       }
-    } else {
-      return 1;
     }
+    OrganizerService organizerService = new OrganizerService();
+    Map organizerData =
+        await organizerService.fetchOrganizer(element['data']['organizer'].id);
+    Organizer organizer = Organizer.fromJson(organizerData);
+    Tournament tournament = Tournament.fromJson(element, organizer, games);
+    return tournament;
   }
 }

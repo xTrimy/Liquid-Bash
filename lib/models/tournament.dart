@@ -22,14 +22,15 @@ class Tournament {
       this.organizer,
       required this.games});
 
-  factory Tournament.fromJson(Map json, Map organizerData, List<Game> games) {
+  factory Tournament.fromJson(
+      Map json, Organizer organizerData, List<Game> games) {
     return Tournament(
       name: json['data']['name'],
       id: json['id'],
       img: json['data']['img'],
       status: json['data']['status'],
       date: json['data']['date'],
-      organizer: Organizer.fromJson(organizerData),
+      organizer: organizerData,
       games: games,
     );
   }
