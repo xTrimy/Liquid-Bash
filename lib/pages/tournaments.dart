@@ -57,7 +57,7 @@ class _TournamentsPageState extends State<TournamentsPage> {
         children: [
           ElevatedButton(
             onPressed: () async {
-              Navigator.pushNamed(context, '/Search');
+              Navigator.pushNamed(context, '/search');
             },
             child: const Text("Search"),
           ),
