@@ -24,6 +24,8 @@ import 'package:liquid_bash/services/tournament_service.dart';
 import 'package:liquid_bash/pages/history_page.dart';
 import 'package:liquid_bash/pages/participants_page.dart';
 import 'package:liquid_bash/pages/tournament_register.dart';
+import 'package:liquid_bash/pages/tournamentbrackets.dart';
+
 import 'pages/registration.dart';
 import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
@@ -83,6 +85,7 @@ class MyApp extends StatelessWidget {
         '/tournament_register': (context) => TournamentRegister(),
         '/upgradetopro': (context) => const UpgradeToPro(),
         '/tournament_brackets': (context) => const TournamentBrackets(),
+        '/tournamentbrackets': (context) => const TournamentBracketsSystem(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
