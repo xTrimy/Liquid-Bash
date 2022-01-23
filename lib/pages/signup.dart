@@ -42,7 +42,7 @@ class TopBanner extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           child: Image.asset(
-            'assets/valorant.jpg',
+            'assets/home_img.png',
             height: height,
             width: double.infinity,
             fit: BoxFit.cover,
