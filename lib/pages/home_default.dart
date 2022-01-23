@@ -26,7 +26,8 @@ class HomeDefault extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Image.asset(
                   'assets/home_img.png',
-                  height: 500,
+                  height: 300,
+                  width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
