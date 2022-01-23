@@ -130,9 +130,9 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         lastDate: DateTime(2100));
                   },
                   validator: (date) => date == null ? 'Invalid date' : null,
-                  onChanged: (value) {
-                    bdate = value as String;
-                  },
+                  // onChanged: (value) {
+                  //   bdate = value as String;
+                  // },
                 ),
                 const SizedBox(
                   height: 10,
