@@ -42,11 +42,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
 String url = "";
 
-Future<Uri?> uploadPic() async {
+Future<Uri?> uploadPic({required ImageSource imageSource}) async {
     late File _imageFile;
     
 
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: imageSource);
 
     setState(() {
       _imageFile = File(pickedFile!.path);
@@ -63,6 +63,40 @@ Future<Uri?> uploadPic() async {
       print(imageController.text);
     });
     return null;
+  }
+
+  Future<void>_showChoiceDialog(BuildContext context)
+  {
+    return showDialog(context: context,builder: (BuildContext context){
+      return AlertDialog(
+        title: const Text("Choose option"),
+        content: SingleChildScrollView(
+        child: ListBody(
+          children: [
+            const Divider(height: 1,color: Color.fromARGB(255, 0, 255, 136),),
+            ListTile(
+              onTap: (){
+                uploadPic(imageSource: ImageSource.gallery);
+                Navigator.pop(context);
+              },
+            title: const Text("Gallery"),
+              leading: const Icon(Icons.photo_library_outlined,color: Color.fromARGB(255, 0, 255, 136),),
+        ),
+
+            const Divider(height: 1,color: Colors.blue,),
+            ListTile(
+              onTap: (){
+                uploadPic(imageSource: ImageSource.camera);
+                Navigator.pop(context);
+              },
+              title: const Text("Camera"),
+              leading: const Icon(Icons.camera, color: Color.fromARGB(255, 0, 255, 136),),
+            ),
+          ],
+        ),
+      ),
+      );
+    });
   }
 
   
@@ -170,15 +204,15 @@ Future<Uri?> uploadPic() async {
                             width: 40,
                             height: 40,
                             child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.all(0),
-                                    ),
-                                    onPressed: () {
-                                      uploadPic();
-                                    },
-                                    child: const Icon(Icons.edit,size: 20),
-                                  )
-                                 
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(0),
+                              ),
+                              onPressed: () {
+                                _showChoiceDialog(context);
+                                // uploadPic();
+                              },
+                              child: const Icon(Icons.edit,size: 20),
+                            )
                           )
                           ),
                         ),
@@ -254,6 +288,7 @@ Future<Uri?> uploadPic() async {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () async {
+                      
                       if(newName == "") {
                         newName = streamSnapshot.data!['name'];
                       }
@@ -266,26 +301,31 @@ Future<Uri?> uploadPic() async {
                         url = oldImage;
                       }
 
-                      if(newEmail == "" || newEmail == streamSnapshot.data!['email']) {
-                        newEmail = streamSnapshot.data!['email'];
-                      } else {
-                        String message;
-                        userx!.updateEmail(newEmail).then((value) => message = 'Success',)
-                        .catchError((onError) => message = 'error');
+                      try {
+                        if(newEmail == "" || newEmail == streamSnapshot.data!['email']) {
+                          newEmail = streamSnapshot.data!['email'];
+                        } else {
+                          String message;
+                          userx!.updateEmail(newEmail).then((value) => message = 'Success',)
+                          .catchError((onError) => message = 'error');
+                        }
+
+                        print("image"+imageController.text);
+
+                        usersCollection
+                        .doc(userx!.uid)
+                        .update({'name': newName,'email': newEmail,'image': url,'about': newAbout});
+
+                        if(oldEmail != newEmail) {
+                          logout();
+                        }
+                        const snackBar = SnackBar(duration: Duration(seconds: 3),content: Text("Data Saved"));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.of(context, rootNavigator: true).pop();
+                      // ignore: empty_catches
+                      } catch (e){
+                        
                       }
-
-                      print("image"+imageController.text);
-
-                      usersCollection
-                      .doc(userx!.uid)
-                      .update({'name': newName,'email': newEmail,'image': url,'about': newAbout});
-
-                      if(oldEmail != newEmail) {
-                        logout();
-                      }
-                      
-
-                      Navigator.of(context, rootNavigator: true).pop();
                     },
                     child: const Text("Save"),
                   ),
