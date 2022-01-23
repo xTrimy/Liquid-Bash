@@ -83,7 +83,7 @@ class FormContainer extends State<SignInForm> {
               Column(
                 children: [
                   Container(
-                      height: (MediaQuery.of(context).size.height - 335),
+                      // height: (MediaQuery.of(context).size.height - 335),
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.all(30),
                       child: Column(
@@ -112,7 +112,7 @@ class FormContainer extends State<SignInForm> {
                               isDense: true,
                               contentPadding:EdgeInsets.fromLTRB(10, 20, 10, 0),
                               icon: Icon(Icons.person),
-                              labelText: "Username",
+                              labelText: "Email",
                               hintStyle: TextStyle(fontSize: 12.0),
                               enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
                               focusedBorder: OutlineInputBorder(
@@ -123,6 +123,15 @@ class FormContainer extends State<SignInForm> {
                             onChanged: (value) {
                               email = value.toString().trim();
                             },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter your email";
+                              }
+                              return null;
+                            }
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           TextFormField(
                             obscureText: !passwordVisible,
@@ -153,6 +162,12 @@ class FormContainer extends State<SignInForm> {
                             onChanged: (value) {
                               password = value.toString().trim();
                             },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please Enter your password";
+                              }
+                              return null;
+                            }
                           ),
                           SizedBox(
                             height: 30,
@@ -172,7 +187,8 @@ class FormContainer extends State<SignInForm> {
                             ),
                           ),
                         ],
-                      )),
+                      )
+                      ),
                   SizedBox(
                     child: ButtonBar(
                       alignment: MainAxisAlignment.center,
@@ -201,21 +217,12 @@ class FormContainer extends State<SignInForm> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               try {
-                                UserCredential userCredential =
-                                    await FirebaseAuth.instance
-                                        .signInWithEmailAndPassword(
-                                            email: email, password: password);
-                                const snackBar = SnackBar(
-                                    duration: Duration(seconds: 3),
-                                    content: Text("Logged In"));
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
+                                UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+                                const snackBar = SnackBar(duration: Duration(seconds: 3),content: Text("Logged In"));
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                                UserService userService =
-                                    Provider.of<UserService>(context,
-                                        listen: false);
-                                await Future.delayed(const Duration(seconds: 2),
-                                    () {
+                                UserService userService = Provider.of<UserService>(context,listen: false);
+                                await Future.delayed(const Duration(seconds: 2), () {
                                   userService.updateUser();
                                 });
 
@@ -224,19 +231,11 @@ class FormContainer extends State<SignInForm> {
                                 
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
-                                  const snackBar = SnackBar(
-                                      duration: Duration(seconds: 5),
-                                      content: Text(
-                                          "No user found for that email."));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  const snackBar = SnackBar(duration: Duration(seconds: 5),content: Text("No user found for that email."));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 } else if (e.code == 'wrong-password') {
-                                  const snackBar = SnackBar(
-                                      duration: Duration(seconds: 5),
-                                      content: Text(
-                                          "Wrong password provided for that user."));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  const snackBar = SnackBar(duration: Duration(seconds: 5),content: Text("Wrong password provided for that user."));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 }
                               }
                               // ScaffoldMessenger.of(context).showSnackBar(

@@ -129,9 +129,9 @@ class MyCustomerFormState extends State<MyCustomForm> {
                         initialDate: currentValue ?? DateTime.now(),
                         lastDate: DateTime(2100));
                   },
+                  validator: (date) => date == null ? 'Invalid date' : null,
                   onChanged: (value) {
                     bdate = value as String;
-                    print(bdate);
                   },
                 ),
                 const SizedBox(
@@ -260,7 +260,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                             'followers': "0",
                             'following': "0",
                           });
-                          
+                           
 
                           const snackBar = SnackBar(
                               duration: Duration(seconds: 3),

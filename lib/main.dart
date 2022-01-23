@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/view-users',
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => EventPage(),
