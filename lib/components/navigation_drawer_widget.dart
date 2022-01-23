@@ -1,5 +1,8 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/pages/news.dart';
+import 'package:liquid_bash/pages/profile_page.dart';
+import 'package:liquid_bash/pages/tournaments.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -14,21 +17,15 @@ class NavigationDrawerWidget extends StatelessWidget {
           children: <Widget>[
             const SizedBox(height: 48),
             buildMenuItem(
-              text: 'Tournemts',
-              icon: Icons.home,
+              text: 'Profile',
+              icon: Icons.account_circle,
               onClicked: () => selectedItem(context, 0),
             ),
             const SizedBox(height: 16),
             buildMenuItem(
-              text: 'Favorite',
-              icon: Icons.favorite,
+              text: 'Tournemts',
+              icon:  Icons.home,
               onClicked: () => selectedItem(context, 1),
-            ),
-            const SizedBox(height: 16),
-            buildMenuItem(
-              text: 'Updates',
-              icon: Icons.update,
-              onClicked: () => selectedItem(context, 2),
             ),
             const SizedBox(height: 16),
             buildMenuItem(
@@ -69,31 +66,26 @@ buildMenuItem({
 void selectedItem(BuildContext context, int index) {
   Navigator.of(context).pop();
 
-  // switch (index) {
-  //   case 0:
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (context) => TournementsPage(),
-  //     ));
-  //     break;
-  //   case 1:
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (context) => TournementsPage(),
-  //     ));
-  //     break;
-  //   case 2:
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (context) => TournementsPage(),
-  //     ));
-  //     break;
-  //   case 3:
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (context) => TournementsPage(),
-  //     ));
-  //     break;
-  //   case 4:
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (context) => TournementsPage(),
-  //     ));
-  //     break;
-  // }
+  switch (index) {
+    case 0:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ProfilePage(),
+      ));
+      break;
+    case 1:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const TournamentsPage(),
+      ));
+      break;    
+    case 2:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const NewsFeedPage(),
+      ));
+      break;
+    case 3:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>const TournamentsPage(),
+      ));
+      break;
+  }
 }

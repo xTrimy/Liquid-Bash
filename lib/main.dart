@@ -27,6 +27,7 @@ import 'package:liquid_bash/services/tournament_service.dart';
 import 'package:liquid_bash/pages/history_page.dart';
 import 'package:liquid_bash/pages/participants_page.dart';
 import 'package:liquid_bash/pages/tournament_register.dart';
+import 'components/navigation_drawer_widget.dart';
 import 'pages/registration.dart';
 import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
         '/Organizer-Profile-Page': (context) => OrganizerProfilePage(),
         '/search': (context) => const Search(),
+        '/navigation-drawer': (context) => NavigationDrawerWidget(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
