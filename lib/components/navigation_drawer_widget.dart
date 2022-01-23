@@ -50,6 +50,33 @@ class NavigationDrawerWidget extends StatelessWidget {
               icon: Icons.logout,
               onClicked: () => selectedItem(context, 3),
             ),
+            const SizedBox(height: 25),
+            Divider(color: Colors.white70),
+            const SizedBox(height: 25),
+            buildMenuItem(
+              context: context,
+              text: 'Competitors',
+              icon: Icons.star,
+              onClicked: () => selectedItem(context, 4),
+            ),
+            const SizedBox(height: 25),
+            Divider(color: Colors.white70),
+            const SizedBox(height: 25),
+            buildMenuItem(
+              context: context,
+              text: 'Create Bracket',
+              icon: Icons.account_tree_outlined,
+              onClicked: () => selectedItem(context, 5),
+            ),
+            const SizedBox(height: 25),
+            Divider(color: Colors.white70),
+            const SizedBox(height: 25),
+            buildMenuItem(
+              context: context,
+              text: 'Brackets',
+              icon: Icons.account_tree,
+              onClicked: () => selectedItem(context, 6),
+            ),
           ],
         ),
       ),
@@ -103,6 +130,15 @@ void selectedItem(BuildContext context, int index) {
       break;
     case 3:
       logout();
+      break;
+    case 4:
+      Navigator.of(context).pushNamed('/tournamentcompititors');
+      break;
+    case 5:
+      Navigator.of(context).pushNamed('/tournament_brackets');
+      break;
+    case 6:
+      Navigator.of(context).pushNamed('/tournamentbrackets');
       break;
   }
 }
