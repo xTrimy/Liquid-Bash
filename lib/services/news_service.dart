@@ -27,10 +27,10 @@ class NewsService extends ChangeNotifier {
       var allData = jsonDecode(utf8.decode(response.bodyBytes));
 
       allData.forEach((element) {
-        notifyListeners();
         News news = News.fromJson(element);
         _news.add(news);
         _isLoaded = true;
+        notifyListeners();
       });
     } else {
       // If the server did not return a 200 OK response,
