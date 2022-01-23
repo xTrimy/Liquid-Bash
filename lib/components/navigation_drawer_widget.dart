@@ -1,6 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/pages/Search.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:liquid_bash/pages/news.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
@@ -22,8 +23,8 @@ class NavigationDrawerWidget extends StatelessWidget {
             const SizedBox(height: 48),
             buildMenuItem(
               context: context,
-              text: 'Profile',
-              icon: Icons.account_circle,
+              text: 'Search Tournemts',
+              icon: Icons.search,
               onClicked: () => selectedItem(context, 0),
             ),
             const SizedBox(height: 16),
@@ -87,7 +88,7 @@ void selectedItem(BuildContext context, int index) {
   switch (index) {
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ProfilePage(),
+        builder: (context) => Search(),
       ));
       break;
     case 1:
@@ -101,11 +102,6 @@ void selectedItem(BuildContext context, int index) {
       ));
       break;
     case 3:
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const TournamentsPage(),
-      ));
-      break;
-    case 4:
       logout();
       break;
   }
