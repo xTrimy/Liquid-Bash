@@ -6,7 +6,6 @@ class OrganizerService extends ChangeNotifier {
   FirebaseFirestore? _instance;
 
   Future<Map> fetchOrganizer(String id) async {
-    id = (id.replaceAll(')', ''));
     final querySnapshot =
         await FirebaseFirestore.instance.collection('organizers').doc(id).get();
     Map data = {'data': querySnapshot.data(), 'id': querySnapshot.id};

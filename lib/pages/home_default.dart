@@ -16,33 +16,51 @@ class HomeDefault extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(8.0),
       height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
+      child: Stack(
+        clipBehavior: Clip.antiAlias,
         children: [
-          Container(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/signup");
-              },
-              child: const Text("Sign Up"),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) => Colors.white)),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/login");
-              },
-              child: const Text("Sign In"),
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: Image.asset(
+                  'assets/home_img.png',
+                  height: 300,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                child: Positioned(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/signup");
+                    },
+                    child: const Text("Sign Up"),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.white)),
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                child: Positioned(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/login");
+                    },
+                    child: const Text("Sign In"),
+                  ),
+                ),
+              ),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
           ),
         ],
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
       ),
     );
   }

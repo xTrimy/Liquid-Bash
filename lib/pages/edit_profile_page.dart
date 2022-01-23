@@ -17,7 +17,6 @@ import 'package:liquid_bash/widget/textfield_widget.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
-
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -40,11 +39,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController imageController = TextEditingController();
 
-String url = "";
+  String url = "";
 
-Future<Uri?> uploadPic({required ImageSource imageSource}) async {
+  Future<Uri?> uploadPic({required ImageSource imageSource}) async {
     late File _imageFile;
-    
 
     final pickedFile = await picker.pickImage(source: imageSource);
 
@@ -52,76 +50,83 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
       _imageFile = File(pickedFile!.path);
     });
 
-    Reference reference = _storage.ref().child("profileImages/image" + DateTime.now().toString());
+    Reference reference =
+        _storage.ref().child("profileImages/image" + DateTime.now().toString());
 
     UploadTask uploadTask = reference.putFile(_imageFile);
 
     uploadTask.whenComplete(() async {
       url = await reference.getDownloadURL();
       imageController.text = await reference.getDownloadURL();
-      print(url);
-      print(imageController.text);
     });
     return null;
   }
 
-  Future<void>_showChoiceDialog(BuildContext context)
-  {
-    return showDialog(context: context,builder: (BuildContext context){
-      return AlertDialog(
-        title: const Text("Choose option"),
-        content: SingleChildScrollView(
-        child: ListBody(
-          children: [
-            const Divider(height: 1,color: Color.fromARGB(255, 0, 255, 136),),
-            ListTile(
-              onTap: (){
-                uploadPic(imageSource: ImageSource.gallery);
-                Navigator.pop(context);
-              },
-            title: const Text("Gallery"),
-              leading: const Icon(Icons.photo_library_outlined,color: Color.fromARGB(255, 0, 255, 136),),
-        ),
-
-            const Divider(height: 1,color: Colors.blue,),
-            ListTile(
-              onTap: (){
-                uploadPic(imageSource: ImageSource.camera);
-                Navigator.pop(context);
-              },
-              title: const Text("Camera"),
-              leading: const Icon(Icons.camera, color: Color.fromARGB(255, 0, 255, 136),),
+  Future<void> _showChoiceDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Choose option"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  const Divider(
+                    height: 1,
+                    color: Color.fromARGB(255, 0, 255, 136),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      uploadPic(imageSource: ImageSource.gallery);
+                      Navigator.pop(context);
+                    },
+                    title: const Text("Gallery"),
+                    leading: const Icon(
+                      Icons.photo_library_outlined,
+                      color: Color.fromARGB(255, 0, 255, 136),
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      uploadPic(imageSource: ImageSource.camera);
+                      Navigator.pop(context);
+                    },
+                    title: const Text("Camera"),
+                    leading: const Icon(
+                      Icons.camera,
+                      color: Color.fromARGB(255, 0, 255, 136),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      );
-    });
+          );
+        });
   }
 
-  
   Userr user = UserPreferences.myUser;
   User? userx = FirebaseAuth.instance.currentUser;
-  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-  
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   String newName = "";
   String newEmail = "";
   String newAbout = "";
   String newImage = "";
 
-
   String oldAbout = "";
   String oldEmail = "";
   String oldName = "";
   String oldImage = "";
-  
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     Future logout() async {
       await FirebaseAuth.instance.signOut();
       Navigator.of(context).pushAndRemoveUntil(
@@ -132,16 +137,17 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
       userService.updateUser();
     }
 
-
     FirebaseFirestore.instance
-    .collection('users')
-    .doc(userx!.uid)
-    .get()
-    .then((DocumentSnapshot documentSnapshot) {
+        .collection('users')
+        .doc(userx!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      print("x" + documentSnapshot.exists.toString());
       if (documentSnapshot.exists) {
+        print("about: " + documentSnapshot['name']);
         oldAbout = documentSnapshot['about'];
         oldName = documentSnapshot['name'];
-        oldEmail = documentSnapshot['email'];
+        oldEmail = userx!.email.toString();
         oldImage = documentSnapshot['image'];
 
         aboutController.text = oldAbout;
@@ -150,18 +156,15 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
       }
     });
 
-
     setState(() {
       aboutController.text = oldAbout;
-        nameController.text = oldName;
-        emailController.text = oldEmail;
+      nameController.text = oldName;
+      emailController.text = oldEmail;
     });
 
-
-
     return Scaffold(
-        appBar: AppBar(leading: const BackButton()),
-        body: StreamBuilder<DocumentSnapshot>(
+      appBar: AppBar(leading: const BackButton()),
+      body: StreamBuilder<DocumentSnapshot>(
           stream: usersCollection.doc(userx!.uid).snapshots(),
           builder: (context, streamSnapshot) {
             if (streamSnapshot.connectionState == ConnectionState.waiting) {
@@ -172,13 +175,11 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
               );
             }
 
-            
             return Form(
               key: _formKey,
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 children: [
-
                   Center(
                     child: Stack(
                       children: [
@@ -187,7 +188,9 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
                           child: Material(
                             color: Colors.transparent,
                             child: Ink.image(
-                              image: NetworkImage(streamSnapshot.data!['image'] ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+                              image: NetworkImage(streamSnapshot
+                                      .data!['image'] ??
+                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                               fit: BoxFit.cover,
                               width: 128,
                               height: 128,
@@ -199,27 +202,25 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
                           bottom: 0,
                           right: 4,
                           child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.all(0),
-                              ),
-                              onPressed: () {
-                                _showChoiceDialog(context);
-                                // uploadPic();
-                              },
-                              child: const Icon(Icons.edit,size: 20),
-                            )
-                          )
-                          ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                              child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    onPressed: () {
+                                      _showChoiceDialog(context);
+                                      // uploadPic();
+                                    },
+                                    child: const Icon(Icons.edit, size: 20),
+                                  ))),
                         ),
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 24),
                   const Text(
                     'Full Name',
@@ -234,12 +235,11 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
                       ),
                     ),
                     onChanged: (value) {
-                      if(value == "") {
+                      if (value == "") {
                         newName = streamSnapshot.data!['name'];
                       } else {
                         newName = value;
                       }
-                      
                     },
                   ),
                   const SizedBox(height: 24),
@@ -256,7 +256,7 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
                       ),
                     ),
                     onChanged: (value) {
-                      if(value == "") {
+                      if (value == "") {
                         newEmail = streamSnapshot.data!['email'];
                       } else {
                         newEmail = value;
@@ -278,7 +278,7 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
                     ),
                     maxLines: 5,
                     onChanged: (value) {
-                      if(value == "") {
+                      if (value == "") {
                         newAbout = streamSnapshot.data!['about'];
                       } else {
                         newAbout = value;
@@ -288,54 +288,59 @@ Future<Uri?> uploadPic({required ImageSource imageSource}) async {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () async {
-                      
-                      if(newName == "") {
+                      if (newName == "") {
                         newName = streamSnapshot.data!['name'];
                       }
 
-                      if(newAbout == "") {
+                      if (newAbout == "") {
                         newAbout = streamSnapshot.data!['about'];
                       }
 
-                      if(url == "") {
+                      if (url == "") {
                         url = oldImage;
                       }
 
                       try {
-                        if(newEmail == "" || newEmail == streamSnapshot.data!['email']) {
+                        if (newEmail == "" ||
+                            newEmail == streamSnapshot.data!['email']) {
                           newEmail = streamSnapshot.data!['email'];
                         } else {
                           String message;
-                          userx!.updateEmail(newEmail).then((value) => message = 'Success',)
-                          .catchError((onError) => message = 'error');
+                          userx!
+                              .updateEmail(newEmail)
+                              .then(
+                                (value) => message = 'Success',
+                              )
+                              .catchError((onError) => message = 'error');
                         }
 
-                        print("image"+imageController.text);
+                        print("image" + imageController.text);
 
-                        usersCollection
-                        .doc(userx!.uid)
-                        .update({'name': newName,'email': newEmail,'image': url,'about': newAbout});
+                        usersCollection.doc(userx!.uid).update({
+                          'name': newName,
+                          'email': newEmail,
+                          'image': url,
+                          'about': newAbout
+                        });
 
-                        if(oldEmail != newEmail) {
+                        if (oldEmail != newEmail) {
                           logout();
                         }
-                        const snackBar = SnackBar(duration: Duration(seconds: 3),content: Text("Data Saved"));
+                        const snackBar = SnackBar(
+                            duration: Duration(seconds: 3),
+                            content: Text("Data Saved"));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         Navigator.of(context, rootNavigator: true).pop();
-                      // ignore: empty_catches
-                      } catch (e){
-                        
-                      }
+                        // ignore: empty_catches
+                      } catch (e) {}
                     },
                     child: const Text("Save"),
                   ),
                   const SizedBox(height: 24),
-                  
                 ],
               ),
             );
-          }
-        ),
-      );
+          }),
+    );
   }
 }

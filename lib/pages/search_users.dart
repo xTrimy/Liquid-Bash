@@ -1,17 +1,19 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/all.dart';
-// import 'package:riverpod_modifiers_example/page/modifiers/user_helper.dart';
-// import 'package:riverpod_modifiers_example/widget/text_widget.dart';
-// import 'package:riverpod_modifiers_example/widget/user_widget.dart';
+// import 'package:riverpod/riverpod.dart';
+// import 'package:liquid_bash/models/user_helper.dart';
+// import 'package:liquid_bash/widget/text_widget.dart';
+// import 'package:liquid_bash/widget/user_widget.dart';
+// import 'package:provider/provider.dart';
 
 // class UserRequest {
 //   final bool isFemale;
 //   final int minAge;
 
 //   const UserRequest({
-//     @required this.isFemale,
-//     @required this.minAge,
+//     required this.isFemale,
+//     required this.minAge,
 //   });
 
 //   @override
@@ -89,7 +91,10 @@
 //           children: [
 //             Text(
 //               'Search',
-//               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white),
+//               style: TextStyle(
+//                   fontSize: 28,
+//                   fontWeight: FontWeight.bold,
+//                   color: Colors.white),
 //             ),
 //             const SizedBox(height: 16),
 //             buildGenderSwitch(),
@@ -103,7 +108,7 @@
 //         children: [
 //           Text(
 //             'Female',
-//             style: TextStyle(fontSize: 24 ,color: Colors.white),
+//             style: TextStyle(fontSize: 24, color: Colors.white),
 //           ),
 //           Spacer(),
 //           CupertinoSwitch(
@@ -117,21 +122,20 @@
 //         children: [
 //           Text(
 //             'Age',
-//             style: TextStyle(fontSize: 24,color: Colors.white),
+//             style: TextStyle(fontSize: 24, color: Colors.white),
 //           ),
 //           Spacer(),
 //           DropdownButton<int>(
 //             value: minAge,
 //             iconSize: 32,
 //             style: TextStyle(fontSize: 24, color: Colors.white),
-//             onChanged: (value) => setState(() => minAge = value),
+//             onChanged: (value) => setState(() => minAge = value!),
 //             items: ages
 //                 .map<DropdownMenuItem<int>>(
 //                     (int value) => DropdownMenuItem<int>(
 //                           value: value,
-//                           child: Text('$value years old',style: TextStyle(color: Colors.white)),
-                          
-                        
+//                           child: Text('$value years old',
+//                               style: TextStyle(color: Colors.white)),
 //                         ))
 //                 .toList(),
 //           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:liquid_bash/models/tournament_game.dart';
 import 'package:liquid_bash/pages/home.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:liquid_bash/services/users_service.dart';
@@ -17,6 +18,12 @@ class _HomeLoggedState extends State<HomeLogged> {
   int _current = 0;
   @override
   Widget build(BuildContext context) {
+    UserService userService = Provider.of<UserService>(context, listen: true);
+    Future.delayed(Duration(seconds: 0), () async {
+      userService.loadTournamentGames().then((value) {});
+    });
+    List<TournamentGame> tournament_games =
+        userService.getUserTournamentGames();
     final CarouselController _controller = CarouselController();
     final List<String> imgList = [
       "https://pbs.twimg.com/media/EX_FIhOU4AM-3xt.jpg",
@@ -35,8 +42,7 @@ class _HomeLoggedState extends State<HomeLogged> {
       Navigator.of(context).pushAndRemoveUntil(
           new MaterialPageRoute(builder: (context) => new HomePage()),
           (route) => false);
-      UserService userService =
-          Provider.of<UserService>(context, listen: false);
+
       userService.updateUser();
     }
 
@@ -96,20 +102,21 @@ class _HomeLoggedState extends State<HomeLogged> {
               );
             }).toList(),
           ),
+          Column(
+            children: tournament_games.asMap().entries.map((e) {
+              print(e);
+              return Container(
+                width: double.infinity,
+                child: Text(e.value.tournament.name!),
+              );
+            }).toList(),
+          ),
           ElevatedButton(
             onPressed: () {
               logout();
             },
             child: const Text("Sign Out"),
           ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/search');
-            },
-            child: const Text("Search"),
-          ),
-          
         ],
       ),
     );

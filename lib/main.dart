@@ -24,10 +24,18 @@ import 'package:liquid_bash/pages/edit_profile_page.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
+import 'package:liquid_bash/pages/history_page.dart';
+import 'package:liquid_bash/pages/participants_page.dart';
+import 'package:liquid_bash/pages/tournament_register.dart';
+import 'components/navigation_drawer_widget.dart';
+import 'package:liquid_bash/pages/tournamentbrackets.dart';
+import 'package:liquid_bash/pages/tournament_compititors.dart';
+
 import 'pages/registration.dart';
 import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
 import 'pages/login.dart';
+import 'pages/tournament_brackets.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -54,13 +62,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final mainGreenColor = Color.fromARGB(255, 0, 255, 136);
 
-    TournamentService torService =
-        Provider.of<TournamentService>(context, listen: false);
-    NewsService newsService = Provider.of<NewsService>(context, listen: false);
-    Future.delayed(Duration(seconds: _duration), () async {
-      newsService.fetchNews().then((value) {});
-    });
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
@@ -80,11 +81,16 @@ class MyApp extends StatelessWidget {
         '/homeloggedt': (context) => const HomeLoggedT(),
         '/admin-dashboard': (context) => Adminhome(),
         '/edit-profile': (context) => EditProfilePage(),
+        '/tournament_register': (context) => TournamentRegister(),
         '/upgradetopro': (context) => const UpgradeToPro(),
         '/tournaments': (context) => const TournamentsPage(),
         '/profile': (context) => ProfilePage(),
-        '/Organizer-Profile-Page' : (context) => OrganizerProfilePage(),
-        '/search': (context)=> const Search(),
+        '/Organizer-Profile-Page': (context) => OrganizerProfilePage(),
+        '/search': (context) => const Search(),
+        '/navigation-drawer': (context) => NavigationDrawerWidget(),
+        '/tournament_brackets': (context) => const TournamentBrackets(),
+        '/tournamentbrackets': (context) => const TournamentBracketsSystem(),
+        '/tournamentcompititors': (context) => const TournamentCompititors(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(

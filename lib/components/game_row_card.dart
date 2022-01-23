@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class GameRowCard extends StatelessWidget {
-  const GameRowCard({Key? key}) : super(key: key);
+  final String name;
+  final String icon;
+  const GameRowCard({Key? key, required this.name, required this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,15 +12,12 @@ class GameRowCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          child: SizedBox(
-              width: 30,
-              height: 30,
-              child: Image.asset("assets/logos/lol.jpg")),
+          child: SizedBox(width: 30, height: 30, child: Image.network(icon)),
         ),
         const SizedBox(
           width: 10,
         ),
-        const Text("League Of Legends")
+        Text(name)
       ],
     );
   }
