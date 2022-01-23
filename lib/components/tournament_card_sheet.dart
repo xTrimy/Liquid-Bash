@@ -134,7 +134,13 @@ class _TournamentCardSheetState extends State<TournamentCardSheet> {
                       elevation: 0,
                       color: Colors.grey.shade900,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, '/Organizer-Profile-Page', arguments: {
+                            'image': widget.organizer.img,
+                            'name': widget.organizer.name
+                          });
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: Row(

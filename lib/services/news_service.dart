@@ -29,9 +29,9 @@ class NewsService extends ChangeNotifier {
       allData.forEach((element) {
         News news = News.fromJson(element);
         _news.add(news);
-        _isLoaded = true;
-        notifyListeners();
       });
+      _isLoaded = true;
+      notifyListeners();
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

@@ -33,14 +33,6 @@ class _TournamentsPageState extends State<TournamentsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-             ElevatedButton(
-                    onPressed: () async {
-          
-                      Navigator.pushNamed(context, '/Search');
-                    },
-                    child: const Text("Search"),
-                  ),
-                  const SizedBox(height: 20),
             Stack(
               alignment: Alignment.center,
               children: [
@@ -61,40 +53,53 @@ class _TournamentsPageState extends State<TournamentsPage> {
         ),
       );
     } else {
-      return ListView.builder(
-        itemCount: (tournaments.length / 2).round().toInt(),
-        itemBuilder: (context, index) {
-          int half = (tournaments.length / 2).round().toInt();
-          // ignore: avoid_print
+      return Column(
+        children: [
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pushNamed(context, '/Search');
+            },
+            child: const Text("Search"),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height - 200,
+            child: ListView.builder(
+              itemCount: (tournaments.length / 2).round().toInt(),
+              itemBuilder: (context, index) {
+                int half = (tournaments.length / 2).round().toInt();
+                // ignore: avoid_print
 
-          return Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TournamentCard(
-                  index: index,
-                  title: tournaments[index].name!,
-                  image: tournaments[index].img!,
-                  status: tournaments[index].status!,
-                  organizer: tournaments[index].organizer!,
-                  games: tournaments[index].games,
-                ),
-                (tournaments.length > half + index)
-                    ? TournamentCard(
-                        index: half + index,
-                        title: tournaments[half + index].name!,
-                        image: tournaments[half + index].img!,
-                        status: tournaments[half + index].status!,
-                        organizer: tournaments[half + index].organizer!,
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TournamentCard(
+                        index: index,
+                        title: tournaments[index].name!,
+                        image: tournaments[index].img!,
+                        status: tournaments[index].status!,
+                        organizer: tournaments[index].organizer!,
                         games: tournaments[index].games,
-                      )
-                    : Container(),
-              ],
+                      ),
+                      (tournaments.length > half + index)
+                          ? TournamentCard(
+                              index: half + index,
+                              title: tournaments[half + index].name!,
+                              image: tournaments[half + index].img!,
+                              status: tournaments[half + index].status!,
+                              organizer: tournaments[half + index].organizer!,
+                              games: tournaments[index].games,
+                            )
+                          : Container(),
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       );
     }
   }

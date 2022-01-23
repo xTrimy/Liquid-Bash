@@ -12,12 +12,42 @@ class NewsFeedPage extends StatefulWidget {
 }
 
 class _NewsFeedPageState extends State<NewsFeedPage> {
-  
-
   @override
   Widget build(BuildContext context) {
-    NewsService newsService = Provider.of<NewsService>(context, listen: false);
+    NewsService newsService = Provider.of<NewsService>(context, listen: true);
+    Future.delayed(Duration(seconds: 0), () async {
+      newsService.fetchNews().then((value) {});
+    });
     List<News> news = newsService.getNews();
+    if (news.isEmpty) {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Transform.scale(
+                  scale: 2,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
+                ),
+                Image.asset(
+                  "assets/Lmark.png",
+                  width: 40,
+                  height: 40,
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    }
     return ListView.builder(
       itemCount: news.length + 1,
       itemBuilder: (context, index) {

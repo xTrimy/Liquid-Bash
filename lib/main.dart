@@ -57,13 +57,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final mainGreenColor = Color.fromARGB(255, 0, 255, 136);
 
-    TournamentService torService =
-        Provider.of<TournamentService>(context, listen: false);
-    NewsService newsService = Provider.of<NewsService>(context, listen: false);
-    Future.delayed(Duration(seconds: _duration), () async {
-      newsService.fetchNews().then((value) {});
-    });
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
@@ -87,8 +80,8 @@ class MyApp extends StatelessWidget {
         '/upgradetopro': (context) => const UpgradeToPro(),
         '/tournaments': (context) => const TournamentsPage(),
         '/profile': (context) => ProfilePage(),
-        '/Organizer-Profile-Page' : (context) => OrganizerProfilePage(),
-        'Search': (context)=>const  Search(),
+        '/Organizer-Profile-Page': (context) => OrganizerProfilePage(),
+        '/Search': (context) => const Search(),
       },
       title: 'Liquid Bash',
       theme: ThemeData(
