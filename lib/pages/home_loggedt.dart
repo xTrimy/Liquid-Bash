@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_bash/components/navigation_drawer_widget.dart';
 import 'package:liquid_bash/pages/event.dart';
 import 'package:liquid_bash/pages/home_default.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
@@ -40,6 +41,7 @@ class _HomeLoggedTState extends State<HomeLoggedT> {
         appBar: AppBar(
           title: Image.asset('assets/logo.png', height: 32),
         ),
+        drawer: NavigationDrawerWidget(),
         body: _screens[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Theme.of(context).accentColor,

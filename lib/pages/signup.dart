@@ -260,6 +260,7 @@ class MyCustomerFormState extends State<MyCustomForm> {
                             'followers': "0",
                             'following': "0",
                           });
+                          
 
                           const snackBar = SnackBar(
                               duration: Duration(seconds: 3),

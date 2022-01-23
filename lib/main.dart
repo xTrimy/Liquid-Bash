@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:liquid_bash/models/organizer.dart';
-import 'package:liquid_bash/pages/Search.dart';
+import 'package:liquid_bash/pages/search.dart';
 import 'package:liquid_bash/pages/organizer_profile_page.dart';
 import 'package:liquid_bash/pages/add_tournament.dart';
 import 'package:liquid_bash/pages/admin_dashboard.dart';
@@ -24,6 +24,7 @@ import 'package:liquid_bash/pages/edit_profile_page.dart';
 import 'package:liquid_bash/pages/profile_page.dart';
 import 'package:liquid_bash/services/news_service.dart';
 import 'package:liquid_bash/services/tournament_service.dart';
+import 'components/navigation_drawer_widget.dart';
 import 'pages/registration.dart';
 import 'pages/upgradetopro.dart';
 import 'pages/signup.dart';
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/view-users',
       routes: {
         '/': (context) => const HomePage(),
         '/event': (context) => EventPage(),
@@ -84,7 +85,8 @@ class MyApp extends StatelessWidget {
         '/tournaments': (context) => const TournamentsPage(),
         '/profile': (context) => ProfilePage(),
         '/Organizer-Profile-Page' : (context) => OrganizerProfilePage(),
-        'Search': (context)=>const  Search(),
+        '/search': (context)=> const Search(),
+        '/navigation-drawer' : (context)=> NavigationDrawerWidget(),
         
       },
       title: 'Liquid Bash',
